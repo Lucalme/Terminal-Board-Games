@@ -56,11 +56,11 @@ Pour chaque semaine on y trouvera :
 
 ## Semaine 1
 
-### Ce qui a été réalisé
+### Ce qui a été réalisé : Creation de diagram UML 
 
-### Difficultés rencontrées
+### Difficultés rencontrées : aucune
 
-### Objectifs pour la semaine
+### Objectifs pour la semaine : créeation de la classe plateau 
 
 ## Semaine 2
 
