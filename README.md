@@ -60,8 +60,10 @@ Pour chaque semaine on y trouvera :
 
 ### Difficultés rencontrées : aucune
 
-### Objectifs pour la semaine : créeation de la classe plateau 
-
+### Objectifs pour la semaine : 
+créeation de la classe plateau 
+creation du diagramme UML
+creation de la classe tuiles 
 ## Semaine 2
 
 ### Ce qui a été réalisé
