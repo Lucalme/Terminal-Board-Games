@@ -11,6 +11,7 @@ N'oubliez pas d'ajouter les autres membres de votre équipe aux membres du proje
 - Gerasimanthi Kapatsori
 - Bilal Saaoud
 - Mabrouk Walid
+- Margiotta Luca
 
 # Sujet
 
@@ -48,7 +49,7 @@ Un lien vers une image de l'UML doit être fourni (une photo d'un diagramme UML 
 
 # Journal de bord
 
-Le journal de bord doit être rempli à la fin de chaque séance encadrée, et avant de quitter la salle. 
+Le journal de bord doit être rempli à la fin de chaque séance encadrée, et avant de quitter la salle.
 
 Pour chaque semaine on y trouvera :
 - ce qui a été réalisé, les difficultés rencontrées et comment elles ont été surmontées (on attend du contenu, pas uniquement une phrase du type "tous les objectifs ont été atteints")
@@ -56,14 +57,14 @@ Pour chaque semaine on y trouvera :
 
 ## Semaine 1
 
-### Ce qui a été réalisé : Creation de diagram UML 
+### Ce qui a été réalisé : Creation de diagram UML
 
 ### Difficultés rencontrées : aucune
 
-### Objectifs pour la semaine : 
-créeation de la classe plateau 
+### Objectifs pour la semaine :
+créeation de la classe plateau
 creation du diagramme UML
-creation de la classe tuiles 
+creation de la classe tuiles
 ## Semaine 2
 
 ### Ce qui a été réalisé
