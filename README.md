@@ -57,14 +57,19 @@ Pour chaque semaine on y trouvera :
 
 ## Semaine 1
 
-### Ce qui a été réalisé : Creation de diagram UML
+### Ce qui a été réalisé : 
+- Création de diagram UML
 
-### Difficultés rencontrées : aucune
+### Difficultés rencontrées : 
+- aucune
 
 ### Objectifs pour la semaine :
-créeation de la classe plateau
-creation du diagramme UML
-creation de la classe tuiles
+- avancement sur l'uml 
+- création de la class Plateau
+- création de la class Tuile
+- création des class de Type de Tuile
+- Implémentation de l'algorithme de création du plateau
+
 ## Semaine 2
 
 ### Ce qui a été réalisé
