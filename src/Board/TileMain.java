@@ -4,7 +4,14 @@ public class TileMain {
 
     public static void main(String[] args){
         for(int i = 0 ; i<6 ; i++){
-            new Tile();
+            Tile tile = new Tile();
+            System.out.println("Le type de Tuile est : "+tile.GetTileType().toString());
+            ResourceType resourceType = tile.GetResourceType();
+            if(resourceType != null){
+                System.out.println("Le type de resource est :" + resourceType.toString());
+            }else{
+                System.out.println("Cette tuile n'a pas de resources ! ");
+            }
         }
     }
 

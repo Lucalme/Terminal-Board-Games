@@ -1,4 +1,5 @@
 package Board;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Tile {
@@ -7,21 +8,27 @@ public class Tile {
     private int resourcesPresent;
     private ResourceType resourceType;
 
-    
-    public Tile(TileType type, int initialResources){
-        this.type = type;
-        this.resourcesPresent = initialResources;
-    }
 
     public Tile(){
         int alea = new Random().nextInt( TileType.values().length );
 
         type = TileType.values()[alea];
-
-        System.out.println("Le type de Tuile est : "+type.toString());
-
         this.resourcesPresent = 0;
+        MatchResources(type);
+    }
+    
+    public Tile(TileType type, int initialResources){
+        this.type = type;
+        this.resourcesPresent = initialResources;
+        MatchResources(type);
+    }
 
+    public Tile(TileType type){
+        this.type = type;
+        MatchResources(type);
+    }
+
+    private ResourceType MatchResources(TileType type){
         switch(type){
             case Mountains : 
                 resourceType = ResourceType.Ore;
@@ -39,16 +46,32 @@ public class Tile {
                 resourceType = null;
                 break;
         }
-        if(resourceType != null){
-            System.out.println("Le type de resource est :" + resourceType.toString());
-        }else{
-            System.out.println("Cette tuile n'a pas de resources ! ");
-        }
+        return resourceType;
     }
+
 
     public int GetResourcesPresent(){
         return resourcesPresent;
     }
 
+    public ResourceType GetResourceType(){
+        return resourceType;
+    }
 
+    public TileType GetTileType(){
+        return type;
+    }
+
+
+    @Override
+    public String toString(){
+        //TODO
+        switch (type) {
+            case Water:
+                return "O";
+            default:
+                return "_";
+        }
+        
+    }
 }
