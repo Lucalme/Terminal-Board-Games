@@ -4,8 +4,6 @@ import board.resource.*;
 import java.util.Random;
 
 
-
-
 public class Tile {
 
     private TileType type;
@@ -13,6 +11,10 @@ public class Tile {
     private ResourceType resourceType;
 
 
+    /**
+     * Constructeur par défaut de la classe Tile
+     * Crée une Tile de type aléatoire.
+     */
     public Tile(){
         int alea = new Random().nextInt( TileType.values().length );
 
@@ -21,12 +23,21 @@ public class Tile {
         MatchResources(type);
     }
     
+    /**
+     * Crée une Tile avec le type et les resources initiales fournies
+     * @param type
+     * @param initialResources
+     */
     public Tile(TileType type, int initialResources){
         this.type = type;
         this.resourcesPresent = initialResources;
         MatchResources(type);
     }
 
+    /**
+     * Crée une Tile du type fourni
+     * @param type
+     */
     public Tile(TileType type){
         this.type = type;
         MatchResources(type);
@@ -71,8 +82,6 @@ public class Tile {
     public String toString(){
         //TODO
         switch (type) {
-            case Water:
-                return "O";
             default:
                 return "_";
         }
