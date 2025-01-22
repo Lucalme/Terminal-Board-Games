@@ -1,4 +1,5 @@
-package tile;
+package board.tile;
+import board.resource.*;
 
 public class TileMain {
 

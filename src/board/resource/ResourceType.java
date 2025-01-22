@@ -1,4 +1,4 @@
-package resource;
+package board.resource;
 
 public enum ResourceType{
     Wheat,

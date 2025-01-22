@@ -2,6 +2,7 @@ package building;
 
 
 public class Camp extends Building {
+    
     private int warriors;
 
     public Camp(int warriors) {

@@ -1,6 +1,10 @@
-package tile;
-import java.util.HashMap;
+package board.tile;
+import board.resource.*;
+//import java.util.HashMap;
 import java.util.Random;
+
+
+
 
 public class Tile {
 
@@ -31,16 +35,16 @@ public class Tile {
     private ResourceType MatchResources(TileType type){
         switch(type){
             case Mountains : 
-                resourceType = ResourceType.Ore;
+                resourceType = resourceType.Ore;
                 break;
             case Forest :
-                resourceType = ResourceType.Wood;
+                resourceType = resourceType.Wood;
                 break;
             case Fields :
-                resourceType =  ResourceType.Wheat;
+                resourceType =  resourceType.Wheat;
                 break;
             case Pastures:
-                resourceType= ResourceType.Sheep;
+                resourceType= resourceType.Sheep;
                 break;
             default:
                 resourceType = null;

@@ -1,4 +1,4 @@
-package tile;
+package board.tile;
 
 public enum TileType {
     Forest,

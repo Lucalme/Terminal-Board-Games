@@ -1,6 +1,7 @@
 package board;
+import board.tile.Tile;
+import board.tile.TileType;
 
-import java.util.Random;
 
 public class Board {
     
