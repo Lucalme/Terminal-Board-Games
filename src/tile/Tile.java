@@ -1,4 +1,4 @@
-package Board;
+package tile;
 import java.util.HashMap;
 import java.util.Random;
 
