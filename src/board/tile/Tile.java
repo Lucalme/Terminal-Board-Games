@@ -82,9 +82,16 @@ public class Tile {
     public String toString(){
         //TODO
         switch (type) {
+            case Mountains:
+                return "M";
+            case Forest:
+                return "F";
+            case Fields:
+                return "f";
+            case Pastures:
+                return "P";
             default:
                 return "_";
         }
-        
     }
 }
