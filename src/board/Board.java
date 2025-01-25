@@ -1,4 +1,5 @@
 package board;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,19 +10,24 @@ import board.tile.TileType;
 
 public class Board {
     
-    private Tile[][] tiles ;
+    private final Map<Position, Tile> tiles;
 
-    private int size_X = 7;
-    private int size_Y = 7;
+    private final int sizeX;
+    private final int sizeY;
 
-    public int SizeX()
-    {
-        return  size_X;
+    public Board(int sizeX, int sizeY){
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+        this.tiles = new HashMap<>();
+        initTiles();
+    }
+    
+    public int getSizeX(){
+        return  sizeX;
     }
 
-    public int SizeY()
-    {
-        return  size_Y;
+    public int getSizeY(){
+        return  sizeY;
     }
 
     /**
