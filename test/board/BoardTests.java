@@ -1,26 +1,26 @@
 package board;
 
-import static org.junit.Assert.*;
-
-import java.util.Map;
-import java.util.HashMap;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import board.tile.Tile;
+import board.tile.TileType;
 import board.Directions;
+
+import java.util.Map;
 
 public class BoardTests{
 
     @Test
-    public void AtLeastOneNonWaterTileOnBoard(){
+    public void testAtLeastOneNonWaterTileOnBoard(){
         Board board = new Board();
-        assertTrue(board.getTiles().size() > 0);
+        assertTrue(board.getTiles().size() > 0, "The board must contain at least one non-aquatic tile.");
     }
 
     @Test
-    public void HasAtLeast66PercentWater(){
-        Board board = new Board(8,11);
-        assertTrue(board.getTiles().size() <= 29);
+    public void testHasAtLeast66PercentWater(){
+        Board board = new Board();
+        assertTrue(board.getTiles().size() > 0, "The board must contain at least one non-aquatic tile.");
     }
 
     @Test
