@@ -49,6 +49,7 @@ public class BoardTests{
             
             assertTrue(hasNeighbour);
         }
-
     }
+
+    
 }
