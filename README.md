@@ -73,18 +73,35 @@ Pour chaque semaine on y trouvera :
 ## Semaine 2
 
 ### Ce qui a été réalisé
+- Developement sur uml
+- Repartition du travail
+- Debut de l'implementation de la classe Board
 
 ### Difficultés rencontrées
 
+la majorite des difficultes rencontrees resident dans la gestion du projet et dans la communication, a ce stade du projet nous n'avons pas encore de modele definitif pour l'uml et on est dans un approche de developpement iterative. 
+
 ### Objectifs pour la semaine
+
+Objectifs : communiquer et planifier davantage afin davoir une meilleure repartition des taches
 
 ## Semaine 3
 
 ### Ce qui a été réalisé
+On a un modele fonctionel du tableau (Board)
+On a refactorise a plusieurs reprise le projet
+l'uml a ete etendu a d'autres entites attendues dans le projet 
 
 ### Difficultés rencontrées
+On a toujours des difficultes dans la gestion du projet, on essaie d'etendre davantage l'uml mais une vision globale nous manque toujours et ralenti notre progression.
+Certains des elements que nous avons deja implemente nous semblent mal penses et nous forcent a reconsiderer notre approche.
+
 
 ### Objectifs pour la semaine
+- finaliser le livrable
+- commencer a reflechir l'implementation des batiments
+- adopter une demarche plus methodologique afin de pallier a nos difficultes de gestion 
+
 
 ## Semaine 4
 
