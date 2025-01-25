@@ -10,6 +10,8 @@ public class Tile {
     private int resourcesPresent;
     private ResourceType resourceType;
 
+    
+
 
     /**
      * Constructeur par défaut de la classe Tile

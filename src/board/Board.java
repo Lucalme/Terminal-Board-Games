@@ -13,8 +13,18 @@ public class Board {
 
     private int[] defaultDimensions = new int[] {7,7};
 
-    private int size_X;
+    private int size_X ;
     private int size_Y;
+
+    public int SizeX()
+    {
+        return  size_X;
+    }
+
+    public int SizeY()
+    {
+        return  size_Y;
+    }
 
     /**
      * Constructeur de la classe Board avec taille par défaut
@@ -26,13 +36,13 @@ public class Board {
         InitTiles();
     }
 
-    public ArrayList<Tile> getTiles(){
-        ArrayList<Tile> res =  new ArrayList<Tile>();
+    public HashMap<int[], Tile> getTiles(){
+        HashMap<int[], Tile> res =  new HashMap<int[],Tile>();
 
         for (int i = 0; i < size_X; i++){
             for (int j = 0; j < size_Y; j++){
                 if(tiles[i][j] != null){
-                    res.add(tiles[i][j]);
+                    res.put(new int[] {i,j}, tiles[i][j]);
                 }
             }
         }
