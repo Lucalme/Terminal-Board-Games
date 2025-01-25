@@ -26,6 +26,20 @@ public class Board {
         InitTiles();
     }
 
+    public ArrayList<Tile> getTiles(){
+        ArrayList<Tile> res =  new ArrayList<Tile>();
+
+        for (int i = 0; i < size_X; i++){
+            for (int j = 0; j < size_Y; j++){
+                if(tiles[i][j] != null){
+                    res.add(tiles[i][j]);
+                }
+            }
+        }
+
+        return res;
+    }
+
     /**
      * Constructeur de la classe Board avec taille personalisée
      * @param size_X
@@ -154,6 +168,17 @@ public class Board {
             }
         }
         return String.join("\n", lines);
+    }
+
+
+    public void UpdateAllTiles(){
+        for (int i = 0; i < size_X; i++){
+            for (int j = 0; j < size_Y; j++){
+                if(tiles[i][j] != null){
+                    tiles[i][j].UpdateTile();
+                }
+            }
+        }
     }
 
 }

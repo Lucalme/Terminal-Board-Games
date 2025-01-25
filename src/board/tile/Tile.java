@@ -23,6 +23,11 @@ public class Tile {
         MatchResources(type);
     }
     
+    public void UpdateTile(){
+        resourcesPresent++;
+    }
+
+
     /**
      * Crée une Tile avec le type et les resources initiales fournies
      * @param type
