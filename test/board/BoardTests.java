@@ -19,37 +19,21 @@ public class BoardTests{
 
     @Test
     public void testHasAtLeast66PercentWater(){
-        Board board = new Board();
-        assertTrue(board.getTiles().size() > 0, "The board must contain at least one non-aquatic tile.");
+        Board board = new Board(8, 11);
+        int totalTiles = board.getSizeX() * board.getSizeY();
+        int waterTiles = totalTiles - board.getTiles().size();
+        double waterPercentage = (double) waterTiles / totalTiles * 100;
+        assertTrue(waterPercentage >= 66, "The board must contain at least one non-aquatic tile.");
     }
 
     @Test
-    public void NoIsolatedTiles()
-    {
-        Board board= new Board();
-        HashMap<int[], Tile> entries = board.getTiles(); 
-
-        for(Map.Entry<int[], Tile> entry : entries.entrySet())
-        {
-            Boolean hasNeighbour = false;
-            for(Directions dir : Directions.values())
-            {
-                if(entry.getKey()[0] + dir.X < 0 || entry.getKey()[0] + dir.X >= board.SizeX() || entry.getKey()[1] + dir.Y < 0 || entry.getKey()[1] + dir.Y >= board.SizeY())
-                {
-                    continue;
-                }
-                //La méthode containsKey ne fonctionnait pas ici, on doit faire un recherche manuelle
-                //idée : étendre la class HashMap<int[], Tile> pour implémenter nos propres méthodes.
-                for(int[] key : entries.keySet()){
-                    if(key[0] == entry.getKey()[0]+dir.X && key[1] == entry.getKey()[1] + dir.Y){
-                        hasNeighbour = true;
-                    }
-                }
-            }
-            
-            assertTrue(hasNeighbour);
+    public void testNoIsolatedTiles(){
+        Board board = new Board();
+        for (Map.Entry<Position, Tile> entry : board.getTiles().entrySet()) {
+            boolean hasNeighbour = !board.getTilesNeighborhood(entry.getKey()).isEmpty();
+            assertTrue(hasNeighbour, "Each tile must have at least one neighboring tile.");
         }
     }
-
     
+    //tests supp
 }
