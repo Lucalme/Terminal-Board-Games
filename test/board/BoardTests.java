@@ -38,6 +38,8 @@ public class BoardTests{
                 {
                     continue;
                 }
+                //La méthode containsKey ne fonctionnait pas ici, on doit faire un recherche manuelle
+                //idée : étendre la class HashMap<int[], Tile> pour implémenter nos propres méthodes.
                 for(int[] key : entries.keySet()){
                     if(key[0] == entry.getKey()[0]+dir.X && key[1] == entry.getKey()[1] + dir.Y){
                         hasNeighbour = true;
