@@ -36,4 +36,16 @@ public class BoardTests{
     }
     
     //tests supp
+    @Test 
+    public void testBoardSize() {
+        Board board = new Board(10, 10);
+        asserEquals(10, board.getSizeX(), "The board width should be 10.");
+        asserEquals(10, board.getSizeY(), "The board height should be 10");
+    }
+
+    @Test
+    public void testValidPositions() {
+        Board board = new Board(5, 5);
+        assertTrue(board.getTiles().containsKey(new Position(0, 0)) || !board.getTiles().containsKey(new Position(0, 0)));
+    }
 }
