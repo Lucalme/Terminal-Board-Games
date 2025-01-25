@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import board.tile.Tile;
 import board.tile.TileType;
 import board.Directions;
+import board.Position;
 
 import java.util.Map;
 
@@ -47,5 +48,21 @@ public class BoardTests{
     public void testValidPositions() {
         Board board = new Board(5, 5);
         assertTrue(board.getTiles().containsKey(new Position(0, 0)) || !board.getTiles().containsKey(new Position(0, 0)));
+    }
+
+    @Test
+    public void testGetTilesNeighborhood() {
+        Board board = new Board(3, 3);
+        board.getTiles().put(new Position(1, 1), new Tile(TileType.FOREST));
+        board.getTiles().put(new Position(0, 1), new Tile(TileType.MOUNTAIN));
+        assertEquals(1, board.getTilesNeighborhood(new Position(1, 1)).size(), "The tile at (1,1) should have 1 neighbor.");
+    }
+
+    @Test
+    public void testToString() {
+        Board board = new Board(2, 2);
+        board.getTiles().put(new Position(0, 0), new Tile(TileType.FOREST));
+        String expected = "F W \nW W \n";
+        assertEquals(expected, board.toString(), "The toString method should return the correct representation of the board.");
     }
 }
