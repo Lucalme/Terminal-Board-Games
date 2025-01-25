@@ -9,19 +9,19 @@ public class Position {
         this.y = y;
     }
 
-    public int getX(){
+    public int getX() {
         return x;
     }
 
-    public int getY(){
+    public int getY() {
         return y;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getclass() != o.getClass()) return false;
-        Position position = (position) o;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
         return x == position.x && y == position.y;
     }
 
