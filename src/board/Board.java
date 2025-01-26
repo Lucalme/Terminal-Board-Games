@@ -1,12 +1,12 @@
 package board;
 
-import java.util.ArrayList;
+import board.tile.Tile;
+import board.tile.TileType;  
+import board.Directions;
+import board.Position;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
-import board.tile.Tile;
-import board.tile.TileType;
-
 
 public class Board {
     
