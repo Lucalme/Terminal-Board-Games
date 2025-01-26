@@ -10,12 +10,9 @@ import board.tile.TileType;
 public class Board {
     
     private Tile[][] tiles ;
-    private final Map<Position, Tile> tiles;
 
-    private int[] defaultDimensions = new int[] {7,7};
-
-    private int size_X ;
-    private int size_Y;
+    private int size_X = 7;
+    private int size_Y = 7;
 
     public int SizeX()
     {
@@ -31,8 +28,6 @@ public class Board {
      * Constructeur de la classe Board avec taille par défaut
      */
     public Board(){
-        size_X = defaultDimensions[0];
-        size_Y = defaultDimensions[1];
 
         InitTiles();
     }
@@ -109,7 +104,7 @@ public class Board {
 
 
         for (Map.Entry<int[], Tile> kv : isolatedTiles.entrySet()){ 
-            System.out.println("Isolated tile at " + kv.getKey()[0] + " " + kv.getKey()[1]);
+            //System.out.println("Isolated tile at " + kv.getKey()[0] + " " + kv.getKey()[1]);
             tiles[kv.getKey()[0]][kv.getKey()[1]] = null;
         }
     }
