@@ -1,11 +1,11 @@
 package board.tile;
 
 public enum TileType {
-    FOREST, 
-    MOUNTAIN,
-    PASTURE,
-    FIELD,
-    SEA;
+    FOREST("Forest"), 
+    MOUNTAIN("Mountain"),
+    PASTURE("Pasture"),
+    FIELD("Field"),
+    SEA("Sea");
 
     private final String name;
 
