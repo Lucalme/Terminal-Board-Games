@@ -1,6 +1,6 @@
 package board.tile;
 import board.resource.*;
-//import java.util.HashMap;
+import java.util.HashMap;
 import java.util.Random;
 
 

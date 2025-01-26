@@ -1,5 +1,6 @@
 package board;
 
+import java.util.Random;
 import board.tile.Tile;
 import board.tile.TileType;  
 import board.Directions;
