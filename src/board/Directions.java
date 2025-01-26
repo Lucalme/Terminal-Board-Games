@@ -1,16 +1,24 @@
 package board;
 
 public enum Directions {
-    East( 1, 0),
-    North(0, 1),
-    West(-1, 0),
-    South(0, -1);
+    NORTH(-1, 0),
+    SOUTH(1, 0),
+    EAST(0, 1),
+    WEST(0, -1);
 
-    public final int X;
-    public final int Y;
+    private final int dx;
+    private final int dy;
 
-    private Directions(int X, int Y){
-        this.X = X;
-        this.Y = Y;
+    Directions(int dx, int dy) {
+        this.dx = dx;
+        this.dy = dy;
+    }
+
+    public int getDx() {
+        return dx;
+    }
+
+    public int getDy() {
+        return dy;
     }
 }
