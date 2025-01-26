@@ -1,46 +1,68 @@
 package board.tile;
-
-import board.resource.ResourceType;
+import board.resource.*;
+//import java.util.HashMap;
 import java.util.Random;
 
+
 public class Tile {
+
     private TileType type;
     private int resourcesPresent;
     private ResourceType resourceType;
 
-    public Tile() {
-        int alea = new Random().nextInt(TileType.values().length);
+    
+
+
+    /**
+     * Constructeur par défaut de la classe Tile
+     * Crée une Tile de type aléatoire.
+     */
+    public Tile(){
+        int alea = new Random().nextInt( TileType.values().length );
+
         type = TileType.values()[alea];
         this.resourcesPresent = 0;
         MatchResources(type);
     }
+    
+    public void UpdateTile(){
+        resourcesPresent++;
+    }
 
-    public Tile(TileType type, int initialResources) {
+
+    /**
+     * Crée une Tile avec le type et les resources initiales fournies
+     * @param type
+     * @param initialResources
+     */
+    public Tile(TileType type, int initialResources){
         this.type = type;
         this.resourcesPresent = initialResources;
         MatchResources(type);
     }
 
-    // Initialize to null
-    public Tile(TileType type) {
+    /**
+     * Crée une Tile du type fourni
+     * @param type
+     */
+    public Tile(TileType type){
         this.type = type;
-        this.resourceType = null; 
         MatchResources(type);
     }
 
-    private ResourceType MatchResources(TileType type) {
-        switch (type) {
-            case MOUNTAIN:
-                resourceType = ResourceType.Ore;
+    private ResourceType MatchResources(TileType type){
+        switch(type){
+            case Mountains : 
+                resourceType = resourceType.Ore;
                 break;
-            case FOREST:
-                resourceType = ResourceType.Wood;
+            case Forest :
+                resourceType = resourceType.Wood;
                 break;
-            case FIELD:
-                resourceType = ResourceType.Wheat;
+            case Fields :
+                resourceType =  resourceType.Wheat;
                 break;
-            case PASTURE:
-                resourceType = ResourceType.Sheep;
+            case Pastures:
+                resourceType= resourceType.Sheep;
                 break;
             default:
                 resourceType = null;
@@ -49,28 +71,31 @@ public class Tile {
         return resourceType;
     }
 
-    public int GetResourcesPresent() {
+
+    public int GetResourcesPresent(){
         return resourcesPresent;
     }
 
-    public ResourceType GetResourceType() {
+    public ResourceType GetResourceType(){
         return resourceType;
     }
 
-    public TileType GetTileType() {
+    public TileType GetTileType(){
         return type;
     }
 
+
     @Override
-    public String toString() {
+    public String toString(){
+        //TODO
         switch (type) {
-            case MOUNTAIN:
+            case Mountains:
                 return "M";
-            case FOREST:
+            case Forest:
                 return "F";
-            case FIELD:
+            case Fields:
                 return "f";
-            case PASTURE:
+            case Pastures:
                 return "P";
             default:
                 return "_";
