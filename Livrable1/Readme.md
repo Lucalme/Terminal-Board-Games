@@ -7,10 +7,10 @@
 'java -classpath classes board/BoardMain'
 
 - Pour compiler l'éxecutable:
-'jar cfe livrable1_RC1.jar board.BoardMain -C classes .'
+'jar cfe livrable1_RC2.jar board.BoardMain -C classes .'
 
 - Pour executer le .jar :
-'java -jar livrable1_RC1.jar'
+'java -jar livrable1_RC2.jar'
 
 - Pour compiler les tests : 
 'javac -classpath junit-console.jar:classes test/board/*.java'
