@@ -79,28 +79,28 @@ Pour chaque semaine on y trouvera :
 
 ### Difficultés rencontrées
 
-la majorite des difficultes rencontrees resident dans la gestion du projet et dans la communication, a ce stade du projet nous n'avons pas encore de modele definitif pour l'uml et on est dans un approche de developpement iterative. 
+la majorité des difficultés rencontrées résident dans la gestion du projet et dans la communication, à ce stade du projet nous n'avons pas encore de modèle définitif pour l'uml et on est dans un approche de développement itérative. 
 
 ### Objectifs pour la semaine
 
-Objectifs : communiquer et planifier davantage afin davoir une meilleure repartition des taches
+Objectifs : communiquer et planifier davantage afin d'avoir une meilleure répartition des tâches
 
 ## Semaine 3
 
 ### Ce qui a été réalisé
-On a un modele fonctionel du tableau (Board)
-On a refactorise a plusieurs reprise le projet
-l'uml a ete etendu a d'autres entites attendues dans le projet 
+On a un modèle fonctionel du tableau (Board)
+On a refactorisé à plusieurs reprise le projet.
+l'uml a ete étendu à d'autres entités attendues dans le projet 
 
 ### Difficultés rencontrées
-On a toujours des difficultes dans la gestion du projet, on essaie d'etendre davantage l'uml mais une vision globale nous manque toujours et ralenti notre progression.
-Certains des elements que nous avons deja implemente nous semblent mal penses et nous forcent a reconsiderer notre approche.
+On a toujours des difficultés dans la gestion du projet, on essaie d'étendre davantage l'uml mais une vision globale nous manque toujours et ralenti notre progression.
+Certains des elements que nous avons déjà implementé nous semblent mal pensés et nous forcent a reconsiderer notre approche.
 
 
 ### Objectifs pour la semaine
 - finaliser le livrable
-- commencer a reflechir l'implementation des batiments
-- adopter une demarche plus methodologique afin de pallier a nos difficultes de gestion 
+- commencer à réflechir l'implementation des batiments
+- adopter une demarche plus methodologique afin de pallier à nos difficultés de gestion 
 
 
 ## Semaine 4
