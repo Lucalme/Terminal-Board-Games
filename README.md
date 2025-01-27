@@ -25,9 +25,15 @@ Un lien vers une image de l'UML doit être fourni (une photo d'un diagramme UML 
 
 ## Livrable 1
 
+[Lien vers le Livrable](https://gitlab-etu.fil.univ-lille.fr/walid.mabrouk.etu/l2s4-projet-2025/-/tree/main/Livrable1)
+
 ### Atteinte des objectifs
+On a une classe board qui est fonctionnelle, on a déjà commencé à réflechir à la suite et on a une ébauche de modèle pour les bâtiments.
+Des tests ont été écrits.
 
 ### Difficultés restant à résoudre
+-Adopter une méthode de développement horizontale, pour que chacun puisse participer au mieux. 
+-Corriger certaines faiblesses du modèle existant, en créant par exemple plus de structures de données. 
 
 ## Livrable 2
 
