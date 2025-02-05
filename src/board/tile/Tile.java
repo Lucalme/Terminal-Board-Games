@@ -101,4 +101,20 @@ public class Tile {
                 return "_";
         }
     }
+
+    public String ToConsoleMode(){
+        switch (type) {
+            case Mountains:
+                return "🔳";
+            case Forest:
+                return "🟩";
+            case Fields:
+                return "🟨";
+            case Pastures:
+                return "🟧";
+            default:
+                return "🟦";
+        }
+    }
+    
 }
