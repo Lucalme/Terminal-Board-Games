@@ -1,5 +1,6 @@
 package action;
 
+import board.resource.ResourceType;
 import board.tile.Tile;
 import player.Player;
 
@@ -13,6 +14,8 @@ public class ActionCollect extends Action {
     }
 
     public Boolean Effect(){
-        return false; 
+        ResourceType t  = tile.GetResourceType();
+        int r = tile.GetResourcesPresent();
+        return true;
     }
 }
