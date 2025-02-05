@@ -9,7 +9,7 @@ import board.tile.TileType;
 
 public class Board {
     
-    private Tile[][] tiles ;
+    private Tile[][] tiles;
 
     private int size_X = 7;
     private int size_Y = 7;
