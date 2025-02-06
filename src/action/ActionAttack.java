@@ -5,13 +5,14 @@ import player.Player;
 public class ActionAttack extends Action {
     
     public final Player target;
+    public static final boolean RequiresTarget = true;
 
     public ActionAttack(Player player, Player target){
         super(player, true);
         this.target = target;
     }
 
-    public Boolean Effect() {
+    public boolean Effect() {
         return true;
     }
 

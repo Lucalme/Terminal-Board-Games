@@ -7,15 +7,22 @@ import player.Player;
 public class ActionCollect extends Action {
     
     public final Tile tile;
+    public static final boolean RequiresTile = true;
+    public static final boolean RequiresTarget = false;
 
     public ActionCollect(Player player, Tile tile){
-        super(player);
+        super(player, true);
         this.tile = tile;
     }
 
-    public Boolean Effect(){
+    public boolean Effect(){
         ResourceType t  = tile.GetResourceType();
         int r = tile.GetResourcesPresent();
+        //TODO: Vider la Tile et ajouter les ressources à l'inventaire.
         return true;
+    }
+
+    public Cost Cost(){
+        return null;
     }
 }
