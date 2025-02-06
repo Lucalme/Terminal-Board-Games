@@ -1,9 +1,10 @@
 package action.util;
-
 import java.util.Scanner;
 
 public class IO {
     
+    public static int writeDelay = 40;
+
     public static void DeleteLines(int lines){
         for(int i = 0; i < lines; i++){
             System.out.print(String.format("\033[%dA", 1)); 
@@ -45,15 +46,7 @@ public class IO {
     }
 
     public static void SlowType(String s){
-        for (int i = 0; i < s.length(); i++){
-            System.out.print(s.charAt(i));
-            try {
-                Thread.sleep(40);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        System.out.print("\n");
+        SlowType(s, writeDelay);
     }
 
     public static void SlowType(String s, int delay){
