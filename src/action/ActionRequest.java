@@ -1,13 +1,10 @@
 package action;
 
 import java.util.HashMap;
-import java.util.Scanner;
-
 import board.Board;
 import board.tile.Tile;
 import player.Player;
 import action.util.Input;
-import action.util.Polymorphism;
 
 /**
  * Une classe qui permet de faire une demande d'action à un joueur.
