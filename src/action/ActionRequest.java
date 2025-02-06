@@ -4,7 +4,7 @@ import java.util.HashMap;
 import board.Board;
 import board.tile.Tile;
 import player.Player;
-import action.util.Input;
+import action.util.IO;
 
 /**
  * Une classe qui permet de faire une demande d'action à un joueur.
@@ -79,15 +79,15 @@ public class ActionRequest {
         Boolean done = false;
         String prompt = PromptBuilder(player);
         while(!done){
-            System.out.println(prompt);
-            int i = Input.getInt();
-            Input.DeleteLines(1);
+            IO.SlowType(prompt);
+            int i = IO.getInt();
+            IO.DeleteLines(1);
             if (i >= 1 && i <= actionMap.size()){
                 Action a = ActionFromIndex(i-1, player);
                 res = new ActionRequest(player, a);
                 done = true;
             }else{
-                System.out.println("Choix invalide, veuillez réessayer...");
+                IO.SlowType("Choix invalide, veuillez réessayer...");
             }
         }
         return res;
