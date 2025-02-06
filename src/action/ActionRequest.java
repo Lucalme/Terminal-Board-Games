@@ -1,12 +1,13 @@
 package action;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import board.Board;
 import board.tile.Tile;
 import player.Player;
+import action.util.Input;
+import action.util.Polymorphism;
 
 /**
  * Une classe qui permet de faire une demande d'action à un joueur.
@@ -49,29 +50,23 @@ public class ActionRequest {
         return res;
     }
 
-    private static Action ActionFromIndex(int i, Player player) {
+    private static Action ActionFromIndex(int i, Player player){
         Action action = null;
-        try{
-            Class<? extends Action> c = (Class<? extends Action>)actionMap.get(actionMap.keySet().toArray()[i]);
-            System.out.println(c);
-            boolean requiresTarget = c.getField("RequiresTarget").getBoolean(null);
-            boolean requiresTile = c.getField("RequiresTile").getBoolean(null);
-
-            if(!requiresTarget && !requiresTile){
-                action = c.getDeclaredConstructor(Player.class).newInstance(player);
-            }else if(requiresTarget && !requiresTile){
-                Player target = PromptTarget(null, player);
-                action = c.getDeclaredConstructor(Player.class, Player.class).newInstance(player, target);
-            }else if(!requiresTarget && requiresTile){
+        //TODO: simplifier la map et n'utiliser que des string??
+        Class<? extends Action> c = (Class<? extends Action>)actionMap.get(actionMap.keySet().toArray()[i]);
+        String[] array = c.getName().split("\\.");
+        String name = array[array.length-1];
+        switch(name){
+            case "ActionCollect":
                 Tile tile = GetTileFromPlayer(null, player);
-                action = c.getDeclaredConstructor(Player.class, Tile.class).newInstance(player, tile);
-            }else{
+                action = new ActionCollect(player, tile);
+                break;
+            case "ActionAttack":
                 Player target = PromptTarget(null, player);
-                Tile tile = GetTileFromPlayer(null, player);
-                action = c.getDeclaredConstructor(Player.class, Player.class, Tile.class).newInstance(player, target, tile);
-            }
-            return action;
-        }catch(Exception e){e.printStackTrace(); return null;}
+                action = new ActionAttack(player, target);
+                break;
+        }
+        return action;
     }
 
     private static Tile GetTileFromPlayer(Board board, Player player){
@@ -85,11 +80,11 @@ public class ActionRequest {
     public static ActionRequest Prompt(Player player){
         ActionRequest res = null; // Initialize with a default value
         Boolean done = false;
-        Scanner sc = new Scanner(System.in);
         String prompt = PromptBuilder(player);
         while(!done){
             System.out.println(prompt);
-            int i = sc.nextInt();
+            int i = Input.getInt();
+            Input.DeleteLines(1);
             if (i >= 1 && i <= actionMap.size()){
                 Action a = ActionFromIndex(i-1, player);
                 res = new ActionRequest(player, a);
@@ -98,7 +93,6 @@ public class ActionRequest {
                 System.out.println("Choix invalide, veuillez réessayer...");
             }
         }
-        sc.close();
         return res;
     }
 }
