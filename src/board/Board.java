@@ -129,47 +129,21 @@ public class Board {
 
     public String ToString() throws Exception{
 
-        int squareSize = 3;
+        int squareSize = 5;
         String[] lines = new String[size_Y * squareSize]; 
-        for(int i = 0; i < size_Y * squareSize; i++){
-            lines[i] = "";
+        for(int f = 0; f < size_Y * squareSize; f++){
+            lines[f] = "";
         }
-
-        String forest = "🟩";
-        String mountain = "🔳";
-        String pasture = "🟧";
-        String field = "🟨";
         String water = "🟦";
-
-        
-
-        for(int i = 0; i < size_Y; i++){
-            for(int j = 0; j < size_X; j++){
-                if(tiles[j][i] == null){
-                    for(int k = 0; k < squareSize; k++){
-                        lines[i * squareSize + k] += water + water + water;
+        for(int i = 0; i < size_X; i++){
+            for(int j = 0; j < size_Y; j++){
+                String tileType = tiles[i][j] == null ? water : tiles[i][j].ToConsoleMode();
+                for(int k = 0; k < squareSize; k++){
+                    String str = "";
+                    for(int l = 0; l<squareSize; l++){
+                        str += tileType;
                     }
-                }else{
-                    String tileType ;
-                    switch(tiles[j][i].GetTileType()){
-                        case Forest:
-                            tileType = forest;
-                            break;
-                        case Mountains:
-                            tileType = mountain;
-                            break;
-                        case Pastures:
-                            tileType = pasture;
-                            break;
-                        case Fields:
-                            tileType = field;
-                            break;
-                        default:
-                            throw new Exception("Unknown tile type");
-                    }
-                    for(int k = 0; k < squareSize; k++){
-                        lines[i * squareSize + k] += tileType + tileType + tileType;
-                    }
+                    lines[j*squareSize+k] += str;
                 }
             }
         }
