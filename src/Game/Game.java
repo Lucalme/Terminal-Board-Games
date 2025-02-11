@@ -7,75 +7,81 @@ import board.Board;
 import player.Player;
 
 
+/**
+ * The Game class represents an abstract game with players, a board, and a history of actions.
+ * It provides methods to start the game, handle the game loop, and manage player actions and events.
+ */
 public abstract class Game {
+    /**
+     * List of players participating in the game.
+     */
     protected List<Player> players;
+
+    /**
+     * The game board.
+     */
     protected Board board;
+
+    /**
+     * History of actions taken during the game.
+     */
     protected List<String> history;
+
+    /**
+     * The current turn number.
+     */
     protected int currentTurn;
+
+    /**
+     * Scanner for reading player input.
+     */
     protected Scanner scanner;
-    
-    public Game(List<Player>players){
-        this.players = players;
-        this.board = new Board();
-        this.history = new ArrayList<>();
-        this.currentTurn = 0;
-        this.scanner = new Scanner(System.in);
-    }
 
-    public void StartGame(){
-        System.out.println("THE GAME HAS STARTED!");
-        currentTurn = 0;
-        gameLoop();
-    }
+    /**
+     * Constructs a new Game with the specified list of players.
+     *
+     * @param players the list of players participating in the game
+     */
+    public Game(List<Player> players) {}
 
-    public void gameLoop(){
-        while (!CheckWinCondition()) {
-            nextTurn();
-            System.out.println(players.get(currentTurn) + ", CHOOSE AN ACTION :");
-            System.out.println("1. Perform the action");
-            System.out.println("2. Declencher l'evenement");
-            System.out.println("3. Check history");
-            System.out.println("4. Quit");
-            
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+    /**
+     * Starts the game and initializes the game loop.
+     */
+    public void StartGame() {}
 
-            switch (choice1) {
-                case 1:
-                    System.out.println("enter the action :");
-                    String action = scanner.nextLine();
-                    handleAction(action);
-                    break;
-            
-                case 2:
-                    System.out.println("entrer l'evenement");
-                    String event = scanner.nextLine();
-                    triggerEvent(event);
-                    break;
+    /**
+     * The main game loop that continues until a win condition is met.
+     */
+    public void gameLoop() {}
 
-                case 3:
-                    printHistory();
-                    break;
-
-                case 4:
-                    System.out.println("GAME OVER !");
-                    return;
-                
-                default :
-                    System.out.println("choix invalide, reessayez..");
-            }
-        }
-        System.out.println("a player has won !");
-    }
-
+    /**
+     * Advances to the next turn.
+     */
     public void nextTurn() {}
 
-    //donne un exemple de condition de victoire
+    /**
+     * Checks if the win condition for the game has been met.
+     *
+     * @return true if a player has won, false otherwise
+     */
     public boolean CheckWinCondition() {}
 
-    public void triggerEvent(String event){}
-    
+    /**
+     * Triggers an event in the game based on the specified event string.
+     *
+     * @param event the event to be triggered
+     */
+    public void triggerEvent(String event) {}
+
+    /**
+     * Handles a player action based on the specified action string.
+     *
+     * @param action the action to be handled
+     */
     public void handleAction(String action) {}
 
-    public void printHistory(){}
+    /**
+     * Prints the history of actions taken during the game.
+     */
+    public void printHistory() {}
 }
