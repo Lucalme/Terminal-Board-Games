@@ -7,158 +7,166 @@ import board.tile.Tile;
 import board.tile.TileType;
 
 
+/**
+ * The Board class represents a game board consisting of tiles.
+ * It provides methods to initialize the board, retrieve tiles, and update them.
+ */
 public class Board {
-    
-    private Tile[][] tiles;
 
+    private Tile[][] tiles;
     private int size_X = 7;
     private int size_Y = 7;
 
-    public int SizeX()
-    {
-        return  size_X;
-    }
-
-    public int SizeY()
-    {
-        return  size_Y;
+    /**
+     * Returns the size of the board along the X-axis.
+     * 
+     * @return the size of the board along the X-axis.
+     */
+    public int SizeX() {
+        return size_X;
     }
 
     /**
-     * Constructeur de la classe Board avec taille par défaut
+     * Returns the size of the board along the Y-axis.
+     * 
+     * @return the size of the board along the Y-axis.
      */
-    public Board(){
+    public int SizeY() {
+        return size_Y;
+    }
 
+    /**
+     * Default constructor for the Board class.
+     * Initializes the board with default size.
+     */
+    public Board() {
         InitTiles();
     }
 
-    public HashMap<int[], Tile> getTiles(){
-        HashMap<int[], Tile> res =  new HashMap<int[],Tile>();
-
-        for (int i = 0; i < size_X; i++){
-            for (int j = 0; j < size_Y; j++){
-                if(tiles[i][j] != null){
-                    res.put(new int[] {i,j}, tiles[i][j]);
+    /**
+     * Returns a HashMap of the tiles on the board.
+     * The keys are int arrays representing the coordinates of the tiles,
+     * and the values are the Tile objects.
+     * 
+     * @return a HashMap of the tiles on the board.
+     */
+    public HashMap<int[], Tile> getTiles() {
+        HashMap<int[], Tile> res = new HashMap<int[], Tile>();
+        for (int i = 0; i < size_X; i++) {
+            for (int j = 0; j < size_Y; j++) {
+                if (tiles[i][j] != null) {
+                    res.put(new int[]{i, j}, tiles[i][j]);
                 }
             }
         }
-
         return res;
     }
 
     /**
-     * Constructeur de la classe Board avec taille personalisée
-     * @param size_X
-     * @param size_Y
+     * Constructor for the Board class with custom size.
+     * 
+     * @param size_X the size of the board along the X-axis.
+     * @param size_Y the size of the board along the Y-axis.
      */
-    public Board(int size_X, int size_Y){
+    public Board(int size_X, int size_Y) {
         this.size_X = size_X;
         this.size_Y = size_Y;
-    
         InitTiles();
     }
 
     /**
-     * Initialise les tiles du board
-     * la taille du board doit être définie au préalable
+     * Initializes the tiles of the board.
+     * The size of the board must be defined beforehand.
      */
-    private void InitTiles(){
-
+    private void InitTiles() {
         tiles = new Tile[size_X][size_Y];
+        int minWaterTiles = (int) (.66 * size_X * size_Y);
+        int maxOtherTiles = (size_X * size_Y) - minWaterTiles;
 
-        int minWaterTiles = (int) (.66 * size_X * size_Y); 
-        int maxOtherTiles = (size_X * size_Y) - minWaterTiles; 
-
-        //Par défaut, le tableau est vide : tous ses éléments sont nulls.
-        //afin de simplifier le code, on considèrera qu'une tile vide est de type water
-        //ainsi, à l'initialisation, tout le board est de type water.
-        
-        //Attention : On doit ici génerer un nombre inférieur ou égal à maxOtherTiles de tiles non-nulles
-        
         HashMap<int[], Tile> currentTiles = new HashMap<>();
-
         Random rand = new Random();
-        for(int i = 0; i < maxOtherTiles; i++){
+        for (int i = 0; i < maxOtherTiles; i++) {
             int randX;
             int randY;
-            //Recherche d'une case vide
-            do{
+            do {
                 randX = rand.nextInt(size_X);
                 randY = rand.nextInt(size_Y);
-            }while(tiles[randX][randY] != null );
-            
-            // initialisation d'une tile sur la case vide (aléatoire)
+            } while (tiles[randX][randY] != null);
+
             Tile tile = new Tile();
             tiles[randX][randY] = tile;
-
-            currentTiles.put(new int[] {randX, randY}, tile);
+            currentTiles.put(new int[]{randX, randY}, tile);
         }
-        
+
         HashMap<int[], Tile> isolatedTiles = currentTiles
             .entrySet()
             .stream()
-            .filter(
-                a -> GetTilesNeighborhood(a.getKey()[0], a.getKey()[1]).length == 0
-            )
+            .filter(a -> GetTilesNeighborhood(a.getKey()[0], a.getKey()[1]).length == 0)
             .collect(HashMap::new, (m, v) -> m.put(v.getKey(), v.getValue()), HashMap::putAll);
 
-
-        for (Map.Entry<int[], Tile> kv : isolatedTiles.entrySet()){ 
-            //System.out.println("Isolated tile at " + kv.getKey()[0] + " " + kv.getKey()[1]);
+        for (Map.Entry<int[], Tile> kv : isolatedTiles.entrySet()) {
             tiles[kv.getKey()[0]][kv.getKey()[1]] = null;
         }
     }
 
     /**
-     * Renvoie les tiles voisines de la tile en position x, y
-     * @param x
-     * @param y
-     * @return
+     * Returns the neighboring tiles of the tile at position (x, y).
+     * 
+     * @param x the X-coordinate of the tile.
+     * @param y the Y-coordinate of the tile.
+     * @return an array of neighboring tiles.
      */
-    public Tile[] GetTilesNeighborhood(int x, int y){
+    public Tile[] GetTilesNeighborhood(int x, int y) {
         ArrayList<Tile> neighborhood = new ArrayList<Tile>();
-        for(Directions dir : Directions.values()){
-            if(x + dir.X >= 0 && x + dir.X < size_X && y + dir.Y >= 0 && y + dir.Y < size_Y){
-                if(tiles[x + dir.X][y + dir.Y] != null){
+        for (Directions dir : Directions.values()) {
+            if (x + dir.X >= 0 && x + dir.X < size_X && y + dir.Y >= 0 && y + dir.Y < size_Y) {
+                if (tiles[x + dir.X][y + dir.Y] != null) {
                     neighborhood.add(tiles[x + dir.X][y + dir.Y]);
                 }
             }
         }
-        return neighborhood.toArray( new Tile[neighborhood.size()]);
+        return neighborhood.toArray(new Tile[neighborhood.size()]);
     }
 
-    public String ToString() throws Exception{
-
+    /**
+     * Returns a string representation of the board.
+     * 
+     * @return a string representation of the board.
+     * @throws Exception if an error occurs during string conversion.
+     */
+    public String ToString() throws Exception {
         int squareSize = 5;
-        String[] lines = new String[size_Y * squareSize]; 
-        for(int f = 0; f < size_Y * squareSize; f++){
+        String[] lines = new String[size_Y * squareSize];
+        for (int f = 0; f < size_Y * squareSize; f++) {
             lines[f] = "";
         }
         String water = "🟦";
-        for(int i = 0; i < size_X; i++){
-            for(int j = 0; j < size_Y; j++){
+        for (int i = 0; i < size_X; i++) {
+            for (int j = 0; j < size_Y; j++) {
                 String tileType = tiles[i][j] == null ? water : tiles[i][j].ToConsoleMode();
-                for(int k = 0; k < squareSize; k++){
+                for (int k = 0; k < squareSize; k++) {
                     String str = "";
-                    for(int l = 0; l<squareSize; l++){
+                    for (int l = 0; l < squareSize; l++) {
                         str += tileType;
                     }
-                    lines[j*squareSize+k] += str;
+                    lines[j * squareSize + k] += str;
                 }
             }
         }
         return String.join("\n", lines);
     }
 
-
-    public void UpdateAllTiles(){
-        for (int i = 0; i < size_X; i++){
-            for (int j = 0; j < size_Y; j++){
-                if(tiles[i][j] != null){
+    /**
+     * Updates all tiles on the board.
+     */
+    public void UpdateAllTiles() {
+        for (int i = 0; i < size_X; i++) {
+            for (int j = 0; j < size_Y; j++) {
+                if (tiles[i][j] != null) {
                     tiles[i][j].UpdateTile();
                 }
             }
         }
     }
-
 }
+
