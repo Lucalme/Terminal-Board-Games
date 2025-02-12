@@ -11,20 +11,18 @@ public class IO {
             System.out.print("\033[2K");   
         }
     }
-
+    
     public static int getInt() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Veuillez entrer un nombre:");
-        while(true){
-            try {
+        while (true) {  // Keep prompting until valid input is received
+            System.out.print("Votre choix : ");
+            if (scanner.hasNextInt()) {
                 int input = scanner.nextInt();
-                scanner.close();
-                DeleteLines(1);
+                scanner.nextLine();  // Consume newline to avoid skipping issues
                 return input;
-            }catch(Exception e){
-                DeleteLines(2);
+            } else {
                 System.out.println("Veuillez entrer un nombre valide.");
-                scanner.next();
+                scanner.next(); // Consume the invalid input to prevent an infinite loop
             }
         }
     }
