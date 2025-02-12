@@ -43,6 +43,18 @@ public class Board {
         InitTiles();
     }
 
+
+    public Tile GetTileAtPosition(int x, int y){
+        if(x < 0 || x > size_X -1 || y < 0 || y > size_Y -1){
+            return null;
+        }
+        return tiles[x][y];
+    }
+
+    public Tile GetTileAtPosition(Position pos){
+        return GetTileAtPosition(pos.x, pos.y);
+    }
+
     /**
      * Returns a HashMap of the tiles on the board.
      * The keys are int arrays representing the coordinates of the tiles,

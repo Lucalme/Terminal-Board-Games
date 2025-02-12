@@ -1,7 +1,10 @@
 package action;
 
 import java.util.HashMap;
+
+import Game.Game;
 import board.Board;
+import board.Position;
 import board.tile.Tile;
 import player.Player;
 import action.util.IO;
@@ -23,6 +26,8 @@ public class ActionRequest {
     public ActionRequest(Player player, Action action) {
         this.action = action;
         ready = CheckActionPossible();
+        Class<?>[] types =  actionMap.get("Attaquer").getDeclaredConstructors()[0].getParameterTypes();
+        
     }
     
     private Boolean CheckActionPossible(){
@@ -47,7 +52,7 @@ public class ActionRequest {
         return res;
     }
 
-    private static Action ActionFromIndex(int i, Player player){
+    private static Action ActionFromIndex(int i, Player player, Game game){
         Action action = null;
         //TODO: simplifier la map et n'utiliser que des string??
         Class<? extends Action> c = (Class<? extends Action>)actionMap.get(actionMap.keySet().toArray()[i]);
@@ -55,7 +60,7 @@ public class ActionRequest {
         String name = array[array.length-1];
         switch(name){
             case "ActionCollect":
-                Tile tile = GetTileFromPlayer(null, player);
+                Tile tile = game.GetBoard().GetTileAtPosition(PromptPosition(player));
                 action = new ActionCollect(player, tile);
                 break;
             case "ActionAttack":
@@ -66,15 +71,15 @@ public class ActionRequest {
         return action;
     }
 
-    private static Tile GetTileFromPlayer(Board board, Player player){
-        return new Tile();
+    private static Position PromptPosition(Player player){
+        return new Position(1, 2);
     }
 
     private static Player PromptTarget(Board board, Player player){
-        return new Player();
+        return new Player(-1);
     }
         
-    public static ActionRequest Prompt(Player player){
+    public static ActionRequest Prompt(Player player, Game game){
         ActionRequest res = null; // Initialize with a default value
         Boolean done = false;
         String prompt = PromptBuilder(player);
@@ -83,7 +88,7 @@ public class ActionRequest {
             int i = IO.getInt();
             IO.DeleteLines(1);
             if (i >= 1 && i <= actionMap.size()){
-                Action a = ActionFromIndex(i-1, player);
+                Action a = ActionFromIndex(i-1, player, game);
                 res = new ActionRequest(player, a);
                 done = true;
             }else{

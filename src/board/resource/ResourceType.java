@@ -4,5 +4,6 @@ public enum ResourceType{
     Wheat,
     Ore,
     Sheep, 
-    Wood
+    Wood,
+    Warriors
 }

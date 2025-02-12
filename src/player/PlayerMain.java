@@ -2,7 +2,10 @@ package player;
 
 import java.util.Scanner;
 
+import board.Board;
+import board.Position;
 import board.resource.ResourceType;
+import board.tile.Tile;
 
 
 
@@ -11,7 +14,9 @@ public class PlayerMain {
 
 public static void main(String[] args) 
 {
-    Player player = new Player();  // Make sure you create the player once
+    Board board = new Board();
+    Tile tile = board.GetTileAtPosition(PromptPosition());
+    Player player = new Player(1);  // Make sure you create the player once
     Scanner scanner = new Scanner(System.in);
 
     boolean running = true;
@@ -73,5 +78,23 @@ public static void main(String[] args)
     public static String capitalizeFirstLetter(String str) {
         if (str == null || str.isEmpty()) return str;
         return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+    }
+    
+    private static Position PromptPosition(){
+        Scanner sc = new Scanner(System.in);
+        boolean xdone = false;
+        boolean ydone = false;
+        int x;
+        while(!xdone){
+            if (sc.hasNextInt()){
+                x = sc.nextInt();
+            }else{
+                sc.nextInt();
+            }
+        }
+        while(!ydone){
+
+        }
+        return new Position(-1, -1);
     }
 }

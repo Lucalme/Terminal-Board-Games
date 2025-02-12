@@ -64,7 +64,7 @@ public abstract class Game {
      *
      * @return true if a player has won, false otherwise
      */
-    public boolean CheckWinCondition() {}
+    public boolean CheckWinCondition() {return false;}
 
     /**
      * Triggers an event in the game based on the specified event string.
@@ -84,4 +84,10 @@ public abstract class Game {
      * Prints the history of actions taken during the game.
      */
     public void printHistory() {}
+
+
+    public Board GetBoard() {
+        return board;
+    }
+
 }
