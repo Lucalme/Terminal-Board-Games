@@ -17,7 +17,7 @@ public class Army extends Building {
      * @param warriors the number of warriors in the army
      */
     public Army(int warriors) {
-        super(warriors);
+        super(warriors, getDefaultCost());
         this.warriors = warriors;
     }
 
