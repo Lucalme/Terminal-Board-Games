@@ -12,7 +12,7 @@ public class ActionMain{
         ArrayList<Player> players = new ArrayList<Player>(){
             {add(player);}
         };
-        Game game = new Ares(players);
+        Game game = new Ares(1);
         ActionRequest request = ActionRequest.Prompt(player, game);
     }
 }

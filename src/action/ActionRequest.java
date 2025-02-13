@@ -17,7 +17,7 @@ import action.util.IO;
 public class ActionRequest {
 
     public final Action action;
-    public final boolean ready;
+    public boolean ready;
 
     private final static HashMap<String, Class<? extends Action>> actionMap = new HashMap<String, Class<? extends Action>>() {{
         put("Collecter des ressources", ActionCollect.class);
@@ -62,7 +62,7 @@ public class ActionRequest {
         String name = array[array.length-1];
         switch(name){
             case "ActionCollect":
-                Tile tile = game.GetBoard().GetTileAtPosition(PromptPosition(player));
+                Tile tile = PromptTile(player, game);
                 action = new ActionCollect(player, tile);
                 break;
             case "ActionAttack":
@@ -73,8 +73,22 @@ public class ActionRequest {
         return action;
     }
 
-    private static Position PromptPosition(Player player){
-        return new Position(1, 2);
+    private static Tile PromptTile(Player player, Game game){
+        Tile tile =null;
+        while (tile == null) {
+            IO.SlowType("Choissisez la Position");
+            IO.SlowType("X:");
+            int X = IO.getInt();
+            IO.SlowType("Y:");
+            int Y = IO.getInt();
+            tile = game.board.GetTileAtPosition(X, Y);
+            if(tile == null){
+                IO.SlowType("Impossible de faire ça ici...");
+                IO.DeleteLines(1);
+            }
+            IO.DeleteLines(3);
+        }
+        return tile;
     }
 
     private static Player PromptTarget(Player player, Game game){
@@ -101,4 +115,5 @@ public class ActionRequest {
         }
         return res;
     }
+    
 }

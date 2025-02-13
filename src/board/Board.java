@@ -146,8 +146,8 @@ public class Board {
      * @return a string representation of the board.
      * @throws Exception if an error occurs during string conversion.
      */
-    public String ToString() throws Exception {
-        int squareSize = 5;
+    public String toString(){
+        int squareSize = 3;
         String[] lines = new String[size_Y * squareSize];
         for (int f = 0; f < size_Y * squareSize; f++) {
             lines[f] = "";
