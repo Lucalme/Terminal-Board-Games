@@ -92,8 +92,36 @@ public class ActionRequest {
     }
 
     private static Player PromptTarget(Player player, Game game){
-        //List<Player> players = game.getPlayers();
-        return new Player(0);
+        Player target = null;
+        List<Player> others = Targetables(player, game);
+        IO.SlowType("Choississez votre cible : ");
+        for(int i = 0;  i< others.size(); i++){
+            IO.SlowType(i+1 +" -> " +others.get(i).toString());
+        }
+        boolean done = false;
+        while (!done) {
+            int index = IO.getInt() -1;
+            if(index >= 0 && index < others.size()){
+                target = others.get(index);
+                done = true;
+            }else{
+                IO.SlowType("Choix Invalide, veuillez rééssayer...");
+                IO.DeleteLines(1);
+            }
+        }
+        IO.DeleteLines(others.size()+1);
+        return target;
+    }
+
+
+    private static List<Player> Targetables(Player player, Game game){
+        List<Player> others = new ArrayList<>();
+        for(Player p : game.GetPlayers()){
+            if(p != player){
+                others.add(p);
+            }
+        }
+        return others;
     }
         
     public static ActionRequest Prompt(Player player, Game game){

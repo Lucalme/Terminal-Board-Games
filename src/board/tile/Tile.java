@@ -117,4 +117,7 @@ public class Tile {
         }
     }
     
+    public void ClearResources(){
+        this.resourcesPresent = 0;
+    }
 }

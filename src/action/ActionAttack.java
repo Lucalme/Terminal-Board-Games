@@ -17,7 +17,7 @@ public class ActionAttack extends Action {
 
     public Cost Cost(){
         //return new Cost(ResourceType.Army, 0) TODO: envisager les armées comme un type de resources
-        return new Cost(null, 0);
+        return null;
     }
 
 

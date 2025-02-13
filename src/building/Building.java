@@ -44,21 +44,21 @@ public abstract class Building {
     */
     public Map<String, Integer> getConstructionCost() {
        return new HashMap<>(constructionCost);
-   }
+    }
    
    /**
     * Checks if the provided resources are sufficient to construct the building.
     * @param availableResources the resources available to the player
     * @return true if the player has enough resources, false otherwise
     */
-        public boolean canConstruct(Map<String, Integer> availableResources) {
-            for (Map.Entry<String, Integer> entry : constructionCost.entrySet()) {
+    public boolean canConstruct(Map<String, Integer> availableResources) {
+        for (Map.Entry<String, Integer> entry : constructionCost.entrySet()) {
             if (availableResources.getOrDefault(entry.getKey(), 0) < entry.getValue()) {
-        return false;
-           }
-       }
+                return false;
+            }
+        }
        return true;
-   }
+    }
    
    /**
     * Abstract method to define the effect of the building.

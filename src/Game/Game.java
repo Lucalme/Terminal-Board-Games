@@ -70,19 +70,22 @@ public abstract class Game {
         while(!CheckWinCondition()){
             IO.DeleteLines(linesToErase);
             ArrayList<ActionRequest> updated = new ArrayList<ActionRequest>();
+            int count = 0;
             for(int i = 0; i<pendingActions.size(); i++){
                 ActionRequest req = pendingActions.get(i);
                 if(req.ready){
                     IO.SlowType(req.action.Description());
                     req.action.Effect();
+                    count++;
                 }else{
                     updated.add(req);
                 }
             }
+            IO.DeleteLines(count);
             pendingActions = updated;
             String str = board.toString();
             System.out.println(str);
-            linesToErase = str.split("\\n").length -1;
+            linesToErase = str.split("\\n").length +1;
             nextTurn();
         }
     }
@@ -108,24 +111,8 @@ public abstract class Game {
         return false;
     }
 
-    /**
-     * Triggers an event in the game based on the specified event string.
-     *
-     * @param event the event to be triggered
-     */
-    public void triggerEvent(String event) {}
-
-    /**
-     * Handles a player action based on the specified action string.
-     *
-     * @param action the action to be handled
-     */
-    public void handleAction(Action action) {
+    public List<Player> GetPlayers(){
+        return players;
     }
-
-    /**
-     * Prints the history of actions taken during the game.
-     */
-    public void printHistory() {}
 
 }

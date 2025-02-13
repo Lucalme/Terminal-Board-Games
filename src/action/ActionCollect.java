@@ -19,6 +19,7 @@ public class ActionCollect extends Action {
         ResourceType t  = tile.GetResourceType();
         int r = tile.GetResourcesPresent();
         //TODO: Vider la Tile et ajouter les ressources à l'inventaire.
+        source.addResource(t, r);
         return true;
     }
 
