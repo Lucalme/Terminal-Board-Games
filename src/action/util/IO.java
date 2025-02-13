@@ -14,15 +14,22 @@ public class IO {
     
     public static int getInt() {
         Scanner scanner = new Scanner(System.in);
+        boolean ntry = false;
         while (true) {  // Keep prompting until valid input is received
+            if(ntry){
+                DeleteLines(1);
+            }
             System.out.print("Votre choix : ");
             if (scanner.hasNextInt()) {
                 int input = scanner.nextInt();
-                scanner.nextLine();  // Consume newline to avoid skipping issues
+                scanner.nextLine();
+                DeleteLines(1);
                 return input;
             } else {
-                System.out.println("Veuillez entrer un nombre valide.");
-                scanner.next(); // Consume the invalid input to prevent an infinite loop
+                ntry = true;
+                scanner.next();
+                SlowType("Veuillez entrer un nombre valide...");
+                DeleteLines(1);
             }
         }
     }

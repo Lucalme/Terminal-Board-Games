@@ -19,4 +19,9 @@ public class ActionAttack extends Action {
         //return new Cost(ResourceType.Army, 0) TODO: envisager les armées comme un type de resources
         return new Cost(null, 0);
     }
+
+
+    public String Description(){
+        return source.toString() + " attaque " + target.toString() + "!";
+    }
 }

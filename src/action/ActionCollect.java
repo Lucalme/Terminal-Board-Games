@@ -25,4 +25,8 @@ public class ActionCollect extends Action {
     public Cost Cost(){
         return null;
     }
+
+    public String Description(){
+        return source.toString() + " ramasse "+ tile.GetResourcesPresent()+ " "+ tile.GetResourceType() + "!";
+    }
 }

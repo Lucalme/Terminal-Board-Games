@@ -1,6 +1,8 @@
 package action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import Game.Game;
 import board.Board;
@@ -64,7 +66,7 @@ public class ActionRequest {
                 action = new ActionCollect(player, tile);
                 break;
             case "ActionAttack":
-                Player target = PromptTarget(null, player);
+                Player target = PromptTarget(player, game);
                 action = new ActionAttack(player, target);
                 break;
         }
@@ -75,24 +77,26 @@ public class ActionRequest {
         return new Position(1, 2);
     }
 
-    private static Player PromptTarget(Board board, Player player){
-        return new Player(-1);
+    private static Player PromptTarget(Player player, Game game){
+        //List<Player> players = game.getPlayers();
+        return new Player(0);
     }
         
     public static ActionRequest Prompt(Player player, Game game){
         ActionRequest res = null; // Initialize with a default value
         Boolean done = false;
         String prompt = PromptBuilder(player);
+        IO.SlowType(prompt);
         while(!done){
-            IO.SlowType(prompt);
             int i = IO.getInt();
-            IO.DeleteLines(1);
             if (i >= 1 && i <= actionMap.size()){
                 Action a = ActionFromIndex(i-1, player, game);
                 res = new ActionRequest(player, a);
                 done = true;
+                IO.DeleteLines(prompt.split("\\n").length);
             }else{
-                IO.SlowType("Choix invalide, veuillez réessayer...");
+                IO.SlowType("Choix invalide, veuillez réessayer....");
+                IO.DeleteLines(1);
             }
         }
         return res;

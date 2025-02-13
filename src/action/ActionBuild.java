@@ -22,5 +22,5 @@ public abstract class ActionBuild extends Action{
        return true;
     }
 
-    public abstract Boolean CheckBuildPossible();
+    public abstract boolean CheckBuildPossible();
 }

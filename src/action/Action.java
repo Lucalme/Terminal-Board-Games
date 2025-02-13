@@ -15,5 +15,7 @@ public abstract class Action {
     public abstract boolean Effect();
     public abstract Cost Cost();
 
+    public abstract String Description();
+
 }
  
