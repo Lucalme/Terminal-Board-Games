@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class IO {
     
-    public static int writeDelay = 40;
+    public static int writeDelay = 20;
 
     public static void DeleteLines(int lines){
         for(int i = 0; i < lines; i++){

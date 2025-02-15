@@ -103,6 +103,7 @@ public abstract class Game {
      * Advances to the next turn.
      */
     public void nextTurn() {
+        board.UpdateAllTiles();
         for(Player p : players){
             IO.SlowType("C'est au tour de "+ p.toString());
             ActionRequest r = ActionRequest.Prompt(p, this);

@@ -53,16 +53,16 @@ public class Tile {
     private ResourceType MatchResources(TileType type){
         switch(type){
             case Mountains : 
-                resourceType = resourceType.Ore;
+                resourceType = ResourceType.Ore;
                 break;
             case Forest :
-                resourceType = resourceType.Wood;
+                resourceType = ResourceType.Wood;
                 break;
             case Fields :
-                resourceType =  resourceType.Wheat;
+                resourceType =  ResourceType.Wheat;
                 break;
             case Pastures:
-                resourceType= resourceType.Sheep;
+                resourceType= ResourceType.Sheep;
                 break;
             default:
                 resourceType = null;
