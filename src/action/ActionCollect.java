@@ -1,5 +1,7 @@
 package action;
 
+import java.util.HashMap;
+
 import board.resource.ResourceType;
 import board.tile.Tile;
 import player.Player;
@@ -23,7 +25,7 @@ public class ActionCollect extends Action {
         return true;
     }
 
-    public Cost Cost(){
+    public HashMap<ResourceType, Integer> Cost(){
         return null;
     }
 

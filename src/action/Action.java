@@ -1,5 +1,9 @@
 package action;
 
+import java.util.HashMap;
+import java.util.ResourceBundle;
+
+import board.resource.ResourceType;
 import player.Player;
 
 public abstract class Action {
@@ -13,7 +17,7 @@ public abstract class Action {
     }
 
     public abstract boolean Effect();
-    public abstract Cost Cost();
+    public abstract HashMap<ResourceType, Integer> Cost();
 
     public abstract String Description();
 
