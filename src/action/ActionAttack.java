@@ -1,4 +1,6 @@
 package action;
+import java.util.HashMap;
+
 import board.resource.ResourceType;
 import player.Player;
 
@@ -15,7 +17,7 @@ public class ActionAttack extends Action {
         return true;
     }
 
-    public Cost Cost(){
+    public HashMap<ResourceType, Integer>  Cost(){
         //return new Cost(ResourceType.Army, 0) TODO: envisager les armées comme un type de resources
         return null;
     }
