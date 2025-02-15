@@ -20,7 +20,7 @@ public class ActionCollect extends Action {
     public boolean Effect(){
         ResourceType t  = tile.GetResourceType();
         int r = tile.GetResourcesPresent();
-        //TODO: Vider la Tile et ajouter les ressources à l'inventaire.
+        tile.ClearResources();
         source.addResource(t, r);
         return true;
     }
