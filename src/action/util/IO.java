@@ -34,6 +34,13 @@ public class IO {
         }
     }
 
+    public static void Next(){
+        System.out.print("Appuyez sur Entrée pour continuer...");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        DeleteLines(1);
+    }
+
 
     public static void FunType(){
         String s = "😅🥳😍😂😁😘😍😚🙂🤗🤩😎😶🤨🫡😲🤑😟😢😬🤯🥵😠😠🥴🤮🥺🥳🤮🤠🥹😇🙂‍↕️🫨🧐😈😈🤖😽";

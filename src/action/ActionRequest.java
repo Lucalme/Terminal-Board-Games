@@ -7,6 +7,7 @@ import java.util.List;
 import Game.Game;
 import board.Board;
 import board.Position;
+import board.resource.ResourceType;
 import board.tile.Tile;
 import player.Player;
 import action.util.IO;
@@ -20,6 +21,7 @@ public class ActionRequest {
     public boolean ready;
 
     private final static HashMap<String, Class<? extends Action>> actionMap = new HashMap<String, Class<? extends Action>>() {{
+        put("Voir l'inventaire", ShowInventory.class);
         put("Collecter des ressources", ActionCollect.class);
         put("Attaquer", ActionAttack.class);
     }};
@@ -69,6 +71,9 @@ public class ActionRequest {
                 Player target = PromptTarget(player, game);
                 action = new ActionAttack(player, target);
                 break;
+                
+            case "ShowInventory":
+                action = new ShowInventory(player);
         }
         return action;
     }
@@ -133,6 +138,12 @@ public class ActionRequest {
             int i = IO.getInt();
             if (i >= 1 && i <= actionMap.size()){
                 Action a = ActionFromIndex(i-1, player, game);
+                if(!a.finishesTurn){
+                    PreliminaryAction(a);
+                    IO.Next();
+                    IO.DeleteLines(ResourceType.values().length +1);
+                    continue;
+                }
                 res = new ActionRequest(player, a);
                 done = true;
                 IO.DeleteLines(prompt.split("\\n").length);
@@ -144,4 +155,8 @@ public class ActionRequest {
         return res;
     }
     
+
+    private static void PreliminaryAction(Action action){
+        action.Effect();
+    }
 }
