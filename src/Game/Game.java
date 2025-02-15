@@ -55,6 +55,15 @@ public abstract class Game {
         board = new Board();
     }
 
+    public Game(int nbOfPlayer, int SizeX, int SizeY){
+        players = new ArrayList<Player>();
+        for(int i = 1; i <= nbOfPlayer; i++ ){
+            players.add(new Player(i));
+        }
+        board = new Board(SizeX, SizeY);
+    }
+
+
     /**
      * Starts the game and initializes the game loop.
      */

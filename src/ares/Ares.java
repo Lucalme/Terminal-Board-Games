@@ -7,6 +7,6 @@ import player.Player;
 
 public class Ares extends Game{
     public Ares(int nbOfPlayer){
-        super(nbOfPlayer);
+        super(nbOfPlayer, 30, 10);
     }
 }

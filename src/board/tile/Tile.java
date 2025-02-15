@@ -10,7 +10,7 @@ public class Tile {
     private int resourcesPresent;
     private ResourceType resourceType;
 
-    
+    private int island = -1;
 
 
     /**
@@ -119,5 +119,14 @@ public class Tile {
     
     public void ClearResources(){
         this.resourcesPresent = 0;
+    }
+
+
+    public int GetIslandID(){
+        return island;
+    }
+
+    public void SetIslandID(int id){
+        island = id;
     }
 }

@@ -16,7 +16,6 @@ public class Board {
     private Tile[][] tiles;
     private int size_X = 7;
     private int size_Y = 7;
-
     /**
      * Returns the size of the board along the X-axis.
      * 
@@ -91,6 +90,12 @@ public class Board {
      * The size of the board must be defined beforehand.
      */
     private void InitTiles() {
+        Populate();
+        Filter();
+        Group();
+    }
+
+    private void Populate(){
         tiles = new Tile[size_X][size_Y];
         int minWaterTiles = (int) (.66 * size_X * size_Y);
         int maxOtherTiles = (size_X * size_Y) - minWaterTiles;
@@ -109,15 +114,41 @@ public class Board {
             tiles[randX][randY] = tile;
             currentTiles.put(new int[]{randX, randY}, tile);
         }
+    }
 
-        HashMap<int[], Tile> isolatedTiles = currentTiles
-            .entrySet()
-            .stream()
-            .filter(a -> GetTilesNeighborhood(a.getKey()[0], a.getKey()[1]).length == 0)
-            .collect(HashMap::new, (m, v) -> m.put(v.getKey(), v.getValue()), HashMap::putAll);
+    private void Filter(){
+        HashMap<int[], Tile> isolatedTiles = getTiles()
+        .entrySet()
+        .stream()
+        .filter(a -> GetTilesNeighborhood(a.getKey()[0], a.getKey()[1]).length == 0)
+        .collect(HashMap::new, (m, v) -> m.put(v.getKey(), v.getValue()), HashMap::putAll);
 
         for (Map.Entry<int[], Tile> kv : isolatedTiles.entrySet()) {
             tiles[kv.getKey()[0]][kv.getKey()[1]] = null;
+        }
+    }
+
+    private void Group(){
+        ArrayList<ArrayList<Tile>> islands = new ArrayList<ArrayList<Tile>>();
+        int id = 0;
+        for(int i = 0; i < size_X ; i++){
+            for(int j = 0; j < size_Y ; j++){
+                Tile tile = tiles[i][j];
+                if(tile == null || tile.GetIslandID() != -1){continue;}
+                RecursiveAddIslandId(i, j, id);
+                id++;
+            }
+        }
+    }
+
+    private void RecursiveAddIslandId(int x, int y, int id){
+        tiles[x][y].SetIslandID(id);
+        for(Directions dir : Directions.values()){
+            if(x+dir.X <0 || x+dir.X >= size_X || y+dir.Y < 0 || y+dir.Y >= size_Y ){continue;}
+            Tile neigh = tiles[x+dir.X][y+dir.Y];
+            if(neigh != null && neigh.GetIslandID() == -1){
+                RecursiveAddIslandId(x+dir.X, y+dir.Y, id);
+            }
         }
     }
 
@@ -147,7 +178,7 @@ public class Board {
      * @throws Exception if an error occurs during string conversion.
      */
     public String toString(){
-        int squareSize = 3;
+        int squareSize = 2;
         String[] lines = new String[size_Y * squareSize];
         for (int f = 0; f < size_Y * squareSize; f++) {
             lines[f] = "";
