@@ -3,20 +3,21 @@ package building;
 import java.util.HashMap;
 import java.util.Map;
 
+import board.resource.ResourceType;
+
 /**
  * Represents a Camp building in the game.
  * The Camp building enhances resource production.
  */
-public class Camp extends Building {
+public class Camp extends Building{
     
     private int warriors;
 
-    public Camp(int warriors) {
-        super(warriors, getDefaultCost());
+    public Camp(int warriors, BuildingEffectType effectType) {
+        super(warriors, BuildingEffectType.None);
         this.warriors = warriors;
     }
 
-    @Override
     public String effect() {
         return "The camp improves resource production and houses " + warriors + " warriors.";
     }
@@ -31,10 +32,11 @@ public class Camp extends Building {
         this.size = warriors;
     }
 
-    private static Map<String, Integer> getDefaultCost() {
-        Map<String, Integer> cost = new HashMap<>();
-        cost.put("Wood", 2);
-        cost.put("Ore", 3);
+    public static Map<ResourceType, Integer> getDefaultCost(){
+        //TODO: vérifier les coûts corrects pour un camp
+        Map<ResourceType, Integer> cost = new HashMap<>();
+        cost.put(ResourceType.Wood, 10);
+        cost.put(ResourceType.Ore, 5);
         return cost;
     }
 }

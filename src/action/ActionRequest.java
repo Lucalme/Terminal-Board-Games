@@ -30,8 +30,6 @@ public class ActionRequest {
     public ActionRequest(Player player, Action action) {
         this.action = action;
         ready = CheckActionPossible();
-        Class<?>[] types =  actionMap.get("Attaquer").getDeclaredConstructors()[0].getParameterTypes();
-        
     }
     
     private Boolean CheckActionPossible(){
@@ -42,6 +40,7 @@ public class ActionRequest {
             }
         }
         //TODO: Ajouter la verification des ressources, etc...
+
         return res;
     }
 
