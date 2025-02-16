@@ -1,7 +1,8 @@
-package action;
+package action.actions;
 
 import java.util.HashMap;
 
+import action.ActionBuild;
 import board.resource.ResourceType;
 import board.tile.Tile;
 import building.AresHarbour;

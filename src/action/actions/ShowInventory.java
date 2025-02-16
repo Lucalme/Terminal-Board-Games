@@ -1,7 +1,8 @@
-package action;
+package action.actions;
 
 import java.util.HashMap;
 
+import action.Action;
 import action.util.IO;
 import board.resource.ResourceType;
 import player.Player;

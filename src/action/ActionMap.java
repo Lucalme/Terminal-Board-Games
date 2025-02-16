@@ -1,6 +1,11 @@
 package action;
 import java.util.HashMap;
 
+import action.actions.ActionAttack;
+import action.actions.ActionCollect;
+import action.actions.AresBuildHarbour;
+import action.actions.ShowInventory;
+
 public enum ActionMap {
     Ares(new HashMap<>() {{
             put("Voir l'inventaire", ShowInventory.class);

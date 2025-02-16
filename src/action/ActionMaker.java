@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import Game.Game;
+import action.actions.ActionAttack;
+import action.actions.ActionCollect;
+import action.actions.ShowInventory;
 import action.util.IO;
 import ares.Ares;
 import board.tile.Tile;
