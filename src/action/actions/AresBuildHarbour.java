@@ -42,4 +42,9 @@ public class AresBuildHarbour extends ActionBuild {
         return source.toString() + " a construit un Port sur l'île n°"+islandId;
     }
 
+    public boolean CheckInstancePossible(){
+        //TODO: vérifier que la tile n'est pas déjà prise, qu'elle à un voisin de type eau, etc...
+        return true;
+    }
+
 }

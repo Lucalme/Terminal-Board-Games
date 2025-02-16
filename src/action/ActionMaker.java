@@ -7,12 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import Game.Game;
-import action.actions.ActionAttack;
-import action.actions.ActionCollect;
-import action.actions.ActionTrade;
-import action.actions.ShowInventory;
-import action.util.IO;
-import action.util.Polymorphism;
+import action.actions.*;
+import action.util.*;
 import ares.Ares;
 import board.resource.ResourceType;
 import board.tile.Tile;
@@ -76,6 +72,11 @@ public class ActionMaker {
                 ResourceType base = PromptResource(false);
                 ResourceType exchange = PromptResource(false);
                 action = new ActionTrade(player, base, exchange);
+                break;
+            case "AresBuildHarbour":
+                Tile til = PromptTile(player);
+                action = new AresBuildHarbour(player, til);
+                break;
             default :
                 System.out.println("Nom non-reconnu : "+ t.getTypeName());
         }
@@ -157,7 +158,7 @@ public class ActionMaker {
     }
         
     public ActionRequest Prompt(Player player){
-        ActionRequest res = null; // Initialize with a default value
+        ActionRequest res = null;
         Boolean done = false;
         HashMap<String, Class<? extends Action>> possibleActions = GetPossibleActions(player);
         String prompt = PromptBuilder(player, possibleActions);
@@ -168,6 +169,11 @@ public class ActionMaker {
                 Action a = ActionFromIndex(i-1, player, possibleActions);
                 if(!a.finishesTurn){
                     a.Effect();
+                    continue;
+                }
+                if(!a.CheckInstancePossible()){
+                    IO.SlowType("Vous ne pouvez pas faire ça pour l'instant....");
+                    IO.DeleteLines(1);
                     continue;
                 }
                 res = new ActionRequest(player, a);

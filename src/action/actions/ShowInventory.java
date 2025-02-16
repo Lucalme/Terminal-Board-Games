@@ -28,4 +28,7 @@ public class ShowInventory extends Action {
         return null;
     }
     
+    public boolean CheckInstancePossible(){
+        return true;
+    }
 }

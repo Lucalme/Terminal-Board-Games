@@ -16,7 +16,6 @@ public class ActionAttack extends Action {
     }
 
     public void Effect() {
-
     }
 
     public static HashMap<ResourceType, Integer>  Cost(){
@@ -28,6 +27,10 @@ public class ActionAttack extends Action {
         return false;
     }
 
+    public boolean CheckInstancePossible(){
+        //TODO: demander une tile spécifique à attaquer, vérifier qu'elle contient un batiment, etc...
+        return true;
+    }
 
     public String Description(){
         return source.toString() + " attaque " + target.toString() + "!";

@@ -61,13 +61,13 @@ public class Polymorphism{
         }catch(Exception e){
             System.out.println("UNKNOWN METHOD FOR ACTION TYPE :" + t.getTypeName());
             //e.printStackTrace();
-            for(Method method : t.getClass().getDeclaredMethods()){
-                System.out.println("Name : "+(method.getName()));
-                for(Class<?> c : method.getParameterTypes()){
-                    System.out.println("Param : "+ c.getName());
-                }
-                System.out.println("\n");
-            }
+            //for(Method method : t.getClass().getDeclaredMethods()){
+            //    System.out.println("Name : "+(method.getName()));
+            //    for(Class<?> c : method.getParameterTypes()){
+            //        System.out.println("Param : "+ c.getName());
+            //    }
+            //    System.out.println("\n");
+            //}
             return false;
         }
     }

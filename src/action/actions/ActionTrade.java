@@ -23,7 +23,7 @@ public class ActionTrade extends Action {
     @Override
     public void Effect() {
         //TODO: Verifier si le Player a un avantage d'échange
-        source.removeResource(playerResourceType, 3);
+        source.removeResource(playerResourceType, (hasResourceAdvantage ? 2 : 3 ));
         source.addResource(exchangeResourceType, 1);
     }
 
@@ -43,5 +43,10 @@ public class ActionTrade extends Action {
             }
         }
         return false;
+    }
+
+
+    public boolean CheckInstancePossible(){
+        return source.getResources().get(playerResourceType) > (hasResourceAdvantage ? 2 : 3 );
     }
 }

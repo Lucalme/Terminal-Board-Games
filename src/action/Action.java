@@ -19,6 +19,8 @@ public abstract class Action {
         this.finishesTurn = finishesTurn;
     }
 
+    public abstract boolean CheckInstancePossible();
+
     /** L'effet de l'action  */
     public abstract void Effect();
     /** La description de l'action telle qu'elle sera affichée dans la console au Runtime */

@@ -25,6 +25,10 @@ public class ActionCollect extends Action {
         return true;
     }
 
+    public boolean CheckInstancePossible(){
+        return true;
+    }
+
     public String Description(){
         return source.toString() + " ramasse "+ tile.GetResourcesPresent()+ " "+ tile.GetResourceType() + "!";
     }
