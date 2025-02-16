@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import board.resource.ResourceType;
+import player.Player;
 
 /**
  * Represents a Camp building in the game.
@@ -13,8 +14,8 @@ public class Camp extends Building{
     
     private int warriors;
 
-    public Camp(int warriors, BuildingEffectType effectType) {
-        super(warriors, BuildingEffectType.None);
+    public Camp(Player owner, int warriors, BuildingEffectType effectType) {
+        super(owner, warriors, BuildingEffectType.None);
         this.warriors = warriors;
     }
 

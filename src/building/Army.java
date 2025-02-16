@@ -1,12 +1,13 @@
 package building;
 
+import player.Player;
 
 public class Army extends Camp {
     
     private int warriors;
 
-    public Army(int warriors) {
-        super(warriors, BuildingEffectType.MultiplyResourceProduction);
+    public Army(Player owner, int warriors) {
+        super(owner, warriors, BuildingEffectType.MultiplyResourceProduction);
         this.warriors = warriors;
     }
 

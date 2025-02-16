@@ -4,19 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import board.resource.ResourceType;
+import player.Player;
 
 
-/**
- * Represents a Farm building in the game.
- * The Farm building produces basic resources for the settlement.
- */
 public class Farm extends Building {
     
-    /**
-     * Constructs a Farm building with a default size of 1.
-     */
-    public Farm() {
-        super(1, BuildingEffectType.None);
+
+    public Farm(Player owner) {
+        super(owner, 1, BuildingEffectType.None);
     }
 
     public static String Description() {

@@ -1,8 +1,10 @@
 package building;
 
+import player.Player;
+
 public class AresHarbour extends Building {
 
-    public AresHarbour(int size) {
-        super(size, BuildingEffectType.MultiplyResourceProduction);
+    public AresHarbour(Player owner, int size) {
+        super(owner, size, BuildingEffectType.MultiplyResourceProduction);
     }
 }

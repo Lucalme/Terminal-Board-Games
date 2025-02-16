@@ -1,35 +1,38 @@
 package building;
 
-/**
- * Represents an abstract Building in the game.
- * Buildings have a size and can have specific effects that are implemented in subclasses.
- * 
- * Subclasses should provide specific implementations for the effect method.
- */
+import java.util.HashMap;
+import java.util.Map;
+
+import board.resource.ResourceType;
+import player.Player;
+
 public abstract class Building {
 
-    /**
-     * The size of the building, which can represent its dimensions, capacity, or any other relevant attribute.
-     */
     protected int size;
+    public final BuildingEffectType effectType;
+    public final Player owner;
 
-    /**
-     * Constructs a Building with the specified size.
-     * 
-     * @param size the size of the building
-     * @param cost the construction cost of the building
-     */
-    public Building(int size, BuildingEffectType effectType) {
+
+    public Building(Player owner, int size, BuildingEffectType effectType) {
+        this.owner = owner;
         this.size = size;
+        this.effectType = effectType;
     }
 
-    /**
-     * Gets the size of the building.
-     * 
-     * @return the size of the building
-     */
     public int getSize() {
         return size;
+    }
+
+    public HashMap<ResourceType, Integer> ResourceEffect(HashMap<ResourceType, Integer> resources) {
+        if(effectType == BuildingEffectType.MultiplyResourceProduction){
+            HashMap<ResourceType, Integer> newResources = new HashMap<>();
+            for (Map.Entry<ResourceType, Integer> entry : resources.entrySet()) {
+                newResources.put(entry.getKey(), entry.getValue() * 2);
+            }
+            return newResources;
+        } else {
+            return resources; 
+        }
     }
    
 }
