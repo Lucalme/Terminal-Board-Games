@@ -1,6 +1,7 @@
 package action;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import board.resource.ResourceType;
@@ -21,5 +22,10 @@ public abstract class Action {
 
     public abstract String Description();
 
+    protected void PayCost(){
+        for(Map.Entry<ResourceType, Integer> entry : Cost().entrySet()){
+            source.removeResource(entry.getKey(), entry.getValue());
+        }
+    }
 }
  

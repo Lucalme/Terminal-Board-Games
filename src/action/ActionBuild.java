@@ -1,4 +1,7 @@
 package action;
+import java.util.Map;
+
+import board.resource.ResourceType;
 import board.tile.Tile;
 import building.Building;
 import player.Player;
@@ -17,9 +20,9 @@ public abstract class ActionBuild extends Action{
     }
     
     public boolean Effect(){
-       //TODO: Faire payer les resources au joueur
-       //TODO: Ajouter le bâtiment à la Tile
-       return true;
+        PayCost();
+        //TODO: Ajouter le bâtiment à la Tile (ou au board? )
+        return true;
     }
 
     public abstract boolean CheckBuildPossible();

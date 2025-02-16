@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import board.tile.Tile;
-import board.tile.TileType;
 
 
 /**
@@ -100,7 +99,6 @@ public class Board {
         int minWaterTiles = (int) (.66 * size_X * size_Y);
         int maxOtherTiles = (size_X * size_Y) - minWaterTiles;
 
-        HashMap<int[], Tile> currentTiles = new HashMap<>();
         Random rand = new Random();
         for (int i = 0; i < maxOtherTiles; i++) {
             int randX;
@@ -112,7 +110,6 @@ public class Board {
 
             Tile tile = new Tile();
             tiles[randX][randY] = tile;
-            currentTiles.put(new int[]{randX, randY}, tile);
         }
     }
 
@@ -129,7 +126,6 @@ public class Board {
     }
 
     private void Group(){
-        ArrayList<ArrayList<Tile>> islands = new ArrayList<ArrayList<Tile>>();
         int id = 0;
         for(int i = 0; i < size_X ; i++){
             for(int j = 0; j < size_Y ; j++){
