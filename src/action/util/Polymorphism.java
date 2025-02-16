@@ -57,7 +57,7 @@ public class Polymorphism{
 
     public static boolean isPossible(Class<? extends Action> t , Player player, Game game){
         try{
-            return (boolean)t.getMethod("isPossible", Player.class, Game.class).invoke(null, player , game);
+            return (boolean)t.getDeclaredMethod("isPossible", Player.class, Game.class).invoke(null, player , game);
         }catch(Exception e){
             System.out.println("UNKNOWN METHOD FOR ACTION TYPE :" + t.getTypeName());
             //e.printStackTrace();

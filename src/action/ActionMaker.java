@@ -35,24 +35,29 @@ public class ActionMaker {
         this.game = game;
     }
 
-    private String PromptBuilder(Player player){
-        String res = "Choisissez une action : ";
-        //TODO: Vérifier en amont les actions possibles pour le joueur, et renvoyer une paire <String, Action[]> ici.
-        int i = 1;
+    private HashMap<String, Class<? extends Action>> GetPossibleActions(Player player){
+        HashMap<String, Class<? extends Action>> res = new HashMap<>();
         for(Map.Entry<String, Class<? extends Action>> entry : actionMap.entrySet()){
             if(Polymorphism.isPossible(entry.getValue(), player, game)){
-                res += "\n"+ i +" -> "+ entry.getKey();
-                i++;
+                res.put(entry.getKey(), entry.getValue());
             }
         }
-
         return res;
     }
 
-    private Action ActionFromIndex(int i, Player player){
+    private String PromptBuilder(Player player, HashMap<String, Class<? extends Action>> possibleActions){
+        String res = "Choisissez une action : ";
+        int i = 1;
+        for(Map.Entry<String, Class<? extends Action>> entry : possibleActions.entrySet()){
+            res += "\n"+ i +" -> "+ entry.getKey();
+            i++;
+        }
+        return res;
+    }
+
+    private Action ActionFromIndex(int i, Player player, HashMap<String, Class<? extends Action>> possibleActions){
         Action action = null;
-        //TODO: simplifier la map et n'utiliser que des string??
-        Type t = (Type)actionMap.get(actionMap.keySet().toArray()[i]);
+        Type t = (Type)possibleActions.get(possibleActions.keySet().toArray()[i]);
         String[] array = t.getTypeName().split("\\.");
         String name = array[array.length-1];
         switch(name){
@@ -154,14 +159,15 @@ public class ActionMaker {
     public ActionRequest Prompt(Player player){
         ActionRequest res = null; // Initialize with a default value
         Boolean done = false;
-        String prompt = PromptBuilder(player);
+        HashMap<String, Class<? extends Action>> possibleActions = GetPossibleActions(player);
+        String prompt = PromptBuilder(player, possibleActions);
         IO.SlowType(prompt);
         while(!done){
             int i = IO.getInt();
-            if (i >= 1 && i <= actionMap.size()){
-                Action a = ActionFromIndex(i-1, player);
+            if (i >= 1 && i <= possibleActions.size()){
+                Action a = ActionFromIndex(i-1, player, possibleActions);
                 if(!a.finishesTurn){
-                    PreliminaryAction(a);
+                    a.Effect();
                     continue;
                 }
                 res = new ActionRequest(player, a);
@@ -175,8 +181,4 @@ public class ActionMaker {
         return res;
     }
     
-
-    private static void PreliminaryAction(Action action){
-        action.Effect();
-    }
 }

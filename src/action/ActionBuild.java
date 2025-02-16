@@ -1,4 +1,7 @@
 package action;
+import java.util.HashMap;
+
+import board.resource.ResourceType;
 import board.tile.Tile;
 import building.Building;
 import player.Player;
@@ -19,8 +22,10 @@ public abstract class ActionBuild extends Action {
     
     public void Effect(){
         PayCost();
-        //TODO: Ajouter le bâtiment à la Tile (ou au board? )
+        //TODO: Ajouter le bâtiment à la Tile (ou au board? player? )
     }
 
-
+    public static HashMap<ResourceType, Integer> Cost(){
+        return new HashMap<>();
+    }
 }

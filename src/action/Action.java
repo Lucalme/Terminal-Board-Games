@@ -29,17 +29,6 @@ public abstract class Action {
         return new HashMap<>();
     }
 
-    /** Vérifie que le player a les resources nécessaires pour l'action, peut être Override pour ajouter des conditions. */
-    public static boolean isPossible(Player player, Game game){
-        if(Cost() == null){return true;}
-        HashMap<ResourceType, Integer> playerResources = (HashMap<ResourceType, Integer>) player.getResources();
-        for(Map.Entry<ResourceType, Integer> entry : Cost().entrySet()){
-            if(playerResources.get(entry.getKey()) < entry.getValue()){
-                return false;
-            }
-        }
-        return true;
-    }
 
     /**Certaines actions sont conditionnées par des resources mais ne sont pas forcément payantes. Utiliser cette méthode génerique pour les actions payantes. */
     protected void PayCost(){

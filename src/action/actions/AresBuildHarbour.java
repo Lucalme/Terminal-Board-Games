@@ -1,6 +1,10 @@
 package action.actions;
 
 import java.util.HashMap;
+import java.util.Map;
+
+import Game.Game;
+import action.Action;
 import action.ActionBuild;
 import board.resource.ResourceType;
 import board.tile.Tile;
@@ -20,6 +24,19 @@ public class AresBuildHarbour extends ActionBuild {
             put(ResourceType.Sheep, 1);
         }};
     }
+
+    /** Vérifie que le player a les resources nécessaires pour l'action */
+    public static boolean isPossible(Player player, Game game){
+        if(Cost() == null){return true;}
+        HashMap<ResourceType, Integer> playerResources = (HashMap<ResourceType, Integer>) player.getResources();
+        for(Map.Entry<ResourceType, Integer> entry : Cost().entrySet()){
+            if(playerResources.get(entry.getKey()) < entry.getValue()){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public String Description() {
         return source.toString() + " a construit un Port sur l'île n°"+islandId;
