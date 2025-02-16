@@ -1,7 +1,6 @@
 package action.actions;
 
-import java.util.HashMap;
-
+import Game.Game;
 import action.Action;
 import action.util.IO;
 import board.resource.ResourceType;
@@ -14,16 +13,14 @@ public class ShowInventory extends Action {
     }
 
     @Override
-    public boolean Effect() {
+    public void Effect() {
         source.showResources();
         IO.Next();
         IO.DeleteLines(ResourceType.values().length +1);
-        return true;
     }
 
-    @Override
-    public HashMap<ResourceType, Integer> Cost() {
-        return null;
+    public static boolean isPossible(Player player, Game game) {
+        return true;
     }
 
     @Override

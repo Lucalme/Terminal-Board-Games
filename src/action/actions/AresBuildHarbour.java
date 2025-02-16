@@ -11,17 +11,19 @@ import player.Player;
 public class AresBuildHarbour extends ActionBuild {
 
     public AresBuildHarbour(Player source, Tile tile){
-        super(source, new AresHarbour(source, 1), tile);
+        super(source, new AresHarbour(source, 1, tile.GetIslandID()), tile);
     }
 
-    public HashMap<ResourceType, Integer> Cost() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Cost'");
+    public static HashMap<ResourceType, Integer> Cost() {
+        return new HashMap<>(){{
+            //TODO: Vérifier ces valeurs.
+            put(ResourceType.Ore, 3);
+            put(ResourceType.Sheep, 1);
+        }};
     }
 
     public String Description() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Description'");
+        return source.toString() + " a construit un Port sur l'île n°"+islandId;
     }
 
 }

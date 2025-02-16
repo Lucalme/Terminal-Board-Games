@@ -11,12 +11,13 @@ public abstract class Building {
     protected int size;
     public final BuildingEffectType effectType;
     public final Player owner;
+    public final int islandId;
 
-
-    public Building(Player owner, int size, BuildingEffectType effectType) {
+    public Building(Player owner, int size, BuildingEffectType effectType, int islandId) {
         this.owner = owner;
         this.size = size;
         this.effectType = effectType;
+        this.islandId = islandId;
     }
 
     public int getSize() {

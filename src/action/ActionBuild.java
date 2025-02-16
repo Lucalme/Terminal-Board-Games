@@ -8,17 +8,18 @@ public abstract class ActionBuild extends Action {
 
     public final Building building;
     public final Tile tile;
+    public final int islandId;
 
     public ActionBuild(Player builder, Building building, Tile tile){
         super(builder, true );
         this.building = building;
         this.tile = tile;
+        this.islandId = tile.GetIslandID();
     }
     
-    public boolean Effect(){
+    public void Effect(){
         PayCost();
         //TODO: Ajouter le bâtiment à la Tile (ou au board? )
-        return true;
     }
 
 

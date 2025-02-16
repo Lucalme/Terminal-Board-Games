@@ -6,8 +6,8 @@ public class Army extends Camp {
     
     private int warriors;
 
-    public Army(Player owner, int warriors) {
-        super(owner, warriors, BuildingEffectType.MultiplyResourceProduction);
+    public Army(Player owner, int warriors, int islandId) {
+        super(owner, warriors, BuildingEffectType.MultiplyResourceProduction, islandId);
         this.warriors = warriors;
     }
 

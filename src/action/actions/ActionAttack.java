@@ -1,6 +1,7 @@
 package action.actions;
 import java.util.HashMap;
 
+import Game.Game;
 import action.Action;
 import board.resource.ResourceType;
 import player.Player;
@@ -14,13 +15,17 @@ public class ActionAttack extends Action {
         this.target = target;
     }
 
-    public boolean Effect() {
-        return true;
+    public void Effect() {
+
     }
 
-    public HashMap<ResourceType, Integer>  Cost(){
-        //return new Cost(ResourceType.Army, 0) TODO: envisager les armées comme un type de resources
+    public static HashMap<ResourceType, Integer>  Cost(){
         return null;
+    }
+
+    public static boolean isPossible(Player player, Game game){
+        //TODO: Le player doit avoir au moins un camp? sur la même ile que l'autre joueur? 
+        return false;
     }
 
 

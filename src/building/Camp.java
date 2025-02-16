@@ -14,8 +14,8 @@ public class Camp extends Building{
     
     private int warriors;
 
-    public Camp(Player owner, int warriors, BuildingEffectType effectType) {
-        super(owner, warriors, BuildingEffectType.None);
+    public Camp(Player owner, int warriors, BuildingEffectType effectType, int islandId) {
+        super(owner, warriors, BuildingEffectType.None, islandId);
         this.warriors = warriors;
     }
 

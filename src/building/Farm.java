@@ -10,8 +10,8 @@ import player.Player;
 public class Farm extends Building {
     
 
-    public Farm(Player owner) {
-        super(owner, 1, BuildingEffectType.None);
+    public Farm(Player owner, int islandId) {
+        super(owner, 1, BuildingEffectType.None, islandId);
     }
 
     public static String Description() {

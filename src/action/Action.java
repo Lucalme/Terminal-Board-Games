@@ -2,14 +2,16 @@ package action;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ResourceBundle;
 
+import Game.Game;
 import board.resource.ResourceType;
 import player.Player;
 
 public abstract class Action {
 
+    /** Le joueur qui a émit l'action */
     public final Player source;
+    /** La plupart des action terminent le tour, mais on peut aussi avoir des actions préliminaires comme montrer l'inventaire.. */
     public final boolean finishesTurn;
 
     public Action(Player player, boolean finishesTurn) {
@@ -17,11 +19,29 @@ public abstract class Action {
         this.finishesTurn = finishesTurn;
     }
 
-    public abstract boolean Effect();
-    public abstract HashMap<ResourceType, Integer> Cost();
-
+    /** L'effet de l'action  */
+    public abstract void Effect();
+    /** La description de l'action telle qu'elle sera affichée dans la console au Runtime */
     public abstract String Description();
 
+    /** Renvoie le cout d'une action de manière statique, cette méthode doit être Override pour toutes les actions conditionnée par les resources.*/
+    public static HashMap<ResourceType, Integer> Cost(){
+        return new HashMap<>();
+    }
+
+    /** Vérifie que le player a les resources nécessaires pour l'action, peut être Override pour ajouter des conditions. */
+    public static boolean isPossible(Player player, Game game){
+        if(Cost() == null){return true;}
+        HashMap<ResourceType, Integer> playerResources = (HashMap<ResourceType, Integer>) player.getResources();
+        for(Map.Entry<ResourceType, Integer> entry : Cost().entrySet()){
+            if(playerResources.get(entry.getKey()) < entry.getValue()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**Certaines actions sont conditionnées par des resources mais ne sont pas forcément payantes. Utiliser cette méthode génerique pour les actions payantes. */
     protected void PayCost(){
         for(Map.Entry<ResourceType, Integer> entry : Cost().entrySet()){
             source.removeResource(entry.getKey(), entry.getValue());
