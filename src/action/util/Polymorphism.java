@@ -1,6 +1,12 @@
 package action.util;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
+
+import Game.Game;
+import action.Action;
+import player.Player;
 
 public class Polymorphism{
     
@@ -48,4 +54,22 @@ public class Polymorphism{
         return res;
     }
 
+
+    public static boolean isPossible(Class<? extends Action> t , Player player, Game game){
+        try{
+            return (boolean)t.getMethod("isPossible", Player.class, Game.class).invoke(null, player , game);
+        }catch(Exception e){
+            System.out.println("UNKNOWN METHOD FOR ACTION TYPE :" + t.getTypeName());
+            //e.printStackTrace();
+            for(Method method : t.getClass().getDeclaredMethods()){
+                System.out.println("Name : "+(method.getName()));
+                for(Class<?> c : method.getParameterTypes()){
+                    System.out.println("Param : "+ c.getName());
+                }
+                System.out.println("\n");
+            }
+            return false;
+        }
+    }
+    
 }

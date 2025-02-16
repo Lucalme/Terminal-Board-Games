@@ -4,20 +4,24 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Game.Game;
 import action.actions.ActionAttack;
 import action.actions.ActionCollect;
+import action.actions.ActionTrade;
 import action.actions.ShowInventory;
 import action.util.IO;
+import action.util.Polymorphism;
 import ares.Ares;
+import board.resource.ResourceType;
 import board.tile.Tile;
 import demeter.Demeter;
 import player.Player;
 
 public class ActionMaker {
 
-    private final HashMap<String, Type> actionMap;
+    private final HashMap<String, Class<? extends Action>> actionMap;
     private final Game game;
 
     public ActionMaker(Game game){
@@ -34,15 +38,14 @@ public class ActionMaker {
     private String PromptBuilder(Player player){
         String res = "Choisissez une action : ";
         //TODO: Vérifier en amont les actions possibles pour le joueur, et renvoyer une paire <String, Action[]> ici.
-
-        for(Type t : actionMap.values()){
-        }
-
         int i = 1;
-        for (String s : actionMap.keySet()){
-            res += "\n"+ i +" -> "+ s;
-            i++;
+        for(Map.Entry<String, Class<? extends Action>> entry : actionMap.entrySet()){
+            if(Polymorphism.isPossible(entry.getValue(), player, game)){
+                res += "\n"+ i +" -> "+ entry.getKey();
+                i++;
+            }
         }
+
         return res;
     }
 
@@ -64,6 +67,10 @@ public class ActionMaker {
             case "ShowInventory":
                 action = new ShowInventory(player);
                 break;
+            case "ActionTrade":
+                ResourceType base = PromptResource(false);
+                ResourceType exchange = PromptResource(false);
+                action = new ActionTrade(player, base, exchange);
             default :
                 System.out.println("Nom non-reconnu : "+ t.getTypeName());
         }
@@ -86,6 +93,29 @@ public class ActionMaker {
             IO.DeleteLines(3);
         }
         return tile;
+    }
+
+    /** @param returnAll pour récupérer tous les types de resources, même celle non-échangeables. */
+    private ResourceType PromptResource(boolean returnAll){
+        int i = 1;
+        for(ResourceType res : ResourceType.values()){
+            if(!returnAll && !res.isTradable){continue;}
+            IO.SlowType(i + " -> "+ res.toString());
+            i++;
+        }
+        boolean done = false;
+        int choice = -1;
+        while(!done){
+            choice = IO.getInt();
+            if(choice -1 < ResourceType.values().length && choice >= 1){
+                done  = true;
+                break;
+            }
+            IO.SlowType("Choix invalide, veuillez rééssayer....");
+            IO.DeleteLines(1);
+        }   
+        IO.DeleteLines(ResourceType.values().length);
+        return ResourceType.values()[choice -1];
     }
 
     private Player PromptTarget(Player player){

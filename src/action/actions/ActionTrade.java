@@ -38,7 +38,7 @@ public class ActionTrade extends Action {
     public static boolean isPossible(Player player, Game game){
         for(Map.Entry<ResourceType, Integer> entry : player.getResources().entrySet()){
             //TODO: Verifier si le Player a un avantage d'échange
-            if(entry.getValue() >  3 ){
+            if(entry.getValue() > 3 && entry.getKey().isTradable){
                 return true;
             }
         }
