@@ -1,9 +1,7 @@
 package Game;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
-import action.Action;
+import action.ActionMaker;
 import action.ActionRequest;
 import action.util.IO;
 import board.Board;
@@ -15,32 +13,15 @@ import player.Player;
  * It provides methods to start the game, handle the game loop, and manage player actions and events.
  */
 public abstract class Game {
-    /**
-     * List of players participating in the game.
-     */
+
     public final List<Player> players;
-
-    /**
-     * The game board.
-     */
     public final Board board;
-
-    /**
-     * History of actions taken during the game.
-     */
+    
     protected List<String> history;
-
     protected List<ActionRequest> pendingActions = new ArrayList<ActionRequest>();
-
-    /**
-     * The current turn number.
-     */
     protected int currentTurn;
+    protected ActionMaker ActionMaker;
 
-    /**
-     * Scanner for reading player input.
-     */
-    protected Scanner scanner;
 
     /**
      * Constructs a new Game with the specified list of players.
@@ -106,7 +87,7 @@ public abstract class Game {
         board.UpdateAllTiles();
         for(Player p : players){
             IO.SlowType("C'est au tour de "+ p.toString());
-            ActionRequest r = ActionRequest.Prompt(p, this);
+            ActionRequest r = ActionMaker.Prompt(p);
             pendingActions.add(r);
             IO.DeleteLines(1);
         }

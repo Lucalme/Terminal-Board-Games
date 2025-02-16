@@ -1,17 +1,13 @@
 package action;
-import java.util.Map;
-
-import board.resource.ResourceType;
 import board.tile.Tile;
 import building.Building;
 import player.Player;
 
-public abstract class ActionBuild extends Action{
+public abstract class ActionBuild extends Action {
 //TODO: hériter de cette classe pour les différents types de bâtiments
 
     public final Building building;
     public final Tile tile;
-
 
     public ActionBuild(Player builder, Building building, Tile tile){
         super(builder, true );
@@ -25,5 +21,5 @@ public abstract class ActionBuild extends Action{
         return true;
     }
 
-    public abstract boolean CheckBuildPossible();
+
 }

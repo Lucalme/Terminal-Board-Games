@@ -13,6 +13,7 @@ public class ActionMain{
             {add(player);}
         };
         Game game = new Ares(1);
-        ActionRequest request = ActionRequest.Prompt(player, game);
+        ActionMaker actionMaker = new ActionMaker(game);
+        ActionRequest request = actionMaker.Prompt(player);
     }
 }

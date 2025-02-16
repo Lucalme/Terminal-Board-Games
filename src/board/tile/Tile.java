@@ -1,4 +1,5 @@
 package board.tile;
+import board.Position;
 import board.resource.*;
 //import java.util.HashMap;
 import java.util.Random;
@@ -9,7 +10,7 @@ public class Tile {
     private TileType type;
     private int resourcesPresent;
     private ResourceType resourceType;
-
+    public final Position position;
     private int island = -1;
 
 
@@ -17,36 +18,31 @@ public class Tile {
      * Constructeur par défaut de la classe Tile
      * Crée une Tile de type aléatoire.
      */
-    public Tile(){
+    public Tile(Position position){
         int alea = new Random().nextInt( TileType.values().length );
-
+        this.position = position;
         type = TileType.values()[alea];
         this.resourcesPresent = 0;
         MatchResources(type);
-    }
-    
-    public void UpdateTile(){
-        resourcesPresent++;
     }
 
 
     /**
      * Crée une Tile avec le type et les resources initiales fournies
+     * @param position
      * @param type
      * @param initialResources
      */
-    public Tile(TileType type, int initialResources){
+    public Tile(Position position, TileType type, int initialResources){
+        this.position = position;
         this.type = type;
         this.resourcesPresent = initialResources;
         MatchResources(type);
     }
 
-    /**
-     * Crée une Tile du type fourni
-     * @param type
-     */
-    public Tile(TileType type){
+    public Tile(Position position, TileType type){
         this.type = type;
+        this.position = position;
         MatchResources(type);
     }
 
@@ -71,6 +67,9 @@ public class Tile {
         return resourceType;
     }
 
+    public void UpdateTile(){
+        resourcesPresent++;
+    }
 
     public int GetResourcesPresent(){
         return resourcesPresent;
@@ -83,6 +82,11 @@ public class Tile {
     public TileType GetTileType(){
         return type;
     }
+
+    public void ClearResources(){
+        this.resourcesPresent = 0;
+    }
+
 
 
     @Override
@@ -117,9 +121,6 @@ public class Tile {
         }
     }
     
-    public void ClearResources(){
-        this.resourcesPresent = 0;
-    }
 
 
     public int GetIslandID(){

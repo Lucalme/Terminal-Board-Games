@@ -15,6 +15,8 @@ public class ShowInventory extends Action {
     @Override
     public boolean Effect() {
         source.showResources();
+        IO.Next();
+        IO.DeleteLines(ResourceType.values().length +1);
         return true;
     }
 

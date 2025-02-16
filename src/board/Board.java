@@ -15,28 +15,14 @@ public class Board {
     private Tile[][] tiles;
     private int size_X = 7;
     private int size_Y = 7;
-    /**
-     * Returns the size of the board along the X-axis.
-     * 
-     * @return the size of the board along the X-axis.
-     */
+    
     public int SizeX() {
         return size_X;
     }
-
-    /**
-     * Returns the size of the board along the Y-axis.
-     * 
-     * @return the size of the board along the Y-axis.
-     */
     public int SizeY() {
         return size_Y;
     }
 
-    /**
-     * Default constructor for the Board class.
-     * Initializes the board with default size.
-     */
     public Board() {
         InitTiles();
     }
@@ -108,7 +94,7 @@ public class Board {
                 randY = rand.nextInt(size_Y);
             } while (tiles[randX][randY] != null);
 
-            Tile tile = new Tile();
+            Tile tile = new Tile(new Position(randX, randY));
             tiles[randX][randY] = tile;
         }
     }
@@ -207,5 +193,6 @@ public class Board {
             }
         }
     }
+
 }
 
