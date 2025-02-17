@@ -52,17 +52,17 @@ public class AresBuildArmy extends ActionBuild{
 
     @Override
     public void Effect(){
-        if(building instanceof Army){
-            source.removeResource(ResourceType.Wood, 1);
-            source.removeResource(ResourceType.Sheep, 1);
-            source.removeResource(ResourceType.Wheat, 1);
-        }
         if(building instanceof Camp){
             source.removeResource(ResourceType.Wood, 3);
             source.removeResource(ResourceType.Sheep, 1);
             source.removeResource(ResourceType.Wheat, 1);
             source.removeResource(ResourceType.Ore, 3);
+        }else{
+            source.removeResource(ResourceType.Wood, 1);
+            source.removeResource(ResourceType.Sheep, 1);
+            source.removeResource(ResourceType.Wheat, 1);
         }
+
         tile.SetBuilding(building);
     }
 
