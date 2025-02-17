@@ -85,7 +85,7 @@ public class ActionMaker {
                 action = new AresBuildArmy(player, ti, nbOfWarriors);
                 break;
             default :
-                System.out.println("Nom non-reconnu : "+ t.getTypeName());
+                throw new RuntimeException("ActionMaker!Nom non-reconnu : "+ t.getTypeName());
         }
         return action;
     }
