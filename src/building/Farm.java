@@ -25,4 +25,7 @@ public class Farm extends Building {
         return cost;
     }
 
+    public String toString(){
+        return "🌱";
+    }
 }

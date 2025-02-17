@@ -188,7 +188,7 @@ public class Board {
     private int islandCount = 0;
 
     private String TileSpace(Tile tile, boolean isLast, boolean isBuilding){
-        String space = (isBuilding && tile.GetBuilding() != null)? "🏦" : "  ";
+        String space = (isBuilding && tile.GetBuilding() != null)? tile.GetBuilding().toString() : "  ";
         if(tile != null && tile.GetIslandID() == islandCount){
             space = "\033[0;94m"+(tile.GetIslandID() < 10?  tile.GetIslandID()+" " : ""+tile.GetIslandID())+"\033[0m";
             islandCount++;

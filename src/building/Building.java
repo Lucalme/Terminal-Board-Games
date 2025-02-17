@@ -35,5 +35,7 @@ public abstract class Building {
             return resources; 
         }
     }
+
+    public abstract String toString();
    
 }

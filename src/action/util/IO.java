@@ -14,31 +14,25 @@ public class IO {
     
     public static int getInt() {
         Scanner scanner = new Scanner(System.in);
-        boolean ntry = false;
         while (true) {  // Keep prompting until valid input is received
-            if(ntry){
-                DeleteLines(1);
-            }
             System.out.print("Votre choix : ");
             if (scanner.hasNextInt()) {
                 int input = scanner.nextInt();
-                scanner.nextLine();
                 DeleteLines(1);
                 return input;
             } else {
-                ntry = true;
                 scanner.next();
                 SlowType("Veuillez entrer un nombre valide...");
-                DeleteLines(1);
+                DeleteLines(2);
             }
         }
     }
 
     public static void Next(){
-        System.out.print("Appuyez sur Entrée pour continuer...");
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Appuyez sur Entrée pour continuer");
         scanner.nextLine();
-        DeleteLines(1);
+        DeleteLines(2);
     }
 
 

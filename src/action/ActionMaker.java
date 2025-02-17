@@ -83,10 +83,10 @@ public class ActionMaker {
                 Tile ti = PromptTile(player);
                 int nbOfWarriors = PromptWarriors(player);
                 action = new AresBuildArmy(player, ti, nbOfWarriors);
+                break;
             default :
                 System.out.println("Nom non-reconnu : "+ t.getTypeName());
         }
-        IO.DeleteLines(1);
         return action;
     }
 

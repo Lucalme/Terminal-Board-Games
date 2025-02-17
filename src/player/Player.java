@@ -36,6 +36,14 @@ public class Player
         }
     }
 
+    public String ResourcesString(){
+        String res = "Your resources: ";
+        for (Map.Entry<ResourceType, Integer> entry : resources.entrySet()) {
+            res += "\n- " + entry.getKey() + ": " + entry.getValue();
+        }
+        return res;
+    }
+
     public Map<ResourceType, Integer> getResources() {
         return resources;
     }        

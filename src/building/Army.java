@@ -14,4 +14,8 @@ public class Army extends Building {
     public String effect() {
         return "The army with " + warriors + " warriors is ready for battle.";
     }
+
+    public String toString(){
+        return "⛺";
+    }
 }

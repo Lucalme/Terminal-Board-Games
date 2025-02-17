@@ -14,9 +14,9 @@ public class ShowInventory extends Action {
 
     @Override
     public void Effect() {
-        source.showResources();
+        IO.SlowType(source.ResourcesString());
         IO.Next();
-        IO.DeleteLines(ResourceType.values().length +1);
+        IO.DeleteLines(ResourceType.values().length + 1);
     }
 
     public static boolean isPossible(Player player, Game game) {
