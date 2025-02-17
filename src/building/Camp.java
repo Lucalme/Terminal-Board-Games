@@ -10,12 +10,12 @@ import player.Player;
  * Represents a Camp building in the game.
  * The Camp building enhances resource production.
  */
-public class Camp extends Building{
+public class Camp extends Army{
     
     private int warriors;
 
-    public Camp(Player owner, int warriors, BuildingEffectType effectType, int islandId) {
-        super(owner, warriors, BuildingEffectType.None, islandId);
+    public Camp(Player owner, int warriors, int islandId) {
+        super(owner, warriors, BuildingEffectType.MultiplyResourceProduction, islandId);
         this.warriors = warriors;
     }
 

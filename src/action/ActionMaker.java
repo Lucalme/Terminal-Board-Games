@@ -79,9 +79,14 @@ public class ActionMaker {
                 Tile til = PromptTile(player);
                 action = new AresBuildHarbour(player, til);
                 break;
+            case "AresBuildArmy":
+                Tile ti = PromptTile(player);
+                int nbOfWarriors = PromptWarriors(player);
+                action = new AresBuildArmy(player, ti, nbOfWarriors);
             default :
                 System.out.println("Nom non-reconnu : "+ t.getTypeName());
         }
+        IO.DeleteLines(1);
         return action;
     }
 
@@ -148,6 +153,22 @@ public class ActionMaker {
         return target;
     }
 
+    private int PromptWarriors(Player player){
+        int max = player.getResources().get(ResourceType.Warriors);
+        IO.SlowType("Combien de guerriers souhaitez vous placer? (min:1 ; max:"+max+")");
+        boolean done = false;
+        int res = -1;
+        while (!done) {
+            res = IO.getInt();
+            if(res < 1 || res > max){
+                IO.SlowType("Choix invalide, veuillez rééssayer....");
+                IO.DeleteLines(1);
+            }else{
+                done = true;
+            }
+        }
+        return res;
+    }
 
     private List<Player> Targetables(Player player){
         List<Player> others = new ArrayList<>();

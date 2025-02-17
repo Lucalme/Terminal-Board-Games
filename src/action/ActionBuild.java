@@ -1,5 +1,6 @@
 package action;
 import java.util.HashMap;
+import java.util.Map;
 
 import Game.Game;
 import board.Directions;
@@ -30,6 +31,16 @@ public abstract class ActionBuild extends Action {
 
     public static HashMap<ResourceType, Integer> Cost(){
         return new HashMap<>();
+    }
+
+    protected static boolean PlayerCanAfford(Player player, HashMap<ResourceType, Integer> cost){
+        Map<ResourceType, Integer>playerResource = player.getResources();
+        for(Map.Entry<ResourceType, Integer> entry : cost.entrySet()){
+            if(playerResource.get(entry.getKey()) < entry.getValue()){
+                return false;
+            } 
+        }
+        return true;
     }
 
 
