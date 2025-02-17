@@ -7,12 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import Game.Game;
+import ares.Ares;
+import demeter.Demeter;
+
 import action.actions.*;
 import action.util.*;
-import ares.Ares;
+
 import board.resource.ResourceType;
 import board.tile.Tile;
-import demeter.Demeter;
 import player.Player;
 
 public class ActionMaker {

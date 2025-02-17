@@ -109,7 +109,7 @@ public class Tile {
     public String ToConsoleMode(){
         switch (type) {
             case Mountains:
-                return "🔳";
+                return "⬛";
             case Forest:
                 return "🟩";
             case Fields:
@@ -119,6 +119,29 @@ public class Tile {
             default:
                 return "🟦";
         }
+    }
+
+    public String ToBackground(){
+        String space = island > 9? ""+island : " "+island;
+        String reset = "\u001B[0m";
+        String res;
+        switch(type){
+            case Mountains:
+                res = "\u001B[47m";
+                break;
+            case Forest:
+                res = "\u001B[42m";
+                break;
+            case Fields: 
+                res = "\u001B[43m";
+                break;
+            case Pastures:
+                res = "\u001B[41m";
+                break;
+            default:
+                res = "\u001B[44m";
+        }
+        return res + space + reset;
     }
     
 

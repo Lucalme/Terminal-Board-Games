@@ -160,7 +160,7 @@ public class Board {
      * @throws Exception if an error occurs during string conversion.
      */
     public String toString(){
-        int squareSize = 2;
+        int squareSize = 1;
         String[] lines = new String[size_Y * squareSize];
         for (int f = 0; f < size_Y * squareSize; f++) {
             lines[f] = "";
@@ -168,7 +168,9 @@ public class Board {
         String water = "🟦";
         for (int i = 0; i < size_X; i++) {
             for (int j = 0; j < size_Y; j++) {
-                String tileType = tiles[i][j] == null ? water : tiles[i][j].ToConsoleMode();
+                //String tileType = tiles[i][j] == null ? water : "\u001B[41m"+ (tiles[i][j].GetIslandID() %10)+"\uFE0F\u20E3" +" " + "\u001B[0m";
+                //String tileType = tiles[i][j] == null ? water :  tiles[i][j].ToConsoleMode() ;  
+                String tileType = tiles[i][j] == null ? "\u001B[44m  \u001B[0m" : tiles[i][j].ToBackground();
                 for (int k = 0; k < squareSize; k++) {
                     String str = "";
                     for (int l = 0; l < squareSize; l++) {
@@ -180,6 +182,8 @@ public class Board {
         }
         return String.join("\n", lines);
     }
+
+
 
     /**
      * Updates all tiles on the board.
