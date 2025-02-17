@@ -25,7 +25,7 @@ public class ActionCollect extends Action {
         return true;
     }
 
-    public boolean CheckInstancePossible(){
+    public boolean CheckInstancePossible(Player player, Game game){
         return true;
     }
 

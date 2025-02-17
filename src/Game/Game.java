@@ -49,6 +49,7 @@ public abstract class Game {
      * Starts the game and initializes the game loop.
      */
     public void StartGame() {
+        System.out.print("\033\143");
         gameLoop();
     }
 
@@ -73,6 +74,7 @@ public abstract class Game {
             }
             IO.DeleteLines(count);
             pendingActions = updated;
+            board.UpdateAllTiles();
             String str = board.toString();
             System.out.println(str);
             linesToErase = str.split("\\n").length +1;
@@ -84,7 +86,6 @@ public abstract class Game {
      * Advances to the next turn.
      */
     public void nextTurn() {
-        board.UpdateAllTiles();
         for(Player p : players){
             IO.SlowType("C'est au tour de "+ p.toString());
             ActionRequest r = ActionMaker.Prompt(p);

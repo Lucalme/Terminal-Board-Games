@@ -173,7 +173,7 @@ public class ActionMaker {
                     a.Effect();
                     continue;
                 }
-                if(!a.CheckInstancePossible()){
+                if(!a.CheckInstancePossible(player, game)){
                     IO.SlowType("Vous ne pouvez pas faire ça pour l'instant....");
                     IO.DeleteLines(1);
                     continue;

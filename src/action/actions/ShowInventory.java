@@ -28,7 +28,7 @@ public class ShowInventory extends Action {
         return null;
     }
     
-    public boolean CheckInstancePossible(){
+    public boolean CheckInstancePossible(Player player, Game game){
         return true;
     }
 }

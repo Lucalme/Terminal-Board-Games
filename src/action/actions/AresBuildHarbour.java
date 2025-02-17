@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Game.Game;
-import action.Action;
 import action.ActionBuild;
 import board.resource.ResourceType;
 import board.tile.Tile;
@@ -27,7 +26,7 @@ public class AresBuildHarbour extends ActionBuild {
 
     /** Vérifie que le player a les resources nécessaires pour l'action */
     public static boolean isPossible(Player player, Game game){
-        if(Cost() == null){return true;}
+        //TODO: vérifier s'il y a d'autres conditions. nécessite d'autres buildings?
         HashMap<ResourceType, Integer> playerResources = (HashMap<ResourceType, Integer>) player.getResources();
         for(Map.Entry<ResourceType, Integer> entry : Cost().entrySet()){
             if(playerResources.get(entry.getKey()) < entry.getValue()){
@@ -42,9 +41,8 @@ public class AresBuildHarbour extends ActionBuild {
         return source.toString() + " a construit un Port sur l'île n°"+islandId;
     }
 
-    public boolean CheckInstancePossible(){
-        //TODO: vérifier que la tile n'est pas déjà prise, qu'elle à un voisin de type eau, etc...
-        return true;
+    public boolean CheckInstancePossible(Player player, Game game){
+        return TileIsEmpty(tile) && TileHasWaterNeighbour(tile, player, game);
     }
 
 }

@@ -46,7 +46,7 @@ public class ActionTrade extends Action {
     }
 
 
-    public boolean CheckInstancePossible(){
+    public boolean CheckInstancePossible(Player player , Game game){
         return source.getResources().get(playerResourceType) > (hasResourceAdvantage ? 2 : 3 );
     }
 }

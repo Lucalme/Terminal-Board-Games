@@ -160,21 +160,23 @@ public class Board {
      * @throws Exception if an error occurs during string conversion.
      */
     public String toString(){
-        int squareSize = 1;
+        islandCount = 0;
+        int squareSize = 2;
         String[] lines = new String[size_Y * squareSize];
         for (int f = 0; f < size_Y * squareSize; f++) {
             lines[f] = "";
         }
-        String water = "🟦";
+        String reset = "\u001B[0m";
         for (int i = 0; i < size_X; i++) {
             for (int j = 0; j < size_Y; j++) {
                 //String tileType = tiles[i][j] == null ? water : "\u001B[41m"+ (tiles[i][j].GetIslandID() %10)+"\uFE0F\u20E3" +" " + "\u001B[0m";
-                //String tileType = tiles[i][j] == null ? water :  tiles[i][j].ToConsoleMode() ;  
-                String tileType = tiles[i][j] == null ? "\u001B[44m  \u001B[0m" : tiles[i][j].ToBackground();
+                //String tileType = tiles[i][j] == null ? water :  tiles[i][j].ToConsoleMode() ; 
+                Tile tile = tiles[i][j];
+                //String tileType = tile == null ? "\u001B[44m  \u001B[0m" : tile.ToBackground()+ space + reset;
                 for (int k = 0; k < squareSize; k++) {
                     String str = "";
                     for (int l = 0; l < squareSize; l++) {
-                        str += tileType;
+                        str += tile == null ? "\u001B[44m  \u001B[0m" : tile.ToBackground()+ TileSpace(tile, (k ==squareSize -1 && l == squareSize -1), (k == 0 && l == squareSize -1)) + reset;
                     }
                     lines[j * squareSize + k] += str;
                 }
@@ -183,7 +185,19 @@ public class Board {
         return String.join("\n", lines);
     }
 
+    private int islandCount = 0;
 
+    private String TileSpace(Tile tile, boolean isLast, boolean isBuilding){
+        String space = (isBuilding && tile.GetBuilding() != null)? "🏦" : "  ";
+        if(tile != null && tile.GetIslandID() == islandCount){
+            space = "\033[0;94m"+(tile.GetIslandID() < 10?  tile.GetIslandID()+" " : ""+tile.GetIslandID())+"\033[0m";
+            islandCount++;
+        }
+        if(tile != null && isLast){
+            space = tile.GetResourcesPresent() <10 ? " "+tile.GetResourcesPresent() : ""+tile.GetResourcesPresent();
+        }
+        return space;
+    }
 
     /**
      * Updates all tiles on the board.

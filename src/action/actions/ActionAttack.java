@@ -27,7 +27,7 @@ public class ActionAttack extends Action {
         return false;
     }
 
-    public boolean CheckInstancePossible(){
+    public boolean CheckInstancePossible(Player player, Game game){
         //TODO: demander une tile spécifique à attaquer, vérifier qu'elle contient un batiment, etc...
         return true;
     }

@@ -19,7 +19,7 @@ public abstract class Action {
         this.finishesTurn = finishesTurn;
     }
 
-    public abstract boolean CheckInstancePossible();
+    public abstract boolean CheckInstancePossible(Player player, Game game);
 
     /** L'effet de l'action  */
     public abstract void Effect();

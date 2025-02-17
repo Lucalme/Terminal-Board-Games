@@ -1,7 +1,8 @@
 package board.tile;
 import board.Position;
 import board.resource.*;
-//import java.util.HashMap;
+import building.Building;
+
 import java.util.Random;
 
 
@@ -12,6 +13,7 @@ public class Tile {
     private ResourceType resourceType;
     public final Position position;
     private int island = -1;
+    private Building building = null;
 
 
     /**
@@ -122,8 +124,7 @@ public class Tile {
     }
 
     public String ToBackground(){
-        String space = island > 9? ""+island : " "+island;
-        String reset = "\u001B[0m";
+
         String res;
         switch(type){
             case Mountains:
@@ -141,7 +142,7 @@ public class Tile {
             default:
                 res = "\u001B[44m";
         }
-        return res + space + reset;
+        return res ;
     }
     
 
@@ -152,5 +153,13 @@ public class Tile {
 
     public void SetIslandID(int id){
         island = id;
+    }
+
+    public Building GetBuilding(){
+        return building;
+    }
+
+    public void SetBuilding(Building building){
+        this.building = building;
     }
 }
