@@ -26,7 +26,7 @@ public class ActionCollect extends Action {
     }
 
     public boolean CheckInstancePossible(Player player, Game game){
-        return true;
+        return tile.GetBuilding() == null || tile.GetBuilding().owner == player;
     }
 
     public String Description(){

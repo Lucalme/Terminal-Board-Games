@@ -1,5 +1,4 @@
 package action;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 
 import action.actions.ActionAttack;
@@ -13,7 +12,7 @@ public enum ActionMap {
     Ares(new HashMap<String, Class<? extends Action>>() {{
             put("Voir l'inventaire", ShowInventory.class);
             put("Echanger des resources", ActionTrade.class);
-            put("Construire une armée ou un camp", AresBuildArmy.class);
+            put("Construire une Armée ou un Camp", AresBuildArmy.class);
             put("Collecter des ressources", ActionCollect.class);
             put("Construire un Port", AresBuildHarbour.class);
             put("Attaquer", ActionAttack.class);
