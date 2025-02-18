@@ -1,19 +1,18 @@
 package ares;
+import Game.GUIActionMaker;
 import Game.GUIGame;
 import Game.Game;
 
-public class GUIAres extends Ares{
-    
+public class GUIAres extends GUIGame{
+
     public GUIAres(int nbOfPlayer) {
-        super(nbOfPlayer);
+        super(nbOfPlayer, "Ares", new int[]{800, 600});
+        actionMaker = new GUIActionMaker(this);
+        StartGame();
     }
 
-    @Override
-    public void StartGame(){
-        
-    }
-    
+
     public static void main(String[] args){
-        Game game = new GUIGame(2, "Ares", new int[]{800, 600});
+        Game game = new GUIAres(2);
     }
 }

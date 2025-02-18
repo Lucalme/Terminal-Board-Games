@@ -1,9 +1,6 @@
 package ares;
 
-import java.util.List;
-
 import Game.Game;
-import player.Player;
 import action.ActionMaker;
 
 public class Ares extends Game{

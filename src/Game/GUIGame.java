@@ -7,34 +7,44 @@ import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
 import javax.swing.JPanel;
 
-
+import action.ActionRequest;
 import board.tile.Tile;
+import player.Player;
 
 
-public class GUIGame extends Game {
+public abstract class GUIGame extends Game {
 
     public final GUI gui;
+    protected GUIActionMaker actionMaker;
+    protected int currentPlayerIndex = 0;
 
     public GUIGame(int nbOfPlayer, String name, int[] WindowSize) {
-        super(nbOfPlayer, 141, 141); //TODO: Transmettre la taille du board en paramètre
+        super(nbOfPlayer, 29, 16); //TODO: Transmettre la taille du board en paramètre
         //int[] screenSize = {Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height};
-        gui = new GUI(name, WindowSize, 141, 141);
+        gui = new GUI(name, WindowSize);
+        gui.Console.Print("Bienvenue dans "+ name);
+        gui.Console.Print("Nombre de joueurs : "+ nbOfPlayer);
+    }
+
+    /** La méthode StartGame(GUI) doit être appelée explicitement par un joueur */
+    public void StartGame(){
+        board.UpdateAllTiles();
         DrawBoard();
-        StartGame();
+        gui.playerPanel.Update(players.get(currentPlayerIndex));
     }
 
-    @Override
-    protected void gameLoop(){
-        gui.Console.Print("Bienvenue dans Ares !");
+    public void HandleActionRequest(ActionRequest request){
+        Player player = players.get(currentPlayerIndex);
+        if(request == null || !request.action.CheckInstancePossible(player, this)){
+            gui.Console.Print("Action impossible, Veuillez réessayer....");
+            return;
+        }
+        request.action.Effect();
+        gui.Console.Print(request.action.Description());
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     }
-    
 
-    private void DrawBoard(){
-        //gui.Body.add(new Button("OK"));
-        //int tileSizeX = (int)gui.GameView.getPreferredSize().getWidth() / board.SizeX();
-        //int tileSizeY = (int)gui.GameView.getPreferredSize().getHeight() / board.SizeY();
-        System.out.println("Preferred GameView Size : " + gui.GameView.getPreferredSize());
-        System.out.println("GameView Size : " + gui.GameView.getSize());
+    protected void DrawBoard(){
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 1;
@@ -96,13 +106,4 @@ public class GUIGame extends Game {
         }
         c.validate();
     }
-}
-
-
-class TileAdapter extends MouseAdapter{
-
-
-    //private setTileInfo(){
-//
-    //}
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import Game.Game;
 import ares.Ares;
+import ares.GUIAres;
 import demeter.Demeter;
 
 import action.actions.*;
@@ -19,21 +20,21 @@ import player.Player;
 
 public class ActionMaker {
 
-    private final HashMap<String, Class<? extends Action>> actionMap;
-    private final Game game;
+    protected final HashMap<String, Class<? extends Action>> actionMap;
+    protected final Game game;
 
     public ActionMaker(Game game){
-        if(game instanceof Ares){
+        if(game instanceof Ares || game instanceof GUIAres){
             actionMap = ActionMap.Ares.actionMap;
         }else if(game instanceof Demeter){
             actionMap = ActionMap.Demeter.actionMap;
         }else{
-            actionMap = null;
+            throw new RuntimeException("ActionMaker!Type de jeu non-reconnu : "+ game.getClass().getName());
         }
         this.game = game;
     }
 
-    private HashMap<String, Class<? extends Action>> GetPossibleActions(Player player){
+    protected HashMap<String, Class<? extends Action>> GetPossibleActions(Player player){
         HashMap<String, Class<? extends Action>> res = new HashMap<>();
         for(Map.Entry<String, Class<? extends Action>> entry : actionMap.entrySet()){
             if(Polymorphism.isPossible(entry.getValue(), player, game)){
@@ -170,7 +171,7 @@ public class ActionMaker {
         return res;
     }
 
-    private List<Player> Targetables(Player player){
+    protected List<Player> Targetables(Player player){
         List<Player> others = new ArrayList<>();
         for(Player p : game.GetPlayers()){
             if(p != player){
