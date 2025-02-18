@@ -6,6 +6,9 @@ import board.tile.Tile;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.*;
@@ -40,7 +43,7 @@ public class GUI extends JFrame{
         //System.out.println("Body Size :" + Body.getSize());
         //System.out.println("Body Preferred Size :" + Body.getPreferredSize());
         //Body.setBounds(getBounds());
-        Body.setBackground(Color.gray);
+        Body.setBackground(Color.BLACK);
 
 
         GameView = new JPanel();
@@ -61,7 +64,7 @@ public class GUI extends JFrame{
 
         TilePicker = new TilePicker();
         SidePanel.add(TilePicker);
-        TilePicker.setBackground(Color.CYAN);
+        TilePicker.setBackground(Color.lightGray);
 
         validate();
     }
@@ -72,36 +75,61 @@ class TilePicker extends JPanel{
 
     private boolean hasSelection = false;
     private Tile tile;
+    private GridBagConstraints c;
 
     public TilePicker(){
-        setLayout(new GridLayout(5, 0));
+        setLayout(new GridBagLayout());
+        c = new GridBagConstraints();
     }
     
     public void setTileInfo(Tile tile){
-        if((hasSelection && tile != this.tile) || tile == null){removeAll();return;}
+        if((hasSelection && tile != this.tile) || tile == null){return;}
         removeAll();
-        AddCloseButton(tile);
-        JLabel nameLabel = new JLabel(tile.GetTileType() +" : île n°" + tile.GetIslandID());
-        JLabel positionLabel = new JLabel("Position : (x:"+tile.position.x +";y:"+tile.position.y+")");
-        JLabel resourceLabel = new JLabel(tile.GetResourceType() +":"+ tile.GetResourcesPresent());
-        add(nameLabel);
-        add(positionLabel);
-        add(resourceLabel);
+        //TOP BAR
+        c.anchor = GridBagConstraints.PAGE_START;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weightx = 0.8;
+        c.weighty = 1;
+        c.ipady = 10;
+        JLabel title = new JLabel(tile.GetTileType() +" : île n°" + tile.GetIslandID());
+        title.setBackground(Color.darkGray); 
+        title.setOpaque(true);
+        title.setForeground(Color.white);
+        add(title,c);
+        c.gridx = 1;
+        c.weightx = 0.2;
+        JLabel closeButton = new JLabel("X");
+        closeButton.setBackground(Color.red);
+        closeButton.setOpaque(true);
+        add(closeButton,c);
+        closeButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e){
+                hasSelection = false;
+                removeAll();
+                repaint();
+            }
+        });
+
+        //Content
+        c.anchor = GridBagConstraints.PAGE_START;
+        c.fill = GridBagConstraints.VERTICAL;
+        c.ipady = 0;
+        c.gridx = 0;
+        c.gridy = 1;
+        add(new JLabel("Position : (x:"+tile.position.x +";y:"+tile.position.y+")"),c);
+        c.gridy =2;
+        add(new JLabel(tile.GetResourceType() +":"+ tile.GetResourcesPresent()),c);
         //resourceLabel.setBounds(getBounds());
         validate();
+        repaint();
     }
 
     public void setSelection(Tile tile){
         this.hasSelection = true;
         this.tile = tile;
         setTileInfo(tile);
-    }
-
-    private void AddCloseButton(Tile tile){
-        Button closeButton = new Button("X");
-        closeButton.setBackground(Color.red);
-        add(closeButton);
-        closeButton.setBounds(0,0, 100, 100);
-        closeButton.validate();
     }
 }
