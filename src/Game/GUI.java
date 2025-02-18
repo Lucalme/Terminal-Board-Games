@@ -78,7 +78,7 @@ class TilePicker extends JPanel{
     }
     
     public void setTileInfo(Tile tile){
-        if((hasSelection && tile != this.tile) || tile == null){return;}
+        if((hasSelection && tile != this.tile) || tile == null){removeAll();return;}
         removeAll();
         AddCloseButton(tile);
         JLabel nameLabel = new JLabel(tile.GetTileType() +" : île n°" + tile.GetIslandID());
@@ -100,9 +100,8 @@ class TilePicker extends JPanel{
     private void AddCloseButton(Tile tile){
         Button closeButton = new Button("X");
         closeButton.setBackground(Color.red);
-        
         add(closeButton);
-        closeButton.setSize();
+        closeButton.setBounds(0,0, 100, 100);
         closeButton.validate();
     }
 }
