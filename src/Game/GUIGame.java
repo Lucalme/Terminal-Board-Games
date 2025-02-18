@@ -1,19 +1,16 @@
 package Game;
 
-import java.awt.Button;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.Random;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.text.Style;
+import javax.swing.JLabel;
 
-import Game.GUIUtils.TileAdapter;
 import board.tile.Tile;
 
 public class GUIGame extends Game {
@@ -29,26 +26,67 @@ public class GUIGame extends Game {
 
     private void DrawBoard(){
         //gui.Body.add(new Button("OK"));
-        int tileSizeX = (int)gui.GameView.getPreferredSize().getWidth() / board.SizeX();
-        int tileSizeY = (int)gui.GameView.getPreferredSize().getHeight() / board.SizeY();
+        //int tileSizeX = (int)gui.GameView.getPreferredSize().getWidth() / board.SizeX();
+        //int tileSizeY = (int)gui.GameView.getPreferredSize().getHeight() / board.SizeY();
         System.out.println("Preferred GameView Size : " + gui.GameView.getPreferredSize());
         System.out.println("GameView Size : " + gui.GameView.getSize());
-        Random r = new Random();
-        for(int i =0 ; i < board.SizeX(); i++){
-            for(int j = 0; j < board.SizeY(); j++){
-                Tile tile = board.GetTileAtPosition(i,j);
+        for(int i =0 ; i < board.SizeY(); i++){
+            for(int j = 0; j < board.SizeX(); j++){
+                Tile tile = board.GetTileAtPosition(j,i);
                 JPanel fTile = new JPanel();
+                fTile.setLayout(new GridLayout(2,2));
                 gui.GameView.add(fTile);
-                fTile.setVisible(true);
-                //fTile.setPreferredSize(new Dimension(tileSizeX, tileSizeY));
-                //fTile.setSize(tileSizeX, tileSizeY);
-                fTile.setBackground(new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255)));
-                //fTile.setLocation(i * tileSizeX, j * tileSizeY);
-                fTile.addMouseListener(new TileAdapter(fTile)); 
+                fTile.validate();
+                setTileColor(fTile, tile);
+
+                fTile.addMouseListener(new MouseAdapter() {
+                   @Override
+                   public void mouseEntered(MouseEvent e){
+                    gui.TilePicker.setTileInfo(tile);
+                   }
+
+                   @Override
+                   public void mouseClicked(MouseEvent e){
+                    gui.TilePicker.setSelection(tile);
+                   }
+                
+                   //public void mouseExited(MouseEvent e){
+
+                   //}
+                    
+                }); 
             }
         }
         gui.GameView.validate();//force le rafraichissement de l'élément. 
     }
+
+    private void setTileColor(JPanel c, Tile tile){
+        if(tile == null ){
+            c.setBackground(Color.blue);
+            return;
+        }
+        switch(tile.GetTileType()){
+            case Fields:
+                c.setBackground(Color.YELLOW);
+                break;
+            case Mountains:
+                c.setBackground(Color.LIGHT_GRAY);
+                break;
+            case Pastures:
+                c.setBackground(Color.ORANGE);
+                break;
+            case Forest:
+                c.setBackground(Color.green);
+        }
+        c.validate();
+    }
 }
 
 
+class TileAdapter extends MouseAdapter{
+
+
+    //private setTileInfo(){
+//
+    //}
+}
