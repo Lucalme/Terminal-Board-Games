@@ -56,7 +56,7 @@ public abstract class Game {
     /**
      * The main game loop that continues until a win condition is met.
      */
-    private void gameLoop() {
+    protected void gameLoop() {
         int linesToErase = 0;
         while(!CheckWinCondition()){
             IO.DeleteLines(linesToErase);
@@ -85,7 +85,7 @@ public abstract class Game {
     /**
      * Advances to the next turn.
      */
-    public void nextTurn() {
+    protected void nextTurn() {
         for(Player p : players){
             IO.SlowType("C'est au tour de "+ p.toString());
             ActionRequest r = ActionMaker.Prompt(p);
@@ -99,7 +99,7 @@ public abstract class Game {
      *
      * @return true if a player has won, false otherwise
      */
-    public boolean CheckWinCondition() {
+    protected boolean CheckWinCondition() {
         return false;
     }
 
