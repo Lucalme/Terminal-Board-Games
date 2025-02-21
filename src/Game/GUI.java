@@ -5,19 +5,16 @@ import board.resource.ResourceType;
 import board.tile.Tile;
 import player.Player;
 
-import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Label;
 import java.awt.Point;
 import java.awt.event.*;
-import java.util.HashMap;
 import java.util.Map;
+
+import Game.GUIUtils.*;
 
 public class GUI extends JFrame{
 
@@ -31,7 +28,7 @@ public class GUI extends JFrame{
 
     public static final Color transparent = new Color(0,0,0,0);
 
-    public GUI(String name, int[] WindowSize){
+    public GUI(String name, int[] WindowSize, GUIGame game){
         super(name);
         this.WindowSize = WindowSize; 
         WindowListener WLS = new WindowAdapter() {
@@ -55,7 +52,7 @@ public class GUI extends JFrame{
 
         GameView = new JPanel();
         SidePanel = new JPanel();
-        Console = new GUIConsole();
+        Console = new GUIConsole(game);
         Body.add(GameView);
         Body.add(SidePanel);
         Body.add(Console);
@@ -78,73 +75,13 @@ public class GUI extends JFrame{
         playerPanel.setBackground(Color.LIGHT_GRAY);
         SidePanel.add(playerPanel);
 
-        TilePicker = new TilePicker();
+        TilePicker = new TilePicker(GameView);
         TilePicker.setBackground(Color.lightGray);
         SidePanel.add(TilePicker);
 
         validate();
     }
     
-}
-class GUIConsole extends JPanel{
-
-    private final JPanel LogPanel;
-    private final JPanel OptionsPanel;
-    private final JLabel firstLine;
-    private final JLabel secondLine;
-
-    public GUIConsole(){
-        setForeground(Color.white);
-        setFont(getFont().deriveFont(20f));
-        setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.BOTH;
-        c.anchor = GridBagConstraints.NORTH;
-        c.weightx = 1;
-        c.weighty = 0.1;
-        c.gridx = 0;
-        c.gridy = 0;
-        c.gridheight = 2;
-        LogPanel = new JPanel();
-        LogPanel.setLayout(new GridLayout(2, 0));
-        LogPanel.setBackground(Color.BLACK);
-        add(LogPanel, c);
-        firstLine = new JLabel();
-        firstLine.setForeground(Color.white);
-        firstLine.setBorder(BorderFactory.createEmptyBorder(0, 10,0,10));
-        secondLine = new JLabel();
-        secondLine.setForeground(Color.lightGray);
-        secondLine.setBorder(BorderFactory.createEmptyBorder(0, 10,0,10));
-        LogPanel.add(secondLine);
-        LogPanel.add(firstLine);
-        c.gridheight = 5;
-        c.weighty = 0.9;
-        c.gridy = 2;
-        OptionsPanel = new JPanel();
-        OptionsPanel.setBackground(Color.BLACK);
-        add(OptionsPanel, c);
-    }
-
-    public void Print(String s){
-        secondLine.setText(firstLine.getText());
-        firstLine.setText("");
-        for(int i = 0; i< s.length(); i++){
-            try{Thread.sleep(30);}catch(Exception e){}
-            firstLine.setText(firstLine.getText()+s.charAt(i));
-            validate();
-            repaint();
-        }
-    }
-
-    public void ShowOptions(JPanel options){
-        OptionsPanel.removeAll();
-        OptionsPanel.add(options);
-    }
-
-    public void ClearOptions(){
-        OptionsPanel.removeAll();
-    }
-
 }
 
 class PlayerPanel extends JPanel{
@@ -194,8 +131,10 @@ class TilePicker extends JPanel{
     private Tile tile;
     private final JLabel TopBar;
     private final JPanel Content;
+    private final JPanel GameView;
 
-    public TilePicker(){
+    public TilePicker(JPanel gameView){
+        GameView = gameView;
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
@@ -222,11 +161,19 @@ class TilePicker extends JPanel{
         repaint();
 
     }
+
+    public Tile getSelectedTile(){
+        return tile;
+    }
+
+    public boolean hasSelection(){
+        return hasSelection;
+    }
     
     public void setTileInfo(Tile tile){
-        if((hasSelection && tile != this.tile) || tile == null){return;}
-        TopBar.setText(tile.GetTileType() +" : île n°" + tile.GetIslandID());
+        if( tile == null || (hasSelection && tile != this.tile)){return;}
         Content.removeAll();
+        TopBar.setText(tile.GetTileType() +" : île n°" + tile.GetIslandID());
         JLabel resources = new JLabel(tile.GetResourceType() +" : "+ tile.GetResourcesPresent());
         resources.setBorder(BorderFactory.createLineBorder(GUI.transparent, 10));
         Content.add(resources);
@@ -238,9 +185,58 @@ class TilePicker extends JPanel{
         repaint();
     }
 
-    public void setSelection(Tile tile){
+    public void setSelection(Tile tile, JPanel fTile){
+        //TODO: séparer le code entre la GameView et le TilePicker
+        if(hasSelection && tile == this.tile){
+            hasSelection = false;
+            this.tile = null;
+            fTile.removeAll();
+            setTileColor(fTile, tile);
+            return;
+        }else if(hasSelection ){
+            return; //TODO: Faire un troisième cas pour remplacer l'ancienne sélection?
+        }   
+        this.hasSelection = false;
+        setTileColor(fTile, tile, true);
+        //JLabel innerBorder = new JLabel();
+        //innerBorder.setBackground(GUI.transparent);
+        //TODO:innerBorder.setIcon();
+        //fTile.add(innerBorder);
         this.hasSelection = true;
         this.tile = tile;
         setTileInfo(tile);
+        GameView.validate();
+        GameView.repaint();
+    }
+
+    public void setTileColor(JPanel fTile, Tile tile, boolean hovered){
+        if(hovered && !hasSelection){
+            setTileColor(fTile, tile);
+            fTile.setBackground(fTile.getBackground().darker());
+        }
+        else if(tile != this.tile){
+            setTileColor(fTile, tile);
+        }
+    }
+
+    public void setTileColor(JPanel fTile, Tile tile){
+        if(tile == null ){
+            fTile.setBackground(Color.blue);
+            return;
+        }
+        switch(tile.GetTileType()){
+            case Fields:
+                fTile.setBackground(Color.YELLOW);
+                break;
+            case Mountains:
+                fTile.setBackground(Color.LIGHT_GRAY);
+                break;
+            case Pastures:
+                fTile.setBackground(Color.ORANGE);
+                break;
+            case Forest:
+                fTile.setBackground(Color.green);
+        }
+        fTile.validate();
     }
 }

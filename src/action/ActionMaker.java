@@ -24,10 +24,12 @@ public class ActionMaker {
     protected final Game game;
 
     public ActionMaker(Game game){
-        if(game instanceof Ares || game instanceof GUIAres){
+        if(game instanceof Ares ){
             actionMap = ActionMap.Ares.actionMap;
         }else if(game instanceof Demeter){
             actionMap = ActionMap.Demeter.actionMap;
+        }else if(game instanceof GUIAres){
+            actionMap = ActionMap.GUIAres.actionMap;
         }else{
             throw new RuntimeException("ActionMaker!Type de jeu non-reconnu : "+ game.getClass().getName());
         }

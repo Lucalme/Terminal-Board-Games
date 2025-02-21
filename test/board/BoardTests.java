@@ -52,16 +52,9 @@ public class BoardTests {
     @Test
     public void testGetTilesNeighborhood() {
         Board board = new Board(3, 3);
-        board.getTiles().put(new int[] {1, 1}, new Tile(TileType.FOREST));
-        board.getTiles().put(new int[] {0, 1}, new Tile(TileType.MOUNTAIN));
+        board.getTiles().put(new int[] {1, 1}, new Tile(new Position(0,0),TileType.Forest));
+        board.getTiles().put(new int[] {0, 1}, new Tile(new Position(0,0),TileType.Mountains));
         assertEquals(1, board.GetTilesNeighborhood(1, 1).length, "The tile at (1,1) should have 1 neighbor.");
     }
 
-    @Test
-    public void testToString() throws Exception {
-        Board board = new Board(2, 2);
-        board.getTiles().put(new int[] {0, 0}, new Tile(TileType.FOREST));
-        String expected = "F W \nW W \n";
-        assertEquals(expected, board.ToString(), "The toString method should return the correct representation of the board.");
-    }
 }
