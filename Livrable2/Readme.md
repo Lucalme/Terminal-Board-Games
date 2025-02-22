@@ -6,12 +6,12 @@ La suite de nos travaux se portera donc sur l'implémentation des composants man
  
 
 - Pour compiler les classes :  
-- `javac -classpath src src/board/*.java -d classes`
-- `javac -classpath src src/player/*.java -d classes`
-- `javac -classpath src src/action/*.java -d classes`
-- `javac -classpath src src/building/*.java -d classes`
-- `javac -classpath src src/Game/*.java -d classes`
-- `javac -classpath src src/ares/*.java -d classes`
+`javac -classpath src src/board/*.java -d classes`\
+`javac -classpath src src/player/*.java -d classes`\
+`javac -classpath src src/action/*.java -d classes`\
+`javac -classpath src src/building/*.java -d classes`\
+`javac -classpath src src/Game/*.java -d classes`\
+`javac -classpath src src/ares/*.java -d classes`\
 
 - Pour démarrer une partie (WIP):
 `java -classpath classes ares/AresMain`
