@@ -164,11 +164,9 @@ public class GUIConsole extends JPanel{
         for(int i = 0; i< s.length(); i++){
             try{Thread.sleep(15);}catch(Exception e){}
             firstLine.setText(firstLine.getText()+s.charAt(i));
-            firstLine.validate();
-            firstLine.repaint();
+            validate();
+            repaint();
         }
-        validate();
-        repaint();
     }
 
     public void printWarning(String s){

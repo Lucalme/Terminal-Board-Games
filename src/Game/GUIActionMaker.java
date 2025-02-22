@@ -66,8 +66,8 @@ public class GUIActionMaker extends ActionMaker{
         return action;
     }
 
-    public void SendActionRequest(Player player, ActionRequest request){
-        ((GUIGame)game).HandleActionRequest(request);
-    }
+    //public void SendActionRequest(Player player, ActionRequest request){
+    //    ((GUIGame)game).HandleActionRequest(request);
+    //}
 
 }

@@ -38,16 +38,20 @@ public abstract class GUIGame extends Game {
 
     /** La méthode StartGame(GUI) doit être appelée explicitement par un joueur */
     public void StartGame(){
-        board.UpdateAllTiles();
+        //board.UpdateAllTiles();
         DrawBoard();
         NextTurn();
     }
 
     private void NextTurn(){
+        Player player = players.get(currentPlayerIndex);
+        if(currentPlayerIndex == 0){
+            board.UpdateAllTiles();
+        }
         DrawBoard();
-        gui.playerPanel.Update(players.get(currentPlayerIndex));
-        gui.Console.Print("C'est au tour de "+ players.get(currentPlayerIndex).toString());
-        gui.Console.ShowOptions(actionMaker.ShowPossibleActions(players.get(currentPlayerIndex)));
+        gui.playerPanel.Update(player);
+        gui.Console.PrintNow("C'est au tour de "+ player.toString());
+        gui.Console.ShowOptions(actionMaker.ShowPossibleActions(player));
     }
 
     public void ShowPossibleActions(Player player){
@@ -56,16 +60,16 @@ public abstract class GUIGame extends Game {
     }
 
     /**inutile? */
-    public void HandleActionRequest(ActionRequest request){
-        Player player = players.get(currentPlayerIndex);
-        if(request == null || !request.action.CheckInstancePossible(player, this)){
-            gui.Console.Print("Action impossible, Veuillez réessayer....");
-            return;
-        }
-        request.action.Effect();
-        gui.Console.Print(request.action.Description());
-        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-    }
+    //public void HandleActionRequest(ActionRequest request){
+    //    Player player = players.get(currentPlayerIndex);
+    //    if(request == null || !request.action.CheckInstancePossible(player, this)){
+    //        gui.Console.Print("Action impossible, Veuillez réessayer....");
+    //        return;
+    //    }
+    //    request.action.Effect();
+    //    gui.Console.Print(request.action.Description());
+    //    currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+    //}
 
 
     public void HandleAction(Class<? extends Action> actionClass, Player player, Object... args){

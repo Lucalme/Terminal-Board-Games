@@ -232,10 +232,15 @@ class TilePicker extends JPanel{
         Content.removeAll();
         TopBar.setText(tile.GetTileType() +" : île n°" + tile.GetIslandID());
         JLabel resources = new JLabel(tile.GetResourceType() +" : "+ tile.GetResourcesPresent());
-        resources.setBorder(BorderFactory.createLineBorder(GUI.transparent, 10));
+        resources.setBorder(BorderFactory.createMatteBorder(0,10,0,10, GUI.transparent));
         Content.add(resources);
+        if(tile.GetBuilding() != null){
+            JLabel building = new JLabel("Bâtiment : "+tile.GetBuilding().toString()+": "+tile.GetBuilding().owner);
+            building.setBorder(BorderFactory.createMatteBorder(0,10,0,10, GUI.transparent));
+            Content.add(building);
+        }
         JLabel position = new JLabel("Position : (x:"+tile.position.x +";y:"+tile.position.y+")");
-        position.setBorder(BorderFactory.createLineBorder(GUI.transparent, 10));
+        position.setBorder(BorderFactory.createMatteBorder(0,10,0,10, GUI.transparent));
         Content.add(position);
 
         validate();
@@ -250,7 +255,6 @@ class TilePicker extends JPanel{
             setTileColor(fTile, tile);
             JLabel label = (JLabel) fTile.getComponent(0);
             ImageIcon icon = (ImageIcon) label.getIcon();
-            //TODO: manipuler l'image pour la rendre plus sombre
             //icon.setImage(icon.getImage().getScaledInstance(fTile.getWidth(), fTile.getHeight(), Image.SCALE_SMOOTH));
             ImageIcon darkIcon = new ImageIcon(icon.getImage());
             darkIcon.setImage(darkTileImages.get(tile == null ? darkTileImages.get(null) :  tile.GetTileType()));
