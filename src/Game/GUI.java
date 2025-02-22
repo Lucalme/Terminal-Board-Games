@@ -190,7 +190,6 @@ class TilePicker extends JPanel{
         }catch(Exception e){}
         try{
             tileImages.put(TileType.Fields, ImageIO.read(new File("Resources/Fields.png")).getScaledInstance(GameView.getWidth() / boardSizeX, GameView.getHeight() / boardSizeY, Image.SCALE_SMOOTH));
-            
         }catch(Exception e){}
         try{
             tileImages.put(TileType.Forest, ImageIO.read(new File("Resources/Forest.png")).getScaledInstance(GameView.getWidth() / boardSizeX, GameView.getHeight() / boardSizeY, Image.SCALE_SMOOTH));

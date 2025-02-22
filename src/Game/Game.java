@@ -24,9 +24,8 @@ public abstract class Game {
 
 
     /**
-     * Constructs a new Game with the specified list of players.
-     *
-     * @param players the list of players participating in the game
+     * Classe abstraite représentant un jeu de plateau, tour par tour.
+     * @param nbOfPlayer le nombre de joueurs
      */
     public Game(int nbOfPlayer) {
         players = new ArrayList<Player>();
@@ -36,6 +35,12 @@ public abstract class Game {
         board = new Board();
     }
 
+    /**
+     * Classe abstraite représentant un jeu de plateau, tour par tour.
+     * @param nbOfPlayer le nombre de joueurs
+     * @param SizeX la taille du plateau en X
+     * @param SizeY la taille du plateau en Y
+     */
     public Game(int nbOfPlayer, int SizeX, int SizeY){
         players = new ArrayList<Player>();
         for(int i = 1; i <= nbOfPlayer; i++ ){
@@ -46,7 +51,7 @@ public abstract class Game {
 
 
     /**
-     * Starts the game and initializes the game loop.
+     * Démarre le jeu.
      */
     public void StartGame() {
         System.out.print("\033\143");
@@ -54,7 +59,7 @@ public abstract class Game {
     }
 
     /**
-     * The main game loop that continues until a win condition is met.
+     * La boucle principale du jeu.
      */
     protected void gameLoop() {
         int linesToErase = 0;
@@ -83,7 +88,7 @@ public abstract class Game {
     }
 
     /**
-     * Advances to the next turn.
+     * Représente un tour complet des joueurs.
      */
     protected void nextTurn() {
         for(Player p : players){
@@ -95,9 +100,9 @@ public abstract class Game {
     }
 
     /**
-     * Checks if the win condition for the game has been met.
+     * TODO: Implémenter la condition de victoire.
      *
-     * @return true if a player has won, false otherwise
+     * @return true si la condition de victoire est remplie
      */
     protected boolean CheckWinCondition() {
         return false;

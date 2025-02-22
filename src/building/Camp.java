@@ -40,4 +40,8 @@ public class Camp extends Army{
         cost.put(ResourceType.Ore, 5);
         return cost;
     }
+
+    public String toString() {
+        return "🪖";
+    }
 }
