@@ -32,14 +32,22 @@ On a une classe board qui est fonctionnelle, on a déjà commencé à réflechir
 Des tests ont été écrits.
 
 ### Difficultés restant à résoudre
--Adopter une méthode de développement horizontale, pour que chacun puisse participer au mieux. 
--Corriger certaines faiblesses du modèle existant, en créant par exemple plus de structures de données. 
+- Adopter une méthode de développement horizontale, pour que chacun puisse participer au mieux. 
+- Corriger certaines faiblesses du modèle existant, en créant par exemple plus de structures de données. 
 
 ## Livrable 2
 
+[Lien vers le Livrable](https://gitlab-etu.fil.univ-lille.fr/walid.mabrouk.etu/l2s4-projet-2025/-/tree/main/Livrable2)
+
 ### Atteinte des objectifs
 
+On a pris de l'avance sur le calendrier mais des fonctionnalités intermédiaires restent à implementer.  
+
 ### Difficultés restant à résoudre
+
+- Gérer la modularité des objets.
+- Développer des tests cohérents avec la base de code.
+- Certaines méthodes ont été implémentées pour rapidement avoir un aperçu des fonctionnalités, mais ont vocation à être remplacées car elles présentent des problèmes de sécurité de Type et pourraient affaiblir notre capacité à ajouter des extensions rapidement. (notamment celles liées à Polymorphism.java)
 
 ## Livrable 3
 
@@ -112,14 +120,18 @@ Certains des elements que nous avons déjà implementé nous semblent mal pensé
 ## Semaine 4
 
 ### Ce qui a été réalisé
+- Travail d'équipe de modélisation avancée du projet. 
 
 ### Difficultés rencontrées
+- Manque d'experience dans la modélisation de fonctionnalités, on a du mal à produire un UML exhaustif.
 
 ### Objectifs pour la semaine
+- Travail indépendant sur les packages attribués à chacun.
 
 ## Semaine 5
 
 ### Ce qui a été réalisé
+- Premiers jets des differents packages.
 
 ### Difficultés rencontrées
 
