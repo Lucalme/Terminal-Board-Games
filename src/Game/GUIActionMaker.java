@@ -39,7 +39,7 @@ public class GUIActionMaker extends ActionMaker{
             actionButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e){
-                    HandleGameAction(entry.getValue(), player);
+                    ((GUIGame)game).HandleAction(entry.getValue(), player);
                 }
             });
             ActionPanel.add(actionButton);
@@ -47,24 +47,23 @@ public class GUIActionMaker extends ActionMaker{
         return ActionPanel;
     }
 
-    public void HandleGameAction(Class<? extends Action> actionClass, Player player){
-        HashMap<String, Class<? extends Action>> possibleActions = GetPossibleActions(player);
+    @SuppressWarnings("unchecked")
+    public Action getAction(Class<? extends Action> actionClass, Player player, Object... args){
         Action action = null;
-        String[] names = actionClass.getName().split("\\.");
-        String className = names[names.length-1];
-        //gui.Console.PrintNow("Action choisie : "+ className); //La console réagit trop lentement, peut-être à cause du contexte (MouseListener)
-        Tile tile;
-        Integer intParam = null;
+        //Le GUI réagit trop lentement, peut-être à cause du contexte (MouseListener) ? -> utiliser gui.Console.PrintNow()
         if(PreliminaryAction.class.isAssignableFrom(actionClass)){ //si l'action hérite de PreliminaryAction
             action = Polymorphism.getPreliminaryActionInstance((Class<? extends PreliminaryAction>)actionClass, player, gui);
             action.Effect();
-            return;
+            return null;
         }
-        action = Polymorphism.tryGetActionInstance(actionClass, gui, player, gui.TilePicker.getSelectedTile(), intParam);
-        if(action == null){
-            return;
+        Object[] finalArgs = new Object[args.length + 2];
+        finalArgs[0] = player;
+        finalArgs[1] = gui.TilePicker.getSelectedTile();
+        for(int i = 0; i < args.length; i++){
+            finalArgs[i+2] = args[i];
         }
-        System.out.println("Action : "+ action.CheckInstancePossible(player, game));
+        action = Polymorphism.tryGetActionInstance(actionClass, gui, finalArgs);
+        return action;
     }
 
     public void SendActionRequest(Player player, ActionRequest request){

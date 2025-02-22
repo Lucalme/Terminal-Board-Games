@@ -35,9 +35,14 @@ public class Polymorphism{
         }
     }
 
-    public static Action tryGetActionInstance(Class<? extends Action> clazz, GUI gui, Object... args){
+    public static Action tryGetActionInstance(Class<?> clazz, GUI gui, Object... args){
+        //for(Object arg : args){
+        //    if(arg == null){
+        //        continue;
+        //    }
+        //    System.out.println("Polymorphism : "+arg.getClass());
+        //}
         try{
-
             Class<?>[] parameterTypes = getParameterTypes(clazz);
             boolean requiresInt = hasParameterOfType(clazz, int.class);
             boolean requiresTwoResourceTypes = clazz == ActionTrade.class;

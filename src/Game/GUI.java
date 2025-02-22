@@ -1,17 +1,25 @@
 package Game;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import board.resource.ResourceType;
 import board.tile.Tile;
+import board.tile.TileType;
 import player.Player;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
+import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 import Game.GUIUtils.*;
@@ -75,11 +83,16 @@ public class GUI extends JFrame{
         playerPanel.setBackground(Color.LIGHT_GRAY);
         SidePanel.add(playerPanel);
 
-        TilePicker = new TilePicker(GameView);
+        TilePicker = new TilePicker(GameView, game.board.SizeX(), game.board.SizeY());
         TilePicker.setBackground(Color.lightGray);
         SidePanel.add(TilePicker);
 
         validate();
+    }
+
+    //TODO: migrer vers une classe GameView
+    public void clearSelection(){
+        TilePicker.clearSelection();
     }
     
 }
@@ -132,9 +145,16 @@ class TilePicker extends JPanel{
     private final JLabel TopBar;
     private final JPanel Content;
     private final JPanel GameView;
+    private final int boardSizeX;
+    private final int boardSizeY;
 
-    public TilePicker(JPanel gameView){
+    private final Map<TileType, Image> tileImages = new HashMap<>();
+    private final Map<TileType, Image> darkTileImages = new HashMap<>();
+
+    public TilePicker(JPanel gameView, int SizeX, int SizeY) {
         GameView = gameView;
+        boardSizeX = SizeX;
+        boardSizeY = SizeY;
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
@@ -156,10 +176,42 @@ class TilePicker extends JPanel{
         Content.setLayout(new GridLayout(0, 1));
         Content.setBackground(Color.lightGray);
         add(Content, c);
+        InitImages();
 
         validate(); 
         repaint();
 
+    }
+
+
+    private void InitImages(){
+        try{
+            tileImages.put(null,ImageIO.read(new File("Resources/Water.png")).getScaledInstance(GameView.getWidth() / boardSizeX, GameView.getHeight() / boardSizeY , Image.SCALE_SMOOTH));
+        }catch(Exception e){}
+        try{
+            tileImages.put(TileType.Fields, ImageIO.read(new File("Resources/Fields.png")).getScaledInstance(GameView.getWidth() / boardSizeX, GameView.getHeight() / boardSizeY, Image.SCALE_SMOOTH));
+            
+        }catch(Exception e){}
+        try{
+            tileImages.put(TileType.Forest, ImageIO.read(new File("Resources/Forest.png")).getScaledInstance(GameView.getWidth() / boardSizeX, GameView.getHeight() / boardSizeY, Image.SCALE_SMOOTH));
+        }catch(Exception e){}
+        try{
+            tileImages.put(TileType.Mountains, ImageIO.read(new File("Resources/Mountains.png")).getScaledInstance(GameView.getWidth() / boardSizeX, GameView.getHeight() / boardSizeY, Image.SCALE_SMOOTH));
+        }catch(Exception e){}
+        try{
+            tileImages.put(TileType.Pastures, ImageIO.read(new File("Resources/Pastures.png")).getScaledInstance(GameView.getWidth() / boardSizeX, GameView.getHeight() / boardSizeY, Image.SCALE_SMOOTH));
+        }catch(Exception e){}
+        for(Map.Entry<TileType, Image> entry : tileImages.entrySet()){
+            Image image = entry.getValue();
+            BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d = bufferedImage.createGraphics();
+            g2d.drawImage(image, 0, 0, null);
+            g2d.dispose();
+            Image darkImage = bufferedImage;
+            RescaleOp rescaleOp = new RescaleOp(1.0f, -60.0f, null);
+            darkImage = rescaleOp.filter(bufferedImage, null);
+            darkTileImages.put(entry.getKey(), darkImage);
+        }
     }
 
     public Tile getSelectedTile(){
@@ -168,6 +220,11 @@ class TilePicker extends JPanel{
 
     public boolean hasSelection(){
         return hasSelection;
+    }
+
+    public void clearSelection(){
+        hasSelection = false;
+        tile = null;
     }
     
     public void setTileInfo(Tile tile){
@@ -190,8 +247,15 @@ class TilePicker extends JPanel{
         if(hasSelection && tile == this.tile){
             hasSelection = false;
             this.tile = null;
-            fTile.removeAll();
             setTileColor(fTile, tile);
+            JLabel label = (JLabel) fTile.getComponent(0);
+            ImageIcon icon = (ImageIcon) label.getIcon();
+            //TODO: manipuler l'image pour la rendre plus sombre
+            //icon.setImage(icon.getImage().getScaledInstance(fTile.getWidth(), fTile.getHeight(), Image.SCALE_SMOOTH));
+            ImageIcon darkIcon = new ImageIcon(icon.getImage());
+            darkIcon.setImage(darkTileImages.get(tile == null ? darkTileImages.get(null) :  tile.GetTileType()));
+            label.setIcon(darkIcon);
+            fTile.repaint();
             return;
         }else if(hasSelection ){
             return; //TODO: Faire un troisième cas pour remplacer l'ancienne sélection?
@@ -212,7 +276,11 @@ class TilePicker extends JPanel{
     public void setTileColor(JPanel fTile, Tile tile, boolean hovered){
         if(hovered && !hasSelection){
             setTileColor(fTile, tile);
-            fTile.setBackground(fTile.getBackground().darker());
+            //fTile.setBackground(fTile.getBackground().darker());
+            JLabel label = (JLabel) fTile.getComponent(0);
+            ImageIcon icon = (ImageIcon) label.getIcon();
+            icon.setImage(darkTileImages.get(tile == null ? darkTileImages.get(null) :  tile.GetTileType()));
+
         }
         else if(tile != this.tile){
             setTileColor(fTile, tile);
@@ -220,23 +288,25 @@ class TilePicker extends JPanel{
     }
 
     public void setTileColor(JPanel fTile, Tile tile){
-        if(tile == null ){
-            fTile.setBackground(Color.blue);
-            return;
+        try{
+            fTile.removeAll();
+            JLabel iconLabel = new JLabel();
+            Image icon;
+
+            if(tile == null ){
+                //fTile.setBackground(Color.blue);
+                iconLabel.setIcon(new ImageIcon(tileImages.get(null)));
+                fTile.add(iconLabel);
+                fTile.validate();
+                return;
+            }
+            icon = tileImages.get(tile.GetTileType());
+            iconLabel.setIcon(new ImageIcon(icon));
+            fTile.add(iconLabel);
+            fTile.validate();
+
+        }catch(Exception e){
+            e.printStackTrace();
         }
-        switch(tile.GetTileType()){
-            case Fields:
-                fTile.setBackground(Color.YELLOW);
-                break;
-            case Mountains:
-                fTile.setBackground(Color.LIGHT_GRAY);
-                break;
-            case Pastures:
-                fTile.setBackground(Color.ORANGE);
-                break;
-            case Forest:
-                fTile.setBackground(Color.green);
-        }
-        fTile.validate();
     }
 }

@@ -5,6 +5,8 @@ import Game.Game;
 import action.Action;
 import player.Player;
 
+
+/**Classe abstraite servant à intéragir avec l'interface graphique avant de lancer une action*/
 public abstract class PreliminaryAction extends Action{
 
     public final Class<? extends Action> actionToPerform;

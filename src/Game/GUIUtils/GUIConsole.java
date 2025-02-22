@@ -2,10 +2,7 @@ package Game.GUIUtils;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
-import javax.swing.ComboBoxModel;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JTextField;
 
 import Game.GUI;
 import Game.GUIGame;
@@ -14,13 +11,10 @@ import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
-import java.awt.RenderingHints.Key;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
-import java.awt.Button;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import action.Action;
 import action.actions.ActionTrade;
@@ -35,7 +29,12 @@ public class GUIConsole extends JPanel{
     private final JPanel OptionsPanel;
     private final JLabel firstLine;
     private final JLabel secondLine;
+
     private boolean hasIntPrompt = false;
+
+    private int intPromptValue = 0;
+    private ResourceType firstResourceType;
+    private ResourceType secondResourceType;
 
     public GUIConsole(GUIGame game){
         this.game = game;
@@ -79,46 +78,82 @@ public class GUIConsole extends JPanel{
         OptionsPanel.removeAll();
         JPanel Options = new JPanel();
         if( action == AresBuildArmy.class){
-            Options.add(addIntPrompt());
-            Options.add(addValidate(action, player));
+            Options.add(addIntPrompt(1, player.getResources().get(ResourceType.Warriors), (Integer i) -> intPromptValue = i));
+            Options.add(addValidate(action, player, () ->  intPromptValue));
             Print("Combien de soldats voulez-vous ajouter au batiment?");
         }else if( action == ActionTrade.class){
-            Options.add(addPromptResource(true));
-            Options.add(addPromptResource(true));
-            Options.add(addValidate(action, player));
+            Options.add(addResourcePrompt(true, (ResourceType type) -> firstResourceType = type));
+            Options.add(addResourcePrompt(true, (ResourceType type) -> secondResourceType = type));
+            Options.add(addValidate(action, player, () ->  firstResourceType, () -> secondResourceType));
             Print("Choisissez le type de ressource à échanger");
-        }else {
+        }else{
             throw new RuntimeException("GUIConsole! Action non supportée : "+ action.getName());
         }
+        Options.add(addCancel(player));
         ShowOptions(Options);
     }
 
-    private JLabel addValidate(Class<? extends Action> action, Player player){
+    private final JLabel addValidate(Class<? extends Action> action, Player player, Supplier<Object>... fields){
         JLabel button = new JLabel("Valider");
         button.setOpaque(true);
         button.addMouseListener(new MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                game.HandleAction(action, player);
+                Object[] args = new Object[fields.length];
+                for(int i = 0; i < fields.length; i++){
+                    args[i] = fields[i].get();
+                    System.out.println(args[i].getClass());
+                }
+                game.HandleAction(action, player, args);
+            }
+        });
+        return button;
+    }
+
+    private JLabel addCancel(Player player){
+        JLabel button = new JLabel("Annuler");
+        button.setOpaque(true);
+        button.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ClearOptions();
+                PrintNow("Action annulée");
+                game.ShowPossibleActions(player);
             }
         });
         return button;
     }
         
 
-    private JTextField addIntPrompt(){
+    private JComboBox<Integer> addIntPrompt(int minValue, int maxValue, Consumer<Integer> fieldReference){
         hasIntPrompt = true;
-        JTextField input = new JTextField();
+        JComboBox<Integer> input = new JComboBox<>();
+        input.addItem(null);
+        for(int i = minValue; i <= maxValue; i++){
+            input.addItem(i);
+        }
+        input.addItemListener(new ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                fieldReference.accept((Integer)input.getSelectedItem());
+                System.out.println("intPromptValue = "+intPromptValue);
+            }            
+        });
         input.setBorder(BorderFactory.createLineBorder(GUI.transparent, 5));
         return input;
     }
 
-    public JComboBox<ResourceType> addPromptResource( boolean onlyTradables){
+    public JComboBox<ResourceType> addResourcePrompt(boolean onlyTradables, Consumer<ResourceType> fieldReference ){
         hasIntPrompt = true;
         JComboBox<ResourceType> input = new JComboBox<>( );
+        input.addItem(null);
         for(ResourceType type : ResourceType.values()){
             if(onlyTradables && !type.isTradable){continue;}
             input.addItem(type);
         }
+        input.addItemListener(new ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                fieldReference.accept((ResourceType)input.getSelectedItem());
+                //System.out.println("firstResourceType = "+firstResourceType);
+            }            
+        });
         input.setBorder(BorderFactory.createLineBorder(GUI.transparent, 5));
         return input;
     }

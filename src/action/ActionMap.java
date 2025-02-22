@@ -26,7 +26,6 @@ public enum ActionMap {
             put("Attaquer", ActionAttack.class);
         }}),
     GUIAres(new HashMap<String, Class<? extends Action>>() {{
-            put("Voir l'inventaire", ShowInventory.class);
             put("Echanger des resources", PrepareTrade.class);
             put("Construire une Armée ou un Camp", PrepareBuildArmy.class);
             put("Collecter des ressources", ActionCollect.class);

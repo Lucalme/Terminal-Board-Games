@@ -2,10 +2,19 @@ package Game;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.awt.Toolkit;
+
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.imageio.ImageIO;
 
 import action.Action;
 import action.ActionRequest;
@@ -31,9 +40,19 @@ public abstract class GUIGame extends Game {
     public void StartGame(){
         board.UpdateAllTiles();
         DrawBoard();
+        NextTurn();
+    }
+
+    private void NextTurn(){
+        DrawBoard();
         gui.playerPanel.Update(players.get(currentPlayerIndex));
         gui.Console.Print("C'est au tour de "+ players.get(currentPlayerIndex).toString());
         gui.Console.ShowOptions(actionMaker.ShowPossibleActions(players.get(currentPlayerIndex)));
+    }
+
+    public void ShowPossibleActions(Player player){
+        gui.Console.ClearOptions();
+        gui.Console.ShowOptions(actionMaker.ShowPossibleActions(player));
     }
 
     /**inutile? */
@@ -49,12 +68,28 @@ public abstract class GUIGame extends Game {
     }
 
 
-    public void HandleAction(Class<? extends Action> actionClass, Player player){
-        actionMaker.HandleGameAction(actionClass, player);
+    public void HandleAction(Class<? extends Action> actionClass, Player player, Object... args){
+        Action action = actionMaker.getAction(actionClass, player, args);
+        //On s'attend à ce que l'action soit nulle si elle est préliminaire ou si il manque des paramètres assignés par le joueur.
+        if(action == null){
+            System.out.println("Action non trouvée");
+            return;
+        }
+        if( action.CheckInstancePossible(player, this)){
+            gui.Console.PrintNow(action.Description());
+            action.Effect();
+            currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+            NextTurn();
+        }else{
+            gui.Console.PrintNow("Action impossible, Veuillez réessayer....");
+            ShowPossibleActions(player);
+        }
     }
 
     protected void DrawBoard(){
         //TODO: Migrer l'essentiel du dessin dans une classe GameView
+        gui.GameView.removeAll();
+        gui.clearSelection();
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 1;
@@ -65,11 +100,14 @@ public abstract class GUIGame extends Game {
             for(int j = 0; j < board.SizeX(); j++){
                 Tile tile = board.GetTileAtPosition(j,i);
                 JPanel fTile = new JPanel();
+                fTile.setLayout(new GridLayout(1,1));
                 gui.GameView.add(fTile, c);
                 c.gridx++;
                 fTile.validate();
                 gui.TilePicker.setTileColor(fTile, tile);
-                if(tile == null) {continue;}
+                if(tile == null) {
+                    continue;
+                }
                 fTile.addMouseListener(new MouseAdapter() {
                    @Override
                    public void mouseEntered(MouseEvent e){
