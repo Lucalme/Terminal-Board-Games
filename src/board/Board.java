@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import board.tile.Tile;
-import board.tile.TileType;
 
 
 /**
@@ -16,29 +15,14 @@ public class Board {
     private Tile[][] tiles;
     private int size_X = 7;
     private int size_Y = 7;
-
-    /**
-     * Returns the size of the board along the X-axis.
-     * 
-     * @return the size of the board along the X-axis.
-     */
+    
     public int SizeX() {
         return size_X;
     }
-
-    /**
-     * Returns the size of the board along the Y-axis.
-     * 
-     * @return the size of the board along the Y-axis.
-     */
     public int SizeY() {
         return size_Y;
     }
 
-    /**
-     * Default constructor for the Board class.
-     * Initializes the board with default size.
-     */
     public Board() {
         InitTiles();
     }
@@ -91,11 +75,16 @@ public class Board {
      * The size of the board must be defined beforehand.
      */
     private void InitTiles() {
+        Populate();
+        Filter();
+        Group();
+    }
+
+    private void Populate(){
         tiles = new Tile[size_X][size_Y];
         int minWaterTiles = (int) (.66 * size_X * size_Y);
         int maxOtherTiles = (size_X * size_Y) - minWaterTiles;
 
-        HashMap<int[], Tile> currentTiles = new HashMap<>();
         Random rand = new Random();
         for (int i = 0; i < maxOtherTiles; i++) {
             int randX;
@@ -105,19 +94,43 @@ public class Board {
                 randY = rand.nextInt(size_Y);
             } while (tiles[randX][randY] != null);
 
-            Tile tile = new Tile();
+            Tile tile = new Tile(new Position(randX, randY));
             tiles[randX][randY] = tile;
-            currentTiles.put(new int[]{randX, randY}, tile);
         }
+    }
 
-        HashMap<int[], Tile> isolatedTiles = currentTiles
-            .entrySet()
-            .stream()
-            .filter(a -> GetTilesNeighborhood(a.getKey()[0], a.getKey()[1]).length == 0)
-            .collect(HashMap::new, (m, v) -> m.put(v.getKey(), v.getValue()), HashMap::putAll);
+    private void Filter(){
+        HashMap<int[], Tile> isolatedTiles = getTiles()
+        .entrySet()
+        .stream()
+        .filter(a -> GetTilesNeighborhood(a.getKey()[0], a.getKey()[1]).length == 0)
+        .collect(HashMap::new, (m, v) -> m.put(v.getKey(), v.getValue()), HashMap::putAll);
 
         for (Map.Entry<int[], Tile> kv : isolatedTiles.entrySet()) {
             tiles[kv.getKey()[0]][kv.getKey()[1]] = null;
+        }
+    }
+
+    private void Group(){
+        int id = 0;
+        for(int i = 0; i < size_X ; i++){
+            for(int j = 0; j < size_Y ; j++){
+                Tile tile = tiles[i][j];
+                if(tile == null || tile.GetIslandID() != -1){continue;}
+                RecursiveAddIslandId(i, j, id);
+                id++;
+            }
+        }
+    }
+
+    private void RecursiveAddIslandId(int x, int y, int id){
+        tiles[x][y].SetIslandID(id);
+        for(Directions dir : Directions.values()){
+            if(x+dir.X <0 || x+dir.X >= size_X || y+dir.Y < 0 || y+dir.Y >= size_Y ){continue;}
+            Tile neigh = tiles[x+dir.X][y+dir.Y];
+            if(neigh != null && neigh.GetIslandID() == -1){
+                RecursiveAddIslandId(x+dir.X, y+dir.Y, id);
+            }
         }
     }
 
@@ -146,26 +159,44 @@ public class Board {
      * @return a string representation of the board.
      * @throws Exception if an error occurs during string conversion.
      */
-    public String ToString() throws Exception {
-        int squareSize = 5;
+    public String toString(){
+        islandCount = 0;
+        int squareSize = 2;
         String[] lines = new String[size_Y * squareSize];
         for (int f = 0; f < size_Y * squareSize; f++) {
             lines[f] = "";
         }
-        String water = "🟦";
+        String reset = "\u001B[0m";
         for (int i = 0; i < size_X; i++) {
             for (int j = 0; j < size_Y; j++) {
-                String tileType = tiles[i][j] == null ? water : tiles[i][j].ToConsoleMode();
+                //String tileType = tiles[i][j] == null ? water : "\u001B[41m"+ (tiles[i][j].GetIslandID() %10)+"\uFE0F\u20E3" +" " + "\u001B[0m";
+                //String tileType = tiles[i][j] == null ? water :  tiles[i][j].ToConsoleMode() ; 
+                Tile tile = tiles[i][j];
+                //String tileType = tile == null ? "\u001B[44m  \u001B[0m" : tile.ToBackground()+ space + reset;
                 for (int k = 0; k < squareSize; k++) {
                     String str = "";
                     for (int l = 0; l < squareSize; l++) {
-                        str += tileType;
+                        str += tile == null ? "\u001B[44m  \u001B[0m" : tile.ToBackground()+ TileSpace(tile, (k ==squareSize -1 && l == squareSize -1), (k == 0 && l == squareSize -1)) + reset;
                     }
                     lines[j * squareSize + k] += str;
                 }
             }
         }
         return String.join("\n", lines);
+    }
+
+    private int islandCount = 0;
+
+    private String TileSpace(Tile tile, boolean isLast, boolean isBuilding){
+        String space = (isBuilding && tile.GetBuilding() != null)? tile.GetBuilding().toString() : "  ";
+        if(tile != null && tile.GetIslandID() == islandCount){
+            space = "\033[0;94m"+(tile.GetIslandID() < 10?  tile.GetIslandID()+" " : ""+tile.GetIslandID())+"\033[0m";
+            islandCount++;
+        }
+        if(tile != null && isLast){
+            space = tile.GetResourcesPresent() <10 ? " "+tile.GetResourcesPresent() : ""+tile.GetResourcesPresent();
+        }
+        return space;
     }
 
     /**
@@ -180,5 +211,6 @@ public class Board {
             }
         }
     }
+
 }
 

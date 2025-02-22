@@ -3,66 +3,46 @@ package building;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Represents an abstract Building in the game.
- * Buildings have a size and can have specific effects that are implemented in subclasses.
- * 
- * Subclasses should provide specific implementations for the effect method.
- */
+import board.resource.ResourceType;
+import player.Player;
+
 public abstract class Building {
 
-    /**
-     * The size of the building, which can represent its dimensions, capacity, or any other relevant attribute.
-     */
     protected int size;
-    /** The construction cost of the building in terms of resources */
-    protected Map<String, Integer> constructionCost;
+    public final BuildingEffectType effectType;
+    public final Player owner;
+    public final int islandId;
 
     /**
-     * Constructs a Building with the specified size.
-     * 
-     * @param size the size of the building
-     * @param cost the construction cost of the building
+     * Constructeur abstrait de Building
+     * @param owner le propiétaire du bâtiment, final et accessible publiquement en lecture
+     * @param size la dimension du bâtiment
+     * @param effectType le type d'effet du bâtiment, le bâtiment peut augmenter la production de la tile sur laquelle il est ou donner un avantage d'échange à son propriétaire
+     * @param islandId l'identifiant de l'île sur laquelle le bâtiment est construit 
      */
-    public Building(int size, Map<String, Integer> cost) {
+    public Building(Player owner, int size, BuildingEffectType effectType, int islandId) {
+        this.owner = owner;
         this.size = size;
-        this.constructionCost = new HashMap<>(cost);
+        this.effectType = effectType;
+        this.islandId = islandId;
     }
 
-    /**
-     * Gets the size of the building.
-     * 
-     * @return the size of the building
-     */
     public int getSize() {
         return size;
     }
 
-    /**
-    * Gets the construction cost of the building.
-    * @return the construction cost as a map of resource names to amounts
-    */
-    public Map<String, Integer> getConstructionCost() {
-       return new HashMap<>(constructionCost);
-   }
+    public HashMap<ResourceType, Integer> ResourceEffect(HashMap<ResourceType, Integer> resources) {
+        if(effectType == BuildingEffectType.MultiplyResourceProduction){
+            HashMap<ResourceType, Integer> newResources = new HashMap<>();
+            for (Map.Entry<ResourceType, Integer> entry : resources.entrySet()) {
+                newResources.put(entry.getKey(), entry.getValue() * 2);
+            }
+            return newResources;
+        } else {
+            return resources; 
+        }
+    }
+
+    public abstract String toString();
    
-   /**
-    * Checks if the provided resources are sufficient to construct the building.
-    * @param availableResources the resources available to the player
-    * @return true if the player has enough resources, false otherwise
-    */
-        public boolean canConstruct(Map<String, Integer> availableResources) {
-            for (Map.Entry<String, Integer> entry : constructionCost.entrySet()) {
-            if (availableResources.getOrDefault(entry.getKey(), 0) < entry.getValue()) {
-        return false;
-           }
-       }
-       return true;
-   }
-   
-   /**
-    * Abstract method to define the effect of the building.
-    * @return a description of the building's effect
-    */
-   public abstract String effect();
 }

@@ -1,6 +1,8 @@
 package board.tile;
+import board.Position;
 import board.resource.*;
-//import java.util.HashMap;
+import building.Building;
+
 import java.util.Random;
 
 
@@ -9,60 +11,56 @@ public class Tile {
     private TileType type;
     private int resourcesPresent;
     private ResourceType resourceType;
-
-    
+    public final Position position;
+    private int island = -1;
+    private Building building = null;
 
 
     /**
      * Constructeur par défaut de la classe Tile
      * Crée une Tile de type aléatoire.
      */
-    public Tile(){
+    public Tile(Position position){
         int alea = new Random().nextInt( TileType.values().length );
-
+        this.position = position;
         type = TileType.values()[alea];
         this.resourcesPresent = 0;
         MatchResources(type);
-    }
-    
-    public void UpdateTile(){
-        resourcesPresent++;
     }
 
 
     /**
      * Crée une Tile avec le type et les resources initiales fournies
+     * @param position
      * @param type
      * @param initialResources
      */
-    public Tile(TileType type, int initialResources){
+    public Tile(Position position, TileType type, int initialResources){
+        this.position = position;
         this.type = type;
         this.resourcesPresent = initialResources;
         MatchResources(type);
     }
 
-    /**
-     * Crée une Tile du type fourni
-     * @param type
-     */
-    public Tile(TileType type){
+    public Tile(Position position, TileType type){
         this.type = type;
+        this.position = position;
         MatchResources(type);
     }
 
     private ResourceType MatchResources(TileType type){
         switch(type){
             case Mountains : 
-                resourceType = resourceType.Ore;
+                resourceType = ResourceType.Ore;
                 break;
             case Forest :
-                resourceType = resourceType.Wood;
+                resourceType = ResourceType.Wood;
                 break;
             case Fields :
-                resourceType =  resourceType.Wheat;
+                resourceType =  ResourceType.Wheat;
                 break;
             case Pastures:
-                resourceType= resourceType.Sheep;
+                resourceType= ResourceType.Sheep;
                 break;
             default:
                 resourceType = null;
@@ -71,6 +69,9 @@ public class Tile {
         return resourceType;
     }
 
+    public void UpdateTile(){
+        resourcesPresent++;
+    }
 
     public int GetResourcesPresent(){
         return resourcesPresent;
@@ -83,6 +84,11 @@ public class Tile {
     public TileType GetTileType(){
         return type;
     }
+
+    public void ClearResources(){
+        this.resourcesPresent = 0;
+    }
+
 
 
     @Override
@@ -105,7 +111,7 @@ public class Tile {
     public String ToConsoleMode(){
         switch (type) {
             case Mountains:
-                return "🔳";
+                return "⬛";
             case Forest:
                 return "🟩";
             case Fields:
@@ -116,5 +122,44 @@ public class Tile {
                 return "🟦";
         }
     }
+
+    public String ToBackground(){
+
+        String res;
+        switch(type){
+            case Mountains:
+                res = "\u001B[47m";
+                break;
+            case Forest:
+                res = "\u001B[42m";
+                break;
+            case Fields: 
+                res = "\u001B[43m";
+                break;
+            case Pastures:
+                res = "\u001B[41m";
+                break;
+            default:
+                res = "\u001B[44m";
+        }
+        return res ;
+    }
     
+
+
+    public int GetIslandID(){
+        return island;
+    }
+
+    public void SetIslandID(int id){
+        island = id;
+    }
+
+    public Building GetBuilding(){
+        return building;
+    }
+
+    public void SetBuilding(Building building){
+        this.building = building;
+    }
 }

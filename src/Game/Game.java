@@ -1,8 +1,9 @@
 package Game;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
+import action.ActionMaker;
+import action.ActionRequest;
+import action.util.IO;
 import board.Board;
 import player.Player;
 
@@ -12,82 +13,103 @@ import player.Player;
  * It provides methods to start the game, handle the game loop, and manage player actions and events.
  */
 public abstract class Game {
-    /**
-     * List of players participating in the game.
-     */
-    protected List<Player> players;
 
-    /**
-     * The game board.
-     */
-    protected Board board;
-
-    /**
-     * History of actions taken during the game.
-     */
+    public final List<Player> players;
+    public final Board board;
+    
     protected List<String> history;
-
-    /**
-     * The current turn number.
-     */
+    protected List<ActionRequest> pendingActions = new ArrayList<ActionRequest>();
     protected int currentTurn;
+    protected ActionMaker ActionMaker;
+
 
     /**
-     * Scanner for reading player input.
+     * Classe abstraite représentant un jeu de plateau, tour par tour.
+     * @param nbOfPlayer le nombre de joueurs
      */
-    protected Scanner scanner;
+    public Game(int nbOfPlayer) {
+        players = new ArrayList<Player>();
+        for(int i = 1; i <= nbOfPlayer; i++ ){
+            players.add(new Player(i));
+        }
+        board = new Board();
+    }
 
     /**
-     * Constructs a new Game with the specified list of players.
+     * Classe abstraite représentant un jeu de plateau, tour par tour.
+     * @param nbOfPlayer le nombre de joueurs
+     * @param SizeX la taille du plateau en X
+     * @param SizeY la taille du plateau en Y
+     */
+    public Game(int nbOfPlayer, int SizeX, int SizeY){
+        players = new ArrayList<Player>();
+        for(int i = 1; i <= nbOfPlayer; i++ ){
+            players.add(new Player(i));
+        }
+        board = new Board(SizeX, SizeY);
+    }
+
+
+    /**
+     * Démarre le jeu.
+     */
+    public void StartGame() {
+        System.out.print("\033\143");
+        gameLoop();
+    }
+
+    /**
+     * La boucle principale du jeu.
+     */
+    protected void gameLoop() {
+        int linesToErase = 0;
+        while(!CheckWinCondition()){
+            IO.DeleteLines(linesToErase);
+            ArrayList<ActionRequest> updated = new ArrayList<ActionRequest>();
+            int count = 0;
+            for(int i = 0; i<pendingActions.size(); i++){
+                ActionRequest req = pendingActions.get(i);
+                if(req.ready){
+                    IO.SlowType(req.action.Description());
+                    req.action.Effect();
+                    count++;
+                }else{
+                    updated.add(req);
+                }
+            }
+            IO.DeleteLines(count);
+            pendingActions = updated;
+            board.UpdateAllTiles();
+            String str = board.toString();
+            System.out.println(str);
+            linesToErase = str.split("\\n").length +1;
+            nextTurn();
+        }
+    }
+
+    /**
+     * Représente un tour complet des joueurs.
+     */
+    protected void nextTurn() {
+        for(Player p : players){
+            IO.SlowType("C'est au tour de "+ p.toString());
+            ActionRequest r = ActionMaker.Prompt(p);
+            pendingActions.add(r);
+            IO.DeleteLines(1);
+        }
+    }
+
+    /**
+     * TODO: Implémenter la condition de victoire.
      *
-     * @param players the list of players participating in the game
+     * @return true si la condition de victoire est remplie
      */
-    public Game(List<Player> players) {}
+    protected boolean CheckWinCondition() {
+        return false;
+    }
 
-    /**
-     * Starts the game and initializes the game loop.
-     */
-    public void StartGame() {}
-
-    /**
-     * The main game loop that continues until a win condition is met.
-     */
-    public void gameLoop() {}
-
-    /**
-     * Advances to the next turn.
-     */
-    public void nextTurn() {}
-
-    /**
-     * Checks if the win condition for the game has been met.
-     *
-     * @return true if a player has won, false otherwise
-     */
-    public boolean CheckWinCondition() {return false;}
-
-    /**
-     * Triggers an event in the game based on the specified event string.
-     *
-     * @param event the event to be triggered
-     */
-    public void triggerEvent(String event) {}
-
-    /**
-     * Handles a player action based on the specified action string.
-     *
-     * @param action the action to be handled
-     */
-    public void handleAction(String action) {}
-
-    /**
-     * Prints the history of actions taken during the game.
-     */
-    public void printHistory() {}
-
-
-    public Board GetBoard() {
-        return board;
+    public List<Player> GetPlayers(){
+        return players;
     }
 
 }

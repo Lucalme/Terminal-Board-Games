@@ -1,9 +1,21 @@
 package board.resource;
 
 public enum ResourceType{
-    Wheat,
-    Ore,
-    Sheep, 
-    Wood,
-    Warriors
+    Wheat(true, "Blé"),
+    Ore(true, "Minerai"),
+    Sheep(true, "Mouton"), 
+    Wood(true,"Bois"),
+    Warriors(false,"Guerriers");
+
+    public final boolean isTradable;
+    public final String name;
+
+    private ResourceType(boolean isTradable, String s){
+        this.isTradable = isTradable;
+        this.name = s;
+    }
+
+    public String toString(){
+        return name;
+    }
 }

@@ -1,26 +1,26 @@
 package player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import board.resource.ResourceType;
-
 import building.Building;
 
 public class Player
 {
     public final int numPlayer;
-    //protected int warriorStock=30;
     protected Map<ResourceType, Integer> resources;
+    private boolean hasTradingAdvantage;
+    private ArrayList<Building> ownedBuildings = new ArrayList<>();
 
     public Player(int numPlayer)
     {
         this.numPlayer=numPlayer;
         resources = new HashMap<ResourceType, Integer>(){{
-            put(ResourceType.Ore, 0);
-            put(ResourceType.Sheep, 0);
-            put(ResourceType.Wheat, 0);
-            put(ResourceType.Wood, 0);
+            put(ResourceType.Ore, 5);
+            put(ResourceType.Sheep, 5);
+            put(ResourceType.Wheat, 5);
+            put(ResourceType.Wood, 5);
             put(ResourceType.Warriors, 30);
         }};
     }
@@ -36,6 +36,18 @@ public class Player
         }
     }
 
+    public String ResourcesString(){
+        String res = "Your resources: ";
+        for (Map.Entry<ResourceType, Integer> entry : resources.entrySet()) {
+            res += "\n- " + entry.getKey() + ": " + entry.getValue();
+        }
+        return res;
+    }
+
+    public Map<ResourceType, Integer> getResources() {
+        return resources;
+    }        
+
     public void removeResource(ResourceType type, int amount) {
         if (resources.containsKey(type)) {
             int currentAmount = resources.get(type);
@@ -50,11 +62,21 @@ public class Player
     public String toString()
     {
         return "Player "+numPlayer;
-        
     }
-   
 
+    public boolean hasTradingAdvantage(){
+        return hasTradingAdvantage;
+    }
 
+    public void setTradingAdvantage(boolean adv){
+        hasTradingAdvantage = adv;
+    }
 
+    public void AddBuilding(Building building){
+        ownedBuildings.add(building);
+    }
 
+    public void RemoveBuilding(Building building){
+        ownedBuildings.remove(building);
+    }
 }

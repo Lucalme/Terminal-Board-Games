@@ -3,36 +3,29 @@ package building;
 import java.util.HashMap;
 import java.util.Map;
 
+import board.resource.ResourceType;
+import player.Player;
 
-/**
- * Represents a Farm building in the game.
- * The Farm building produces basic resources for the settlement.
- */
+
 public class Farm extends Building {
     
-    /**
-     * Constructs a Farm building with a default size of 1.
-     */
-    public Farm() {
-        super(1, getDefaultCost());
+
+    public Farm(Player owner, int islandId) {
+        super(owner, 1, BuildingEffectType.None, islandId);
     }
 
-    /**
-     * Defines the effect of the Farm building.
-     * 
-     * @return a description of the farm's effect
-     */
-    @Override
-    public String effect() {
+    public static String Description() {
         return "The farm produces basic resources.";
     }
-    private static Map<String, Integer> getDefaultCost() {
-        Map<String, Integer> cost = new HashMap<>();
-        cost.put("Wood", 1);
-        cost.put("Ore", 1);
 
+    public static Map<ResourceType, Integer> getDefaultCost() {
+        Map<ResourceType, Integer> cost = new HashMap<>();
+        cost.put(ResourceType.Wood, 1);
+        cost.put(ResourceType.Ore, 1);
         return cost;
-
     }
 
+    public String toString(){
+        return "🌱";
+    }
 }

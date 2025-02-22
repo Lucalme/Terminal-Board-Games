@@ -1,8 +1,18 @@
 package board.tile;
 
 public enum TileType {
-    Forest,
-    Mountains,
-    Pastures, 
-    Fields
+    Forest("Forêt"),
+    Mountains("Montagne"),
+    Pastures("Pâturage"), 
+    Fields("Champs");
+
+    public final String name;
+
+    private TileType(String s){
+        this.name = s;
+    }
+
+    public String toString(){
+        return name;
+    }
 }

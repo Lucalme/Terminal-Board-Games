@@ -1,5 +1,6 @@
-package action;
-
+package action.actions;
+import Game.Game;
+import action.Action;
 import board.resource.ResourceType;
 import board.tile.Tile;
 import player.Player;
@@ -7,23 +8,25 @@ import player.Player;
 public class ActionCollect extends Action {
     
     public final Tile tile;
-    public static final boolean RequiresTile = true;
-    public static final boolean RequiresTarget = false;
 
     public ActionCollect(Player player, Tile tile){
         super(player, true);
         this.tile = tile;
     }
 
-    public boolean Effect(){
+    public void Effect(){
         ResourceType t  = tile.GetResourceType();
         int r = tile.GetResourcesPresent();
-        //TODO: Vider la Tile et ajouter les ressources à l'inventaire.
+        tile.ClearResources();
+        source.addResource(t, r);
+    }
+
+    public static boolean isPossible(Player player, Game game){
         return true;
     }
 
-    public Cost Cost(){
-        return null;
+    public boolean CheckInstancePossible(Player player, Game game){
+        return tile.GetBuilding() == null || tile.GetBuilding().owner == player;
     }
 
     public String Description(){

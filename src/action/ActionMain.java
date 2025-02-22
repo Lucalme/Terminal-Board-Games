@@ -12,7 +12,8 @@ public class ActionMain{
         ArrayList<Player> players = new ArrayList<Player>(){
             {add(player);}
         };
-        Game game = new Ares(players);
-        ActionRequest request = ActionRequest.Prompt(player, game);
+        Game game = new Ares(1);
+        ActionMaker actionMaker = new ActionMaker(game);
+        ActionRequest request = actionMaker.Prompt(player);
     }
 }
