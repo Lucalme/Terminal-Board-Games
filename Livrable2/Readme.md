@@ -1,4 +1,4 @@
-#Livrable 2
+## Livrable 2
 
 Pour ce livrable, afin de palier à nos difficultés de modélisation et d'organisation, on a décidé de créer un prototype du jeu Ares qui nous servira de base à améliorer. Ceci nous permet de nous rendre compte des besoins de l'application en termes de modèle. On est donc sur une approche naïve du type "Proof of Concept".
 Nous avons écrit les composants de base du jeu complet, à savoir les classes buildings, player, actions, et Game. On a également fait une tentative d'implémentation graphique (GUI) du jeu avec les bibliothèques standards du JDK.
