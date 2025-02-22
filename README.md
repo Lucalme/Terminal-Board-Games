@@ -32,8 +32,8 @@ On a une classe board qui est fonctionnelle, on a déjà commencé à réflechir
 Des tests ont été écrits.
 
 ### Difficultés restant à résoudre
--Adopter une méthode de développement horizontale, pour que chacun puisse participer au mieux. 
--Corriger certaines faiblesses du modèle existant, en créant par exemple plus de structures de données. 
+- Adopter une méthode de développement horizontale, pour que chacun puisse participer au mieux. 
+- Corriger certaines faiblesses du modèle existant, en créant par exemple plus de structures de données. 
 
 ## Livrable 2
 
@@ -45,9 +45,9 @@ On a pris de l'avance sur le calendrier mais des fonctionnalités intermédiaire
 
 ### Difficultés restant à résoudre
 
--Gérer la modularité des objets.
--Développer des tests cohérents avec la base de code.
--Certaines méthodes ont été implémentées pour rapidement avoir un aperçu des fonctionnalités, mais ont vocation à être remplacées car elles présentent des problèmes de sécurité de Type et pourraient affaiblir notre capacité à ajouter des extensions rapidement. (notamment celles liées à Polymorphism.java)
+- Gérer la modularité des objets.
+- Développer des tests cohérents avec la base de code.
+- Certaines méthodes ont été implémentées pour rapidement avoir un aperçu des fonctionnalités, mais ont vocation à être remplacées car elles présentent des problèmes de sécurité de Type et pourraient affaiblir notre capacité à ajouter des extensions rapidement. (notamment celles liées à Polymorphism.java)
 
 ## Livrable 3
 
