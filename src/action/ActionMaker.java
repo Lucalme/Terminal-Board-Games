@@ -93,7 +93,7 @@ public class ActionMaker {
         return action;
     }
 
-    private Tile PromptTile(Player player){
+    public Tile PromptTile(Player player){
         Tile tile =null;
         while (tile == null) {
             IO.SlowType("Choissisez la Position");
