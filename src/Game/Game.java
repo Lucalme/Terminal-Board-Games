@@ -35,7 +35,6 @@ public abstract class Game {
         board = new Board();
         history = new ArrayList<String>();
         currentTurn = 0;
-        ActionMaker = new ActionMaker(this);
     }
 
     /**
@@ -50,6 +49,8 @@ public abstract class Game {
             players.add(new Player(i));
         }
         board = new Board(SizeX, SizeY);
+        history = new ArrayList<String>();
+        currentTurn = 0;
     }
 
 
@@ -100,6 +101,7 @@ public abstract class Game {
             pendingActions.add(r);
             IO.DeleteLines(1);
         }
+        currentTurn++;
     }
 
     /**
