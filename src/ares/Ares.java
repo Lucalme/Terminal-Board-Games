@@ -8,4 +8,9 @@ public class Ares extends Game{
         super(nbOfPlayer, 30, 10);
         this.ActionMaker = new ActionMaker(this); 
     }
+
+    public Ares(int nbOfPlayer, int SizeX, int SizeY){
+        super(nbOfPlayer, SizeX, SizeY);
+        this.ActionMaker = new ActionMaker(this);
+    }
 }
