@@ -33,6 +33,9 @@ public abstract class Game {
             players.add(new Player(i));
         }
         board = new Board();
+        history = new ArrayList<String>();
+        currentTurn = 0;
+        ActionMaker = new ActionMaker(this);
     }
 
     /**
