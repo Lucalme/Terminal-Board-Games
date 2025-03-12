@@ -42,6 +42,7 @@ public abstract class Game {
         history = new ArrayList<String>();
         currentTurn = 0;
         objectives = new Objectives();
+        initializeObjectives();
     }
 
     /**
@@ -59,8 +60,17 @@ public abstract class Game {
         history = new ArrayList<String>();
         currentTurn = 0;
         objectives = new Objectives();
+        initializeObjectives();
     }
 
+    /**
+     * Initialise les objectifs des joueurs.
+     */
+    private void initializeObjectives(){
+        for(Player player : players){
+            objectives.setObjective(player, "Objectives for player " + player.numPlayer);
+        }
+    }
 
     /**
      * Démarre le jeu.
@@ -106,10 +116,8 @@ public abstract class Game {
             nextTurn();
         }
         //afficher les gagnants
-        List<Player> winners = objectives.determineWinners();
-        for (Player p : winners) {
-            System.out.println("The player " + winners + " has won the game!");
-        }
+        Player winner = objectives.determineWinner();
+        System.out.println("The player " + winner + " has won the game!");
     }
 
     /**
