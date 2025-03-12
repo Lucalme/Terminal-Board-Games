@@ -54,7 +54,6 @@ public class Objectives {
                 return entry.getKey();
             }
         }
-        return null; 
-    }
+        throw new RuntimeException("no winner found");
     }
 }
