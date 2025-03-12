@@ -39,6 +39,7 @@ public abstract class Game {
         history = new ArrayList<String>();
         currentTurn = 0;
         objectives = new Objectives();
+        initializeObjectives();
     }
 
     /**
@@ -56,8 +57,17 @@ public abstract class Game {
         history = new ArrayList<String>();
         currentTurn = 0;
         objectives = new Objectives();
+        initializeObjectives();
     }
 
+    /**
+     * Initialise les objectifs des joueurs.
+     */
+    private void initializeObjectives(){
+        for(Player player : players){
+            objectives.setObjective(player, "Objectives for player " + player.getId());
+        }
+    }
 
     /**
      * Démarre le jeu.
