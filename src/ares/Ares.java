@@ -14,6 +14,7 @@ public class Ares extends Game{
         this.ActionMaker = new ActionMaker(this); 
     }
 
+<<<<<<< HEAD
     @Override
     public void StartGame(){
         System.out.print("\033\143");
@@ -44,5 +45,10 @@ public class Ares extends Game{
                 done = true;
             }
         }
+=======
+    public Ares(int nbOfPlayer, int SizeX, int SizeY){
+        super(nbOfPlayer, SizeX, SizeY);
+        this.ActionMaker = new ActionMaker(this);
+>>>>>>> 791f4908dda3e0d31a6a2a27e5f114671975576a
     }
 }
