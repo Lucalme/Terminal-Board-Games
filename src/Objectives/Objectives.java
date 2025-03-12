@@ -48,13 +48,13 @@ public class Objectives {
      * Détermine les gagnants en fonction des objectifs atteints.
      * @return Une liste des joueurs ayant atteint leurs objectifs
      */
-    public List<Player> determineWinners() {
-        List<Player> winners = new ArrayList<>();
+    public Player determineWinner() {
         for (Map.Entry<Player, Boolean> entry : objectivesAchieved.entrySet()) {
             if (entry.getValue()) {
-                winners.add(entry.getKey());
+                return entry.getKey();
             }
         }
-        return winners;
+        return null; 
+    }
     }
 }

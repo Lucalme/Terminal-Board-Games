@@ -95,8 +95,8 @@ public abstract class Game {
             nextTurn();
         }
         //afficher les gagnants
-        List<Player> winners = objectives.determineWinners();
-        for (Player p : winners) {
+        List<Player> winner = objectives.determineWinner();
+        for (Player p : winner) {
             System.out.println("The player " + winner + " has won the game!");
         }
     }
