@@ -2,6 +2,7 @@ package board.tile;
 import board.Position;
 import board.resource.*;
 import building.Building;
+import building.BuildingEffectType;
 
 import java.util.Random;
 
@@ -70,6 +71,9 @@ public class Tile {
     }
 
     public void UpdateTile(){
+        if(building != null && building.effectType == BuildingEffectType.MultiplyResourceProduction){
+            resourcesPresent++;
+        }
         resourcesPresent++;
     }
 

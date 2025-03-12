@@ -40,7 +40,7 @@ public class Ares extends Game{
             if(tile.GetBuilding() != null){
                 IO.SlowType("Il y a déjà un batiment sur cette tuile...");
             }else{
-                tile.SetBuilding(new Army(player, 1, BuildingEffectType.None, tile.GetIslandID()));
+                tile.SetBuilding(new Army(player, 1, BuildingEffectType.None, tile));
                 done = true;
             }
         }

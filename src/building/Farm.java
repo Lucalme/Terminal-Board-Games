@@ -4,14 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import board.resource.ResourceType;
+import board.tile.Tile;
 import player.Player;
 
 
 public class Farm extends Building {
     
 
-    public Farm(Player owner, int islandId) {
-        super(owner, 1, BuildingEffectType.None, islandId);
+    public Farm(Player owner, Tile tile) {
+        super(owner, 1, BuildingEffectType.None, tile);
     }
 
     public static String Description() {

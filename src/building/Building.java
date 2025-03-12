@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import board.resource.ResourceType;
+import board.tile.Tile;
 import player.Player;
 
 public abstract class Building {
@@ -12,6 +13,7 @@ public abstract class Building {
     public final BuildingEffectType effectType;
     public final Player owner;
     public final int islandId;
+    public final Tile tile;
 
     /**
      * Constructeur abstrait de Building
@@ -20,11 +22,12 @@ public abstract class Building {
      * @param effectType le type d'effet du bâtiment, le bâtiment peut augmenter la production de la tile sur laquelle il est ou donner un avantage d'échange à son propriétaire
      * @param islandId l'identifiant de l'île sur laquelle le bâtiment est construit 
      */
-    public Building(Player owner, int size, BuildingEffectType effectType, int islandId) {
+    public Building(Player owner, int size, BuildingEffectType effectType, Tile tile) {
         this.owner = owner;
         this.size = size;
         this.effectType = effectType;
-        this.islandId = islandId;
+        this.islandId = tile.GetIslandID();
+        this.tile = tile;
     }
 
     public int getSize() {

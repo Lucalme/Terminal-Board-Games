@@ -13,7 +13,7 @@ import player.Player;
 public class AresBuildHarbour extends ActionBuild {
 
     public AresBuildHarbour(Player source, Tile tile){
-        super(source, new AresHarbour(source, 1, tile.GetIslandID()), tile);
+        super(source, new AresHarbour(source, 1, tile), tile);
     }
 
     public static HashMap<ResourceType, Integer> Cost() {

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import board.tile.Tile;
+import building.Building;
+import player.Player;
 
 
 /**
@@ -53,6 +55,16 @@ public class Board {
                 if (tiles[i][j] != null) {
                     res.put(new int[]{i, j}, tiles[i][j]);
                 }
+            }
+        }
+        return res;
+    }
+
+    public HashMap<Building , Player> getBuildings(){
+        HashMap<Building, Player> res = new HashMap<>();
+        for(Map.Entry<int[], Tile> entry : getTiles().entrySet()){
+            if(entry.getValue().GetBuilding() != null){
+                res.put(entry.getValue().GetBuilding(), entry.getValue().GetBuilding().owner);
             }
         }
         return res;

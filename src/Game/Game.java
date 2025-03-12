@@ -1,12 +1,15 @@
 package Game;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import Objectives.Objectives;
 import action.ActionMaker;
 import action.ActionRequest;
 import action.util.IO;
 import board.Board;
+import board.resource.ResourceType;
+import building.Building;
 import player.Player;
 
 
@@ -88,7 +91,15 @@ public abstract class Game {
             }
             IO.DeleteLines(count);
             pendingActions = updated;
-            board.UpdateAllTiles();
+            board.UpdateAllTiles(); //mise à jour de toutes les resources de toutes les tiles. 
+            for(Map.Entry<Building, Player> entry : board.getBuildings().entrySet()){
+                Building b = entry.getKey();
+                int nbr = b.tile.GetResourcesPresent();
+                ResourceType r = b.tile.GetResourceType();
+                Player p = entry.getValue();
+                p.addResource(r, nbr);
+                b.tile.ClearResources();
+            }
             String str = board.toString();
             System.out.println(str);
             linesToErase = str.split("\\n").length +1;
@@ -97,7 +108,7 @@ public abstract class Game {
         //afficher les gagnants
         List<Player> winners = objectives.determineWinners();
         for (Player p : winners) {
-            System.out.println("The player " + winner + " has won the game!");
+            System.out.println("The player " + winners + " has won the game!");
         }
     }
 
@@ -125,6 +136,7 @@ public abstract class Game {
                 return true;
             }
         }
+        return false;
     }
 
     public List<Player> GetPlayers(){

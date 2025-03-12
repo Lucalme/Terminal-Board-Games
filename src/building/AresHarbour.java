@@ -1,5 +1,6 @@
 package building;
 
+import board.tile.Tile;
 import player.Player;
 
 /**
@@ -24,9 +25,9 @@ public class AresHarbour extends Building {
      * @param size     the size or capacity of the harbour (e.g., how much space it occupies)
      * @param islandId the identifier of the island where this harbour is located
      */
-    public AresHarbour(Player owner, int size, int islandId) {
+    public AresHarbour(Player owner, int size, Tile tile) {
         // We pass the effect MultiplyResourceProduction to the parent constructor
-        super(owner, size, BuildingEffectType.MultiplyResourceProduction, islandId);
+        super(owner, size, BuildingEffectType.MultiplyResourceProduction, tile);
     }
 
     /**

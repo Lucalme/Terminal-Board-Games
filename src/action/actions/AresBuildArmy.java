@@ -28,15 +28,15 @@ public class AresBuildArmy extends ActionBuild{
     }};
 
     public AresBuildArmy(Player builder, Tile tile, int nbOfWarriors) {
-        super(builder, ArmyOrCamp(builder, nbOfWarriors, nbOfWarriors), tile);
+        super(builder, ArmyOrCamp(builder, nbOfWarriors, tile), tile);
         this.nbOfWarriors = nbOfWarriors;
     }
         
-    private static Building ArmyOrCamp(Player builder , int nbOfWarriors, int islandId ){
+    private static Building ArmyOrCamp(Player builder , int nbOfWarriors, Tile tile ){
         if(nbOfWarriors < 6){
-            return new Army(builder, nbOfWarriors, BuildingEffectType.None,  islandId);
+            return new Army(builder, nbOfWarriors, BuildingEffectType.None,  tile);
         }else{
-            return new Camp(builder, nbOfWarriors, islandId);
+            return new Camp(builder, nbOfWarriors, tile);
         }
     }
 
