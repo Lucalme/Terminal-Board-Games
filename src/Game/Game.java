@@ -1,6 +1,8 @@
 package Game;
 import java.util.ArrayList;
 import java.util.List;
+
+import Objectives.Objectives;
 import action.ActionMaker;
 import action.ActionRequest;
 import action.util.IO;
@@ -21,6 +23,7 @@ public abstract class Game {
     protected List<ActionRequest> pendingActions = new ArrayList<ActionRequest>();
     protected int currentTurn;
     protected ActionMaker ActionMaker;
+    protected Objectives objectives;
 
 
     /**
@@ -35,6 +38,7 @@ public abstract class Game {
         board = new Board();
         history = new ArrayList<String>();
         currentTurn = 0;
+        objectives = new Objectives();
     }
 
     /**
@@ -51,6 +55,7 @@ public abstract class Game {
         board = new Board(SizeX, SizeY);
         history = new ArrayList<String>();
         currentTurn = 0;
+        objectives = new Objectives();
     }
 
 
@@ -89,6 +94,11 @@ public abstract class Game {
             linesToErase = str.split("\\n").length +1;
             nextTurn();
         }
+        //afficher les gagnants
+        List<Player> winners = objectives.determineWinners();
+        for (Player p : winners) {
+            System.out.println("The player " + winner + " has won the game!");
+        }
     }
 
     /**
@@ -105,12 +115,16 @@ public abstract class Game {
     }
 
     /**
-     * TODO: Implémenter la condition de victoire.
+     * verifie si un joueur a atteint son objectif
      *
      * @return true si la condition de victoire est remplie
      */
     protected boolean CheckWinCondition() {
-        return false;
+        for (Player player : players){
+            if (objectives.isObjectiveAchieved(player)){
+                return true;
+            }
+        }
     }
 
     public List<Player> GetPlayers(){
