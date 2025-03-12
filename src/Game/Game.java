@@ -65,7 +65,7 @@ public abstract class Game {
      */
     private void initializeObjectives(){
         for(Player player : players){
-            objectives.setObjective(player, "Objectives for player " + player.getId());
+            objectives.setObjective(player, "Objectives for player " + player.numPlayer);
         }
     }
 
