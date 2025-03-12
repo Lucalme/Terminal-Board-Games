@@ -1,5 +1,7 @@
 package ares;
 
+import java.util.Random;
+
 import Game.Game;
 import action.ActionMaker;
 import action.util.IO;
@@ -11,7 +13,8 @@ import player.Player;
 public class Ares extends Game{
     public Ares(int nbOfPlayer){
         super(nbOfPlayer, 30, 10);
-        this.ActionMaker = new ActionMaker(this); 
+        this.ActionMaker = new ActionMaker(this);
+        initializeObjectives(); 
     }
 
     @Override
@@ -44,5 +47,44 @@ public class Ares extends Game{
                 done = true;
             }
         }
+    }
+
+    @Override
+    protected void initializeObjectives(){
+        Random random = new Random();
+        for (Player player : players) {
+            int objectiveType = random.nextInt(3);
+            String objective;
+            switch (objectiveType){
+                case 0 :
+                objective = "Conquérir un nombre de tuiles";
+                break;
+                case 1 :
+                objective = "Envahir une île";
+                break;
+                case 2 :
+                objective = "Atteindre un certain nombre de guerriers";
+                break;
+                default:
+                objective = "Conquérir un nombre de tuiles";
+            }
+            objectives.setObjective(player, objective);
+        }
+    }
+
+    @Override
+    protected boolean CheckWinCondition() {
+        for (Player player : players) {
+            String objective = objectives.getObjective(player);
+            if (objective.equals("Conquérir un nombre de tuiles") && player.getConqueredTiles() >= 10) {
+                return true;
+            } else if (objective.equals("Envahir une île") && player.hasInvadedIsland()) {
+                return true;
+            } else if (objective.equals("Atteindre un certain nombre de guerriers") && player.getWarriors() >= 20) {
+                return true;
+            }
+        }
+        return false;
+        
     }
 }
