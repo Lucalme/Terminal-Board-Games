@@ -65,17 +65,17 @@ public class Ares extends Game{
             ObjectiveType objective = objectives.getObjective(player);
             switch (objective){
                 case CONQUER_TILES:
-                    if (player.GetOwnedBuildings().count > 25){
+                    if (player.GetOwnedBuildings().size() > 25){
                         return true;
                     }
                     break;
                 case INVADE_ISLAND :
-                    if (player.hasInvadedIsland()){
-                        return true;
-                    }
+               //     if (player.hasInvadedIsland()){
+                        return false;
+                   // }
                     break;
                 case REACH_WARRIORS :
-                    if (player.getWarriors() >= 50) {
+                    if (player.getTotalWarriors() >= 50) {
                         return true;
                     }
                     break;

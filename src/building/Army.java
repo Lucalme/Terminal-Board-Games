@@ -5,7 +5,11 @@ import player.Player;
 
 public class Army extends Building {
     
-    private int warriors;
+    protected int warriors;
+
+    public int getWarriors(){
+        return warriors;
+    }
 
     public Army(Player owner, int warriors, BuildingEffectType effect,  Tile tile) {
         super(owner, warriors, effect, tile);
