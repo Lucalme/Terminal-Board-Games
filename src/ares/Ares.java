@@ -49,7 +49,6 @@ public class Ares extends Game{
         }
     }
 
-    @Override
     protected void initializeObjectives(){
         Random random = new Random();
         for (Player player : players) {
