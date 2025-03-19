@@ -79,4 +79,8 @@ public class Player
     public void RemoveBuilding(Building building){
         ownedBuildings.remove(building);
     }
+
+    public ArrayList<Building> GetOwnedBuildings(){
+        return ownedBuildings;
+    }
 }

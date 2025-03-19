@@ -5,7 +5,7 @@ import java.util.Map;
 import player.Player;
 
 public class Objectives {
-    private Map<Player, String> playerObjectives;
+    private Map<Player, ObjectiveType> playerObjectives;
     private Map<Player, Boolean> objectivesAchieved;
 
     public Objectives(){
@@ -16,9 +16,9 @@ public class Objectives {
     /** 
      * Définit l'objectif pour un joueur.
      * @param player le joueur
-     * @param objectif a atteindre
+     * @param objective a atteindre
      */
-    public void setObjective(Player player, String objective) {
+    public void setObjective(Player player, ObjectiveType objective) {
         playerObjectives.put(player, objective);
         objectivesAchieved.put(player, false);
     }
@@ -26,6 +26,7 @@ public class Objectives {
     /**
      * Marque l'objectif d'un joueur comme atteint.
      * @param player le joueur
+     * @return 
      */
     public void achieveObjective(Player player){
         if (playerObjectives.containsKey(player)){
@@ -53,5 +54,14 @@ public class Objectives {
             }
         }
         throw new RuntimeException("no winner found");
+    }
+
+    /**
+     * Récupère l'objectif d'un joueur.
+     * @param player le joueur
+     * @return L'objectif du joueur
+     */
+    public ObjectiveType getObjective(Player player) {
+        return playerObjectives.get(player);
     }
 }

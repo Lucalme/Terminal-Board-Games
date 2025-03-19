@@ -3,6 +3,7 @@ package ares;
 import java.util.Random;
 
 import Game.Game;
+import Objectives.ObjectiveType;
 import action.ActionMaker;
 import action.util.IO;
 import board.tile.Tile;
@@ -52,21 +53,8 @@ public class Ares extends Game{
     protected void initializeObjectives(){
         Random random = new Random();
         for (Player player : players) {
-            int objectiveType = random.nextInt(3);
-            String objective;
-            switch (objectiveType){
-                case 0 :
-                objective = "Conquérir un nombre de tuiles";
-                break;
-                case 1 :
-                objective = "Envahir une île";
-                break;
-                case 2 :
-                objective = "Atteindre un certain nombre de guerriers";
-                break;
-                default:
-                objective = "Conquérir un nombre de tuiles";
-            }
+            int objectiveType = random.nextInt(ObjectiveType.values().length);
+            ObjectiveType objective = ObjectiveType.values()[objectiveType];
             objectives.setObjective(player, objective);
         }
     }
@@ -74,16 +62,24 @@ public class Ares extends Game{
     @Override
     protected boolean CheckWinCondition() {
         for (Player player : players) {
-            String objective = objectives.getObjective(player);
-            if (objective.equals("Conquérir un nombre de tuiles") && player.getConqueredTiles() >= 10) {
-                return true;
-            } else if (objective.equals("Envahir une île") && player.hasInvadedIsland()) {
-                return true;
-            } else if (objective.equals("Atteindre un certain nombre de guerriers") && player.getWarriors() >= 20) {
-                return true;
+            ObjectiveType objective = objectives.getObjective(player);
+            switch (objective){
+                case CONQUER_TILES:
+                    if (player.GetOwnedBuildings().count > 25){
+                        return true;
+                    }
+                    break;
+                case INVADE_ISLAND :
+                    if (player.hasInvadedIsland()){
+                        return true;
+                    }
+                    break;
+                case REACH_WARRIORS :
+                    if (player.getWarriors() >= 50) {
+                        return true;
+                    }
+                    break;
             }
         }
         return false;
-        
-    }
 }
