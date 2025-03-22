@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import board.resource.ResourceType;
+import building.Army;
 import building.Building;
 
-public class Player
-{
+public class Player {
     public final int numPlayer;
     protected Map<ResourceType, Integer> resources;
     private boolean hasTradingAdvantage;
@@ -25,10 +25,13 @@ public class Player
         }};
     }
 
+  
     public void addResource(ResourceType type, int amount) {
         resources.put(type, resources.getOrDefault(type, 0) + amount);
     }
     
+    
+
     public void showResources() {
         System.out.println(" Your Resources:");
         for (Map.Entry<ResourceType, Integer> entry : resources.entrySet()) {
@@ -78,5 +81,19 @@ public class Player
 
     public void RemoveBuilding(Building building){
         ownedBuildings.remove(building);
+    }
+
+    public ArrayList<Building> GetOwnedBuildings(){
+        return ownedBuildings;
+    }
+
+    public int getTotalWarriors() {
+        int totalWarriors = resources.get(ResourceType.Warriors);
+        for (Building building : ownedBuildings) {
+            if (building instanceof Army) {
+                totalWarriors += ((Army) building).getWarriors();
+            }
+        }
+        return totalWarriors;
     }
 }

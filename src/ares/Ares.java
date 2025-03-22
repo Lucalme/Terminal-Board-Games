@@ -1,6 +1,9 @@
 package ares;
 
+import java.util.Random;
+
 import Game.Game;
+import Objectives.ObjectiveType;
 import action.ActionMaker;
 import action.util.IO;
 import board.tile.Tile;
@@ -11,7 +14,8 @@ import player.Player;
 public class Ares extends Game{
     public Ares(int nbOfPlayer){
         super(nbOfPlayer, 30, 10);
-        this.ActionMaker = new ActionMaker(this); 
+        this.ActionMaker = new ActionMaker(this);
+        initializeObjectives(); 
     }
 
     @Override
@@ -45,4 +49,37 @@ public class Ares extends Game{
             }
         }
     }
+
+    protected void initializeObjectives(){
+        Random random = new Random();
+        for (Player player : players) {
+            int objectiveType = random.nextInt(ObjectiveType.values().length);
+            ObjectiveType objective = ObjectiveType.values()[objectiveType];
+            objectives.setObjective(player, objective);
+        }
+    }
+
+    @Override
+    protected boolean CheckWinCondition() {
+        for (Player player : players) {
+            ObjectiveType objective = objectives.getObjective(player);
+            switch (objective){
+                case CONQUER_TILES:
+                    if (player.GetOwnedBuildings().size() > 25){
+                        return true;
+                    }
+                    break;
+                case INVADE_ISLAND :
+               //     if (player.hasInvadedIsland()){
+                        return false;
+                   // }
+                    break;
+                case REACH_WARRIORS :
+                    if (player.getTotalWarriors() >= 50) {
+                        return true;
+                    }
+                    break;
+            }
+        }
+        return false;
 }
