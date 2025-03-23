@@ -1,4 +1,4 @@
-package Game;
+package GUI;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -9,7 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Game.GUIActions.PreliminaryAction;
+import GUI.GUIActions.PreliminaryAction;
 
 import java.util.Map;
 import action.Action;

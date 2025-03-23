@@ -3,9 +3,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
 import java.util.HashMap;
 
-import Game.GUI;
+import GUI.GUI;
 import Game.Game;
-import Game.GUIActions.PreliminaryAction;
+import GUI.GUIActions.PreliminaryAction;
 import action.Action;
 import action.actions.ActionTrade;
 import board.resource.ResourceType;

@@ -1,4 +1,4 @@
-package Game;
+package GUI;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -22,7 +22,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import Game.GUIUtils.*;
+import GUI.GUIUtils.*;
 
 public class GUI extends JFrame{
 

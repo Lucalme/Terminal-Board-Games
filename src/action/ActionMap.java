@@ -1,8 +1,8 @@
 package action;
 import java.util.HashMap;
 
-import Game.GUIActions.PrepareBuildArmy;
-import Game.GUIActions.PrepareTrade;
+import GUI.GUIActions.PrepareBuildArmy;
+import GUI.GUIActions.PrepareTrade;
 import action.actions.ActionAttack;
 import action.actions.ActionCollect;
 import action.actions.ActionTrade;
