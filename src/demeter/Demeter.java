@@ -1,7 +1,11 @@
 package demeter;
 
+import java.util.List;
+
 import Game.Game;
 import action.ActionMaker;
+import building.Building;
+import building.Farm;
 import player.Player;
 
 
@@ -29,15 +33,23 @@ public class Demeter extends Game {
 
     private int calculatePoints(Player player) {
         int points = 0;
-        points += player.getFarmCount();
-        points += player.getExploitationCount() * 2;
-        int islands = player.getIslandsCount();
-        if(islands >= 2){
-            points+=1;
+        List<Building> buildings = player.GetOwnedBuildings();
+        //Calcul du nombre de fermes
+        for (Building building : buildings) {
+            if (building instanceof Farm) {
+                points++;
+            }
+            //else if(building instanceof Exploitation){
+            //    points += 2;
+            //} 
+            //TODO: implementer les expoitations
         }
-        if (islands > 2) {
-            points += 2;
-        }
+        //if(islands >= 2){
+        //    points+=1;
+        //}
+        //if (islands > 2) {
+        //    points += 2;
+        //}
         return points;
     }
 }

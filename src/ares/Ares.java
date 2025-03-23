@@ -70,10 +70,7 @@ public class Ares extends Game{
                     }
                     break;
                 case INVADE_ISLAND :
-               //     if (player.hasInvadedIsland()){
-                        return false;
-                   // }
-                    break;
+                    return false; //TODO: logique d'envahissement d'île
                 case REACH_WARRIORS :
                     if (player.getTotalWarriors() >= 50) {
                         return true;
@@ -82,4 +79,5 @@ public class Ares extends Game{
             }
         }
         return false;
+    }
 }

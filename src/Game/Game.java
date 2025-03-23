@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import Objectives.ObjectiveType;
 import Objectives.Objectives;
 import action.ActionMaker;
 import action.ActionRequest;
@@ -68,7 +69,7 @@ public abstract class Game {
      */
     private void initializeObjectives(){
         for(Player player : players){
-            objectives.setObjective(player, "Objectives for player " + player.numPlayer);
+            objectives.setObjective(player, ObjectiveType.getRandomObjective());
         }
     }
 

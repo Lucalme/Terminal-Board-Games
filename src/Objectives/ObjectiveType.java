@@ -10,4 +10,8 @@ public enum ObjectiveType {
     ObjectiveType(String description) {
         this.description = description;
     }
+
+    public static ObjectiveType getRandomObjective() {
+        return ObjectiveType.values()[(int) (Math.random() * ObjectiveType.values().length)];
+    }
 }
