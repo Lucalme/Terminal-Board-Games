@@ -67,7 +67,7 @@ public class ActionMaker {
                 action = new ActionCollect(player, tile);
                 break;
             case "ActionAttack":
-                Player target = PromptTarget(player);
+                Tile target = PromptTile(player);
                 action = new ActionAttack(player, target);
                 break;
             case "ShowInventory":

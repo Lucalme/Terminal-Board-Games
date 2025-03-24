@@ -17,7 +17,7 @@ public enum ActionMap {
             put("Construire une Armée ou un Camp", AresBuildArmy.class);
             put("Collecter des ressources", ActionCollect.class);
             put("Construire un Port", AresBuildHarbour.class);
-            put("Attaquer", ActionAttack.class);
+            put("Attaquer un voisin", ActionAttack.class);
         }}),
     Demeter(
         new HashMap<String, Class<? extends Action>>() {{
