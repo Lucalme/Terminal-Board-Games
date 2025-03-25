@@ -1,10 +1,16 @@
 package Game;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import Objectives.ObjectiveType;
+import Objectives.Objectives;
 import action.ActionMaker;
 import action.ActionRequest;
 import action.util.IO;
 import board.Board;
+import board.resource.ResourceType;
+import building.Building;
 import player.Player;
 
 
@@ -21,6 +27,7 @@ public abstract class Game {
     protected List<ActionRequest> pendingActions = new ArrayList<ActionRequest>();
     protected int currentTurn;
     protected ActionMaker ActionMaker;
+    protected Objectives objectives;
 
 
     /**
@@ -33,6 +40,10 @@ public abstract class Game {
             players.add(new Player(i));
         }
         board = new Board();
+        history = new ArrayList<String>();
+        currentTurn = 0;
+        objectives = new Objectives();
+        initializeObjectives();
     }
 
     /**
@@ -47,8 +58,20 @@ public abstract class Game {
             players.add(new Player(i));
         }
         board = new Board(SizeX, SizeY);
+        history = new ArrayList<String>();
+        currentTurn = 0;
+        objectives = new Objectives();
+        initializeObjectives();
     }
 
+    /**
+     * Initialise les objectifs des joueurs.
+     */
+    private void initializeObjectives(){
+        for(Player player : players){
+            objectives.setObjective(player, ObjectiveType.getRandomObjective());
+        }
+    }
 
     /**
      * Démarre le jeu.
@@ -70,8 +93,8 @@ public abstract class Game {
             for(int i = 0; i<pendingActions.size(); i++){
                 ActionRequest req = pendingActions.get(i);
                 if(req.ready){
-                    IO.SlowType(req.action.Description());
                     req.action.Effect();
+                    IO.SlowType(req.action.Description());
                     count++;
                 }else{
                     updated.add(req);
@@ -79,12 +102,23 @@ public abstract class Game {
             }
             IO.DeleteLines(count);
             pendingActions = updated;
-            board.UpdateAllTiles();
+            board.UpdateAllTiles(); //mise à jour de toutes les resources de toutes les tiles. 
+            for(Map.Entry<Building, Player> entry : board.getBuildings().entrySet()){ //distribution des resources
+                Building b = entry.getKey();
+                int nbr = b.tile.GetResourcesPresent();
+                ResourceType r = b.tile.GetResourceType();
+                Player p = entry.getValue();
+                p.addResource(r, nbr);
+                b.tile.ClearResources();
+            }
             String str = board.toString();
             System.out.println(str);
             linesToErase = str.split("\\n").length +1;
             nextTurn();
         }
+        //afficher les gagnants
+        Player winner = objectives.determineWinner();
+        System.out.println("The player " + winner + " has won the game!");
     }
 
     /**
@@ -97,14 +131,20 @@ public abstract class Game {
             pendingActions.add(r);
             IO.DeleteLines(1);
         }
+        currentTurn++;
     }
 
     /**
-     * TODO: Implémenter la condition de victoire.
+     * verifie si un joueur a atteint son objectif
      *
      * @return true si la condition de victoire est remplie
      */
     protected boolean CheckWinCondition() {
+        for (Player player : players){
+            if (objectives.isObjectiveAchieved(player)){
+                return true;
+            }
+        }
         return false;
     }
 

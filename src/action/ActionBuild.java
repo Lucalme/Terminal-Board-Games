@@ -7,6 +7,7 @@ import board.Directions;
 import board.resource.ResourceType;
 import board.tile.Tile;
 import building.Building;
+import building.BuildingEffectType;
 import player.Player;
 
 public abstract class ActionBuild extends Action {
@@ -26,6 +27,10 @@ public abstract class ActionBuild extends Action {
     public void Effect(){
         PayCost();
         tile.SetBuilding(building);
+        source.AddBuilding(building);
+        if(building.effectType == BuildingEffectType.TradingAdvantage){
+            source.setTradingAdvantage(true); //TODO: ecrire plutot une méthode/predicat hasTradingAdvantage dans player
+        }
         //TODO: Ajouter le bâtiment à la Tile (ou au board? player? )
     }
 

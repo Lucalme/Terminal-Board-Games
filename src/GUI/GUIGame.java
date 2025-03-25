@@ -1,23 +1,14 @@
-package Game;
+package GUI;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.awt.Toolkit;
-
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.imageio.ImageIO;
+
+import Game.Game;
 
 import action.Action;
-import action.ActionRequest;
 import board.tile.Tile;
 import player.Player;
 

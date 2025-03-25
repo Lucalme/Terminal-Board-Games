@@ -1,21 +1,32 @@
 package building;
 
+import board.tile.Tile;
 import player.Player;
 
 public class Army extends Building {
     
-    private int warriors;
+    protected int warriors;
 
-    public Army(Player owner, int warriors, BuildingEffectType effect,  int islandId) {
-        super(owner, warriors, effect, islandId);
+    /** renvoie le nombre de guerriers */
+    public int getWarriors(){
+        return warriors;
+    }
+
+    public Army(Player owner, int warriors, BuildingEffectType effect,  Tile tile) {
+        super(owner, warriors, effect, tile);
         this.warriors = warriors;
     }
 
-    public String effect() {
-        return "The army with " + warriors + " warriors is ready for battle.";
+    public void setWarriors(int warriors){
+        this.warriors = warriors;
+        if(warriors > 5)
+        {
+            throw new RuntimeException("Nombre de guerriers trop élevé pour une armée");
+        }
     }
 
     public String toString(){
         return "⛺";
     }
+
 }

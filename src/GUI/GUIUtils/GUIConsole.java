@@ -1,11 +1,12 @@
-package Game.GUIUtils;
+package GUI.GUIUtils;
 import javax.swing.JPanel;
+
+import GUI.GUI;
+import GUI.GUIGame;
+
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
-
-import Game.GUI;
-import Game.GUIGame;
 
 import java.awt.Color;
 import java.awt.GridBagLayout;

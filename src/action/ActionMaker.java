@@ -62,13 +62,14 @@ public class ActionMaker {
         String[] array = t.getTypeName().split("\\.");
         String name = array[array.length-1];
         switch(name){
-            case "ActionCollect":
+            case "ActionCollect": //TODO: supprimer (action automatique)
                 Tile tile = PromptTile(player);
                 action = new ActionCollect(player, tile);
                 break;
             case "ActionAttack":
-                Player target = PromptTarget(player);
-                action = new ActionAttack(player, target);
+                Tile baseCamp = PromptTile(player, "Choissisez votre camp de départ");
+                Tile target = PromptTile(player, "Choississez le batiment à attaquer");
+                action = new ActionAttack(player, baseCamp, target);
                 break;
             case "ShowInventory":
                 action = new ShowInventory(player);
@@ -79,11 +80,11 @@ public class ActionMaker {
                 action = new ActionTrade(player, base, exchange);
                 break;
             case "AresBuildHarbour":
-                Tile til = PromptTile(player);
+                Tile til = PromptTile(player, "Choissisez la position où construire le port");
                 action = new AresBuildHarbour(player, til);
                 break;
             case "AresBuildArmy":
-                Tile ti = PromptTile(player);
+                Tile ti = PromptTile(player, "Choissisez la position où construire l'armée");
                 int nbOfWarriors = PromptWarriors(player);
                 action = new AresBuildArmy(player, ti, nbOfWarriors);
                 break;
@@ -93,7 +94,7 @@ public class ActionMaker {
         return action;
     }
 
-    private Tile PromptTile(Player player){
+    public Tile PromptTile(Player player){
         Tile tile =null;
         while (tile == null) {
             IO.SlowType("Choissisez la Position");
@@ -109,6 +110,13 @@ public class ActionMaker {
             IO.DeleteLines(3);
         }
         return tile;
+    }
+
+    public Tile PromptTile(Player player, String prompt){
+        IO.SlowType(prompt);
+        Tile res = PromptTile(player);
+        IO.DeleteLines(1);
+        return res;
     }
 
     /** @param returnAll pour récupérer tous les types de resources, même celle non-échangeables. */

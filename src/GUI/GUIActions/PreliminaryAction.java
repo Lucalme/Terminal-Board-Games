@@ -1,6 +1,6 @@
-package Game.GUIActions;
+package GUI.GUIActions;
 
-import Game.GUI;
+import GUI.GUI;
 import Game.Game;
 import action.Action;
 import player.Player;

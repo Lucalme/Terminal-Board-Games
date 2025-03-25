@@ -1,6 +1,6 @@
 package ares;
-import Game.GUIActionMaker;
-import Game.GUIGame;
+import GUI.GUIActionMaker;
+import GUI.GUIGame;
 import Game.Game;
 
 public class GUIAres extends GUIGame{
