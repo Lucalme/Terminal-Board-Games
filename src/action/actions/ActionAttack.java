@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import Game.Game;
 import action.Action;
+import action.util.IO;
 import board.Position;
 import board.resource.ResourceType;
 import board.tile.Tile;
@@ -21,6 +22,7 @@ public class ActionAttack extends Action {
     public final Tile baseCamp;
     private boolean destroyedBuilding = false;
     private Player winner, looser;
+    private Player targetOwner;
 
     public ActionAttack(Player player, Tile baseCamp, Tile target){
         super(player, true);
@@ -88,11 +90,12 @@ public class ActionAttack extends Action {
         || baseCamp.GetBuilding() == null || (baseCamp.GetBuilding().getClass() != Army.class && baseCamp.GetBuilding().getClass() != Camp.class) || baseCamp.GetBuilding().owner != player){
             return false;
         }
+        targetOwner = target.GetBuilding().owner;
         return true;
     }
 
     public String Description(){
-        return source.toString() + " attaque " + target.GetBuilding().owner.toString() + "! "
+        return source.toString() + " attaque " + targetOwner.toString() + "! "
         + (winner.toString() + " a gagné la bataille! " + (destroyedBuilding ? "Le batiment a été détruit!" : looser.toString() + " a perdu un guerrier!"));
     }
 }
