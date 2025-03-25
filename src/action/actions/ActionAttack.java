@@ -20,6 +20,7 @@ public class ActionAttack extends Action {
     public final Tile target;
     public final Tile baseCamp;
     private boolean destroyedBuilding = false;
+    private Player winner, looser;
 
     public ActionAttack(Player player, Tile baseCamp, Tile target){
         super(player, true);
@@ -40,13 +41,15 @@ public class ActionAttack extends Action {
         for(int i = 0; i < defenderDices; i++){
             defenderScore += (int)(Math.random() * 10) + 1;
         }
-        Army looser = attackerScore < defenderScore ? attacker : defender;
-        int looserwarriors = looser.getWarriors();
+        Army looserArmy = attackerScore < defenderScore ? attacker : defender;
+        winner = attackerScore < defenderScore ? defender.owner : attacker.owner;
+        looser = attackerScore < defenderScore ? attacker.owner : defender.owner;
+        int looserwarriors = looserArmy.getWarriors();
         if(looserwarriors == 1){
             target.SetBuilding(null);
             destroyedBuilding = true;
         }else{
-            looser.setWarriors(looserwarriors - 1);
+            looserArmy.setWarriors(looserwarriors - 1);
         }
     }
 
@@ -89,6 +92,7 @@ public class ActionAttack extends Action {
     }
 
     public String Description(){
-        return source.toString() + " attaque " + target.toString() + "!";
+        return source.toString() + " attaque " + target.GetBuilding().owner.toString() + "! "
+        + (winner.toString() + " a gagné la bataille! " + (destroyedBuilding ? "Le batiment a été détruit!" : looser.toString() + " a perdu un guerrier!"));
     }
 }
