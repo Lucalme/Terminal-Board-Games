@@ -93,8 +93,8 @@ public abstract class Game {
             for(int i = 0; i<pendingActions.size(); i++){
                 ActionRequest req = pendingActions.get(i);
                 if(req.ready){
-                    IO.SlowType(req.action.Description());
                     req.action.Effect();
+                    IO.SlowType(req.action.Description());
                     count++;
                 }else{
                     updated.add(req);
@@ -103,7 +103,7 @@ public abstract class Game {
             IO.DeleteLines(count);
             pendingActions = updated;
             board.UpdateAllTiles(); //mise à jour de toutes les resources de toutes les tiles. 
-            for(Map.Entry<Building, Player> entry : board.getBuildings().entrySet()){
+            for(Map.Entry<Building, Player> entry : board.getBuildings().entrySet()){ //distribution des resources
                 Building b = entry.getKey();
                 int nbr = b.tile.GetResourcesPresent();
                 ResourceType r = b.tile.GetResourceType();

@@ -13,7 +13,7 @@ import player.Player;
 
 public class Ares extends Game{
     public Ares(int nbOfPlayer){
-        super(nbOfPlayer, 30, 10);
+        super(nbOfPlayer, 20, 5);
         this.ActionMaker = new ActionMaker(this);
         initializeObjectives(); 
     }
