@@ -4,10 +4,13 @@ import java.util.List;
 
 import Game.Game;
 import action.ActionMaker;
+import action.util.IO;
+import building.Army;
 import building.Building;
+import building.BuildingEffectType;
 import building.Farm;
 import player.Player;
-
+import board.tile.Tile;
 
 public class Demeter extends Game {
     public Demeter(int nbOfPlayer){
@@ -18,6 +21,37 @@ public class Demeter extends Game {
     public Demeter(int nbOfPlayer, int SizeX, int SizeY){
         super(nbOfPlayer, SizeX, SizeY);
         this.ActionMaker = new ActionMaker(this);
+    }
+
+    @Override
+    public void StartGame(){
+        System.out.print("\033\143");
+        IO.SlowType("Vous devez construire des fermes, Choissisez tour à tout une tuile : ");
+        for(Player player : players ){
+            BuildNewFreeFarm(player);
+        }
+        System.out.print("\033\143");
+        IO.SlowType("Vous avez tous droit à une ferme supplémentaire, choissisez une tuile : ");
+        for(int i = players.size() -1; i >=0 ; i--){
+            Player player = players.get(i);
+            BuildNewFreeFarm(player);
+        }
+        super.StartGame();  
+    }
+    private void BuildNewFreeFarm(Player player){
+        String str = board.toString();
+        System.out.println(str);
+        boolean done = false;
+        IO.SlowType("C'est au tour de "+player.toString());
+        while(!done){
+            Tile tile = ActionMaker.PromptTile(player);
+            if(tile.GetBuilding() != null){
+                IO.SlowType("Il y a déjà un batiment sur cette tuile...");
+            }else{
+                tile.SetBuilding(new Farm(player,BuildingEffectType.None, tile));
+                done = true;
+            }
+        }
     }
 
     @Override
