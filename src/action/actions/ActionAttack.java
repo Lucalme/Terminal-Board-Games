@@ -40,7 +40,7 @@ public class ActionAttack extends Action {
         for(int i = 0; i < defenderDices; i++){
             defenderScore += (int)(Math.random() * 10) + 1;
         }
-        Army looser = attackerScore > defenderScore ? attacker : defender;
+        Army looser = attackerScore < defenderScore ? attacker : defender;
         int looserwarriors = looser.getWarriors();
         if(looserwarriors == 1){
             target.SetBuilding(null);
