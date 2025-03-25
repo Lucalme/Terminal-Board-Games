@@ -25,6 +25,7 @@ public class Ares extends Game{
         for(Player player : players ){
             BuildNewFreeArmy(player);
         }
+        System.out.print("\033\143");
         IO.SlowType("Vous avez tous droit à une armée supplémentaire, choissisez une tuile : ");
         for(int i = players.size() -1; i >=0 ; i--){
             Player player = players.get(i);

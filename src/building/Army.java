@@ -7,6 +7,7 @@ public class Army extends Building {
     
     protected int warriors;
 
+    /** renvoie le nombre de guerriers */
     public int getWarriors(){
         return warriors;
     }
@@ -16,11 +17,16 @@ public class Army extends Building {
         this.warriors = warriors;
     }
 
-    public String effect() {
-        return "The army with " + warriors + " warriors is ready for battle.";
+    public void setWarriors(int warriors){
+        this.warriors = warriors;
+        if(warriors > 5)
+        {
+            throw new RuntimeException("Nombre de guerriers trop élevé pour une armée");
+        }
     }
 
     public String toString(){
         return "⛺";
     }
+
 }

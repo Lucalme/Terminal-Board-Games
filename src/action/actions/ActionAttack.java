@@ -18,14 +18,36 @@ import player.Player;
 public class ActionAttack extends Action {
     
     public final Tile target;
+    public final Tile baseCamp;
+    private boolean destroyedBuilding = false;
 
-    public ActionAttack(Player player, Tile target){
+    public ActionAttack(Player player, Tile baseCamp, Tile target){
         super(player, true);
         this.target = target;
+        this.baseCamp = baseCamp;
     }
 
     public void Effect() {
-        //TODO : implémenter l'attaque
+        Army attacker = (Army) baseCamp.GetBuilding();
+        Army defender = (Army) target.GetBuilding();
+        int attackerDices = attacker.getWarriors() < 4 ? 1 : attacker.getWarriors() < 7 ? 2 : 3;
+        int defenderDices = defender.getWarriors() < 4 ? 1 : defender.getWarriors() < 7 ? 2 : 3;
+        int attackerScore = 0;
+        int defenderScore = 0;
+        for(int i = 0; i < attackerDices; i++){
+            attackerScore += (int)(Math.random() * 10) + 1; //Dé à 10 faces
+        }
+        for(int i = 0; i < defenderDices; i++){
+            defenderScore += (int)(Math.random() * 10) + 1;
+        }
+        Army looser = attackerScore > defenderScore ? attacker : defender;
+        int looserwarriors = looser.getWarriors();
+        if(looserwarriors == 1){
+            target.SetBuilding(null);
+            destroyedBuilding = true;
+        }else{
+            looser.setWarriors(looserwarriors - 1);
+        }
     }
 
     public static HashMap<ResourceType, Integer>  Cost(){
@@ -58,16 +80,12 @@ public class ActionAttack extends Action {
 
     /** true si le player a au moins un camp ou une armée sur la même ile que la cible. */
     public boolean CheckInstancePossible(Player player, Game game){
-        int targetisland = target.GetIslandID();
-        if(target.GetBuilding() == null || (target.GetBuilding().getClass() != Army.class && target.GetBuilding().getClass() != Camp.class)){
+        if( target.GetIslandID() != baseCamp.GetIslandID()
+        || target.GetBuilding() == null || (target.GetBuilding().getClass() != Army.class && target.GetBuilding().getClass() != Camp.class) || target.GetBuilding().owner == player
+        || baseCamp.GetBuilding() == null || (baseCamp.GetBuilding().getClass() != Army.class && baseCamp.GetBuilding().getClass() != Camp.class) || baseCamp.GetBuilding().owner != player){
             return false;
         }
-        for(Building b: source.GetOwnedBuildings()){
-            if(b.islandId == targetisland && (b.getClass() == Army.class || b.getClass() == Camp.class)){
-                return true;
-            }   
-        }
-        return false;
+        return true;
     }
 
     public String Description(){
