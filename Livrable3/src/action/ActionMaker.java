@@ -16,7 +16,6 @@ import action.util.*;
 
 import board.resource.ResourceType;
 import board.tile.Tile;
-import player.COM;
 import player.Player;
 
 public class ActionMaker {
@@ -194,10 +193,6 @@ public class ActionMaker {
     }
         
     public ActionRequest Prompt(Player player){
-        if(player instanceof COM){
-            System.out.print(PromptBuilder(player, actionMap));
-            return ((COM)player).promptAction(GetPossibleActions(player), game);
-        }
         ActionRequest res = null;
         Boolean done = false;
         HashMap<String, Class<? extends Action>> possibleActions = GetPossibleActions(player);

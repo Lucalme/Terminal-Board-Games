@@ -1,6 +1,5 @@
 package ares;
 
-import java.util.List;
 import java.util.Random;
 
 import Game.Game;
@@ -10,19 +9,13 @@ import action.util.IO;
 import board.tile.Tile;
 import building.Army;
 import building.BuildingEffectType;
-import player.COM;
 import player.Player;
 
 public class Ares extends Game{
     public Ares(int nbOfPlayer){
-        super(nbOfPlayer, 10, 10);
+        super(nbOfPlayer, 20, 5);
         this.ActionMaker = new ActionMaker(this);
         initializeObjectives(); 
-    }
-
-    public Ares(List<Player> players){
-        super(players);
-        this.ActionMaker = new ActionMaker(this);
     }
 
     @Override
@@ -43,11 +36,6 @@ public class Ares extends Game{
 
 
     private void BuildNewFreeArmy(Player player){
-        if(player instanceof COM){
-            Tile tile = ((COM)player).getEmptyTile(this); 
-            tile.SetBuilding(new Army(player, 1, BuildingEffectType.None, tile));
-            return;
-        }
         String str = board.toString();
         System.out.println(str);
         boolean done = false;
