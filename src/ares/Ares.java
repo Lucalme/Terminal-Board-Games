@@ -46,6 +46,7 @@ public class Ares extends Game{
         if(player instanceof COM){
             Tile tile = ((COM)player).getEmptyTile(this); 
             tile.SetBuilding(new Army(player, 1, BuildingEffectType.None, tile));
+            player.AddBuilding(tile.GetBuilding());
             return;
         }
         String str = board.toString();

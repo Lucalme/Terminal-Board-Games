@@ -262,7 +262,9 @@ public class ActionMaker {
             int lines = prompt.split("\\n").length;
             IO.SlowType(prompt, 10);
             ActionRequest res = ((COM)player).promptAction(GetPossibleActions(player), game);
-            res.action.CheckInstancePossible(player, game);
+            while(!res.action.CheckInstancePossible(player, game)){
+                res = ((COM)player).promptAction(GetPossibleActions(player), game);
+            }
             IO.DeleteLines(lines);
             return res;
         }

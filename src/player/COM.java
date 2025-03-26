@@ -50,7 +50,6 @@ public class COM extends Player{
                     return res;
                 case"ActionAttack":
                     ArrayList<Building> selfBuildings = this.GetOwnedBuildings();
-                    IO.SlowType("selfBuildings : "+selfBuildings.size(), 100);
                     for(Building b : selfBuildings){
                         if(!(b instanceof Army) && !(b instanceof Camp)){
                             continue;
@@ -59,7 +58,6 @@ public class COM extends Player{
                         ArrayList<Building> possibleTargets = game.board.getBuildings().entrySet().stream().
                         filter(e -> e.getKey().islandId == islandId && e.getValue().numPlayer != this.numPlayer && (e.getKey() instanceof Army || e.getKey() instanceof Camp) ).map(e -> e.getKey()).
                         collect(Collectors.toCollection(ArrayList::new));
-                        IO.SlowType("possibleTargets : "+possibleTargets.size(), 100);
                         if(possibleTargets.size() > 0){
                             ActionAttack attack = new ActionAttack(this, b.tile, possibleTargets.get(r.nextInt(possibleTargets.size())).tile);
                             ActionRequest resz = new ActionRequest(this, attack);
