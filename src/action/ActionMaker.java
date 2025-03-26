@@ -94,6 +94,7 @@ public class ActionMaker {
                 break;
             case "ActionSkip":
                 action = new ActionSkip(player);
+                break;
             case "DemeterBuildFarm":
                 Tile tii = PromptTile(player, "Choissisez la position où construire la ferme");
                 action = new DemeterBuildFarm(player,tii);

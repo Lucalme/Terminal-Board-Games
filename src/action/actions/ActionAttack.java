@@ -64,7 +64,7 @@ public class ActionAttack extends Action {
         int playerid = player.numPlayer;
         HashMap<Building, Player> buildings = game.board.getBuildings();
         List<Building> playerWarBuildings = buildings.entrySet().stream().
-            filter(e -> e.getValue().numPlayer == playerid && (e.getKey().getClass() ==  Army.class || e.getKey().getClass() == Camp.class)).
+            filter(e -> e.getValue().numPlayer == playerid && (e.getKey() instanceof  Army || e.getKey() instanceof Camp)).
             map(e -> e.getKey()).collect(Collectors.toList());
         List<Integer> checkedIslands = new ArrayList<>();
         for(Building b : playerWarBuildings){
@@ -73,7 +73,7 @@ public class ActionAttack extends Action {
             }
             checkedIslands.add(b.islandId);
             List<Building> sameIslandAdversaryWarBuilding = buildings.entrySet().stream().
-                filter(e -> e.getValue().numPlayer != playerid && e.getKey().islandId == b.islandId && (e.getKey().getClass() ==  Army.class || e.getKey().getClass() == Camp.class)).
+                filter(e -> e.getValue().numPlayer != playerid && e.getKey().islandId == b.islandId && (e.getKey() instanceof  Army || e.getKey() instanceof Camp)).
                 map(e -> e.getKey()).collect(Collectors.toList());
             if(sameIslandAdversaryWarBuilding.size() > 0){
                 return true;
@@ -86,8 +86,8 @@ public class ActionAttack extends Action {
     /** true si le player a au moins un camp ou une armée sur la même ile que la cible. */
     public boolean CheckInstancePossible(Player player, Game game){
         if( target.GetIslandID() != baseCamp.GetIslandID()
-        || target.GetBuilding() == null || (target.GetBuilding().getClass() != Army.class && target.GetBuilding().getClass() != Camp.class) || target.GetBuilding().owner == player
-        || baseCamp.GetBuilding() == null || (baseCamp.GetBuilding().getClass() != Army.class && baseCamp.GetBuilding().getClass() != Camp.class) || baseCamp.GetBuilding().owner != player){
+        || target.GetBuilding() == null || (target.GetBuilding() instanceof Army && target.GetBuilding() instanceof Camp) || target.GetBuilding().owner == player
+        || baseCamp.GetBuilding() == null || (baseCamp.GetBuilding() instanceof Army && baseCamp.GetBuilding() instanceof Camp) || baseCamp.GetBuilding().owner != player){
             return false;
         }
         targetOwner = target.GetBuilding().owner;
