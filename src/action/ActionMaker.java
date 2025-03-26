@@ -39,6 +39,7 @@ public class ActionMaker {
     protected HashMap<String, Class<? extends Action>> GetPossibleActions(Player player){
         HashMap<String, Class<? extends Action>> res = new HashMap<>();
         for(Map.Entry<String, Class<? extends Action>> entry : actionMap.entrySet()){
+
             if(Polymorphism.isPossible(entry.getValue(), player, game)){
                 res.put(entry.getKey(), entry.getValue());
             }
@@ -50,6 +51,10 @@ public class ActionMaker {
         String res = "Choisissez une action : ";
         int i = 1;
         for(Map.Entry<String, Class<? extends Action>> entry : possibleActions.entrySet()){
+            
+            if (entry.getKey().equals("Collecter des ressources") ){
+                continue;
+            }
             res += "\n"+ i +" -> "+ entry.getKey();
             i++;
         }
@@ -62,10 +67,6 @@ public class ActionMaker {
         String[] array = t.getTypeName().split("\\.");
         String name = array[array.length-1];
         switch(name){
-            case "ActionCollect": //TODO: supprimer (action automatique)
-                Tile tile = PromptTile(player);
-                action = new ActionCollect(player, tile);
-                break;
             case "ActionAttack":
                 Tile baseCamp = PromptTile(player, "Choissisez votre camp de départ");
                 Tile target = PromptTile(player, "Choississez le batiment à attaquer");

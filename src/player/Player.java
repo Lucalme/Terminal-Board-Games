@@ -17,10 +17,10 @@ public class Player {
     {
         this.numPlayer=numPlayer;
         resources = new HashMap<ResourceType, Integer>(){{
-            put(ResourceType.Ore, 5);
-            put(ResourceType.Sheep, 5);
-            put(ResourceType.Wheat, 5);
-            put(ResourceType.Wood, 5);
+            put(ResourceType.Ore, 0);
+            put(ResourceType.Sheep, 0);
+            put(ResourceType.Wheat, 0);
+            put(ResourceType.Wood, 0);
             put(ResourceType.Warriors, 30);
         }};
     }
