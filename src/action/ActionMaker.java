@@ -17,6 +17,7 @@ import action.util.*;
 
 import board.resource.ResourceType;
 import board.tile.Tile;
+import building.BuildingEffectType;
 import player.COM;
 import player.Player;
 
@@ -93,6 +94,9 @@ public class ActionMaker {
                 break;
             case "ActionSkip":
                 action = new ActionSkip(player);
+            case "DemeterBuildFarm":
+                Tile tii = PromptTile(player, "Choissisez la position où construire la ferme");
+                action = new DemeterBuildFarm(player,tii);
                 break;
             default :
                 throw new RuntimeException("ActionMaker!Nom non-reconnu : "+ t.getTypeName());
