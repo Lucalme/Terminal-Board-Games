@@ -3,6 +3,7 @@ import java.util.HashMap;
 import GUI.GUIActions.PrepareBuildArmy;
 import GUI.GUIActions.PrepareTrade;
 import action.actions.ActionAttack;
+import action.actions.ActionSkip;
 import action.actions.ActionTrade;
 import action.actions.AresBuildArmy;
 import action.actions.AresBuildHarbour;
@@ -11,6 +12,7 @@ import action.actions.ShowInventory;
 public enum ActionMap {
     Ares(new HashMap<String, Class<? extends Action>>() {{
             put("Voir l'inventaire", ShowInventory.class);
+            put("Passer votre tour", ActionSkip.class);
             put("Echanger des resources", ActionTrade.class);
             put("Construire une Armée ou un Camp", AresBuildArmy.class);
             put("Construire un Port", AresBuildHarbour.class);

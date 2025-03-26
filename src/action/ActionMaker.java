@@ -9,6 +9,7 @@ import java.util.Map;
 import Game.Game;
 import ares.Ares;
 import ares.GUIAres;
+import ares.Livrable3;
 import demeter.Demeter;
 
 import action.actions.*;
@@ -25,7 +26,7 @@ public class ActionMaker {
     protected final Game game;
 
     public ActionMaker(Game game){
-        if(game instanceof Ares ){
+        if(game instanceof Ares || game instanceof Livrable3){
             actionMap = ActionMap.Ares.actionMap;
         }else if(game instanceof Demeter){
             actionMap = ActionMap.Demeter.actionMap;
