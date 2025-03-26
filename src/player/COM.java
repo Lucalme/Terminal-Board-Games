@@ -29,9 +29,9 @@ public class COM extends Player{
         try{
             Random r = new Random();
             int a = r.nextInt(possibleActions.entrySet().size());
-            while(!(boolean)possibleActions.values().toArray()[a].getClass().getField("finishesTurn").getBoolean(null)){
-                a = r.nextInt(possibleActions.entrySet().size());
-            }
+            //while(!(boolean)possibleActions.values().toArray()[a].getClass().getField("finishesTurn").getBoolean(null)){
+            //    a = r.nextInt(possibleActions.entrySet().size());
+            //}
             @SuppressWarnings("unchecked")
             Class<? extends Action> c = (Class<? extends Action>) possibleActions.values().toArray()[a].getClass();
             c = ActionTrade.class;
