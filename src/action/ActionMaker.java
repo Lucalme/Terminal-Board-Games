@@ -91,6 +91,9 @@ public class ActionMaker {
                 int nbOfWarriors = PromptWarriors(player);
                 action = new AresBuildArmy(player, ti, nbOfWarriors);
                 break;
+            case "ActionSkip":
+                action = new ActionSkip(player);
+                break;
             default :
                 throw new RuntimeException("ActionMaker!Nom non-reconnu : "+ t.getTypeName());
         }
@@ -196,8 +199,13 @@ public class ActionMaker {
         
     public ActionRequest Prompt(Player player){
         if(player instanceof COM){
-            System.out.print(PromptBuilder(player, actionMap));
-            return ((COM)player).promptAction(GetPossibleActions(player), game);
+            String prompt = PromptBuilder(player, GetPossibleActions(player));
+            int lines = prompt.split("\\n").length;
+            IO.SlowType(prompt, 10);
+            ActionRequest res = ((COM)player).promptAction(GetPossibleActions(player), game);
+            res.action.CheckInstancePossible(player, game);
+            IO.DeleteLines(lines);
+            return res;
         }
         ActionRequest res = null;
         Boolean done = false;
