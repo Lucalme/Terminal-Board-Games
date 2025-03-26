@@ -90,7 +90,7 @@ public abstract class Game {
             IO.DeleteLines(linesToErase);
             ArrayList<ActionRequest> updated = new ArrayList<ActionRequest>();
             int count = 0;
-            for(int i = 0; i<pendingActions.size(); i++){
+            for(int i = 0; i<pendingActions.size(); i++){ //TODO: executer les actions directement pour éviter les conflits.
                 ActionRequest req = pendingActions.get(i);
                 if(req.ready){
                     req.action.Effect();
