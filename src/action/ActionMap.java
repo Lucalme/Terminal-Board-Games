@@ -24,6 +24,7 @@ public enum ActionMap {
             put("Construire une Farm", action.actions.DemeterBuildFarm.class);
             put("Passer votre tour", ActionSkip.class);
             put("Construire un Port", action.actions.DemeterBuildPort.class);
+            put("Remplacer une Farm par une Exploitation", action.actions.DemeterBuildExploitation.class);
         }}),
     GUIAres(new HashMap<String, Class<? extends Action>>() {{
             put("Echanger des resources", PrepareTrade.class);

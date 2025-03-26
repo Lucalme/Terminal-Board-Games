@@ -48,7 +48,9 @@ public class Demeter extends Game {
             if(tile.GetBuilding() != null){
                 IO.SlowType("Il y a déjà un batiment sur cette tuile...");
             }else{
-                tile.SetBuilding(new Farm(player,BuildingEffectType.None, tile));
+                Farm newFarm = new Farm(player, BuildingEffectType.None, tile); // Create the new farm
+                tile.SetBuilding(newFarm); // Set the farm on the tile
+                player.AddBuilding(newFarm);
                 done = true;
             }
         }

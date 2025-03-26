@@ -14,10 +14,12 @@ import demeter.Demeter;
 
 import action.actions.*;
 import action.util.*;
-
+import building.Farm;
 import board.resource.ResourceType;
 import board.tile.Tile;
+import building.Building;
 import building.BuildingEffectType;
+import building.Exploitation;
 import player.COM;
 import player.Player;
 
@@ -103,10 +105,58 @@ public class ActionMaker {
                 Tile tiii = PromptTile(player, "Choissisez la position où construire le port");
                 action = new DemeterBuildPort(player, tiii);
                 break;
+            case "DemeterBuildExploitation":
+                replaceFarmWithExploitation(player);
+                break;
+
             default :
                 throw new RuntimeException("ActionMaker!Nom non-reconnu : "+ t.getTypeName());
         }
         return action;
+    }
+
+    public void replaceFarmWithExploitation(Player player) {
+        Farm selectedFarm = (Farm) PromptFarm(player);
+
+        if (selectedFarm == null) {
+            System.out.println("No farm selected.");
+            return;
+        }
+        Tile farmTile = selectedFarm.tile; 
+        player.RemoveBuilding(selectedFarm);
+
+        Exploitation newExploitation = new Exploitation(player, BuildingEffectType.MultiplyResourceProduction, farmTile);
+        player.AddBuilding(newExploitation);
+
+        System.out.println("Farm at (" + farmTile.position.x + ", " + farmTile.position.y + ") replaced with an Exploitation.");
+
+    }
+    public Building PromptFarm(Player player){
+        ArrayList <Building> playerBuilding= player.GetOwnedBuildings();
+        ArrayList <Farm> playerFarm=new ArrayList<>();
+        String prompt = "Choisissez une ferme à remplacer : \n";
+        int count=0;
+        for(Building b : playerBuilding){
+            if(b instanceof Farm){
+                playerFarm.add((Farm)b);
+                prompt += count + " ->  numero ile: "+ b.islandId +" position: ("+b.tile.position.x+","+b.tile.position.y+"):" + "\n";
+                count++;
+            }
+        }
+        IO.SlowType(prompt);
+        boolean done= false;
+        int answer=-1;
+        while(!done)
+        {
+            answer =IO.getInt();
+           if(answer<playerFarm.size() && answer>=0){
+                done=true;
+               
+           }
+        }
+        IO.DeleteLines(count+2);
+        return playerFarm.get(answer);
+
     }
 
     public Tile PromptTile(Player player){
