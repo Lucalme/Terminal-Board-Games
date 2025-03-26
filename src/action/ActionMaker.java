@@ -94,6 +94,9 @@ public class ActionMaker {
                 int nbOfWarriors = PromptWarriors(player);
                 action = new AresBuildArmy(player, ti, nbOfWarriors);
                 break;
+            case "AresBuyWarriors":
+                action = new AresBuyWarriors(player);
+                break;
             case "ActionSkip":
                 action = new ActionSkip(player);
                 break;

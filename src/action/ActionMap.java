@@ -7,6 +7,7 @@ import action.actions.ActionSkip;
 import action.actions.ActionTrade;
 import action.actions.AresBuildArmy;
 import action.actions.AresBuildHarbour;
+import action.actions.AresBuyWarriors;
 import action.actions.ShowInventory;
 
 public enum ActionMap {
@@ -16,6 +17,7 @@ public enum ActionMap {
             put("Echanger des resources", ActionTrade.class);
             put("Construire une Armée ou un Camp", AresBuildArmy.class);
             put("Construire un Port", AresBuildHarbour.class);
+            put("Acheter 5 guerriers", AresBuyWarriors.class);
             put("Attaquer un voisin", ActionAttack.class);
         }}),
     Demeter(

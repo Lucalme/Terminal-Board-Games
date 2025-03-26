@@ -13,8 +13,10 @@ import action.actions.ActionSkip;
 import action.actions.ActionTrade;
 import action.actions.AresBuildArmy;
 import action.actions.AresBuildHarbour;
+import action.actions.AresBuyWarriors;
 import action.actions.ShowInventory;
 import action.util.IO;
+import ares.Ares;
 import board.resource.ResourceType;
 import board.tile.Tile;
 import building.Army;
@@ -85,6 +87,10 @@ public class COM extends Player{
                     ActionSkip skip2 = new ActionSkip(this);
                     ActionRequest rest2 = new ActionRequest(this, skip2);
                     return rest2;
+                case "AresBuyWarriors":
+                    AresBuyWarriors buyWarriors = new AresBuyWarriors(this);
+                    ActionRequest resu = new ActionRequest(this, buyWarriors);
+                    return resu;
                 default:
                     //IO.SlowType("nombre d'actions possibles : "+possibleActions.size(), 100);
                     //IO.SlowType(c.toString(), 200);
