@@ -22,6 +22,7 @@ public enum ActionMap {
         new HashMap<String, Class<? extends Action>>() {{
             put("Voir l'inventaire", ShowInventory.class);
             put("Construire une Farm", action.actions.DemeterBuildFarm.class);
+            put("Passer votre tour", ActionSkip.class);
         }}),
     GUIAres(new HashMap<String, Class<? extends Action>>() {{
             put("Echanger des resources", PrepareTrade.class);
