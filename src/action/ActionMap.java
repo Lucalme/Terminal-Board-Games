@@ -23,6 +23,7 @@ public enum ActionMap {
             put("Voir l'inventaire", ShowInventory.class);
             put("Construire une Farm", action.actions.DemeterBuildFarm.class);
             put("Passer votre tour", ActionSkip.class);
+            put("Construire un Port", action.actions.DemeterBuildPort.class);
         }}),
     GUIAres(new HashMap<String, Class<? extends Action>>() {{
             put("Echanger des resources", PrepareTrade.class);

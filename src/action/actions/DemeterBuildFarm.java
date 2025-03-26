@@ -38,6 +38,6 @@ public class DemeterBuildFarm  extends ActionBuild {
         return source.toString() + " a construit une Farme sur l'île n°"+islandId;
     }
     public boolean CheckInstancePossible(Player player, Game game){
-        return TileIsEmpty(tile) && TileHasWaterNeighbour(tile, player, game);
+        return TileIsEmpty(tile);
     }   
 }
