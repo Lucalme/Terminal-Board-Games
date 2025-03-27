@@ -14,5 +14,5 @@ On a avancé sur les actions, en proposant un modèle d'héritage pour chaque ac
 
 
 Un test de partie automatique, jouée par des bots, a été fait pour Ares. Pour lancer la partie bot vs bot, executer le jar : 
-`jar cfe livrable2.jar ares.AresMain -C classes .`
+`jar cfe livrable3.jar ares.Livrable3 -C classes .`
 (Pour le recompiler, en cas de problème de compatibilité : `jar cfe livrable3.jar ares.Livrable3 -C classes .`)
