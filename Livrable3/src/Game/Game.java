@@ -46,6 +46,13 @@ public abstract class Game {
         initializeObjectives();
     }
 
+    public Game(List<Player> players){
+        board = new Board(10, 10);
+        this.players = players;
+        history = new ArrayList<String>();
+        currentTurn = 0;
+    }
+
     /**
      * Classe abstraite représentant un jeu de plateau, tour par tour.
      * @param nbOfPlayer le nombre de joueurs

@@ -9,13 +9,18 @@ import java.util.Map;
 import Game.Game;
 import ares.Ares;
 import ares.GUIAres;
+import ares.Livrable3;
 import demeter.Demeter;
 
 import action.actions.*;
 import action.util.*;
-
+import building.Farm;
 import board.resource.ResourceType;
 import board.tile.Tile;
+import building.Building;
+import building.BuildingEffectType;
+import building.Exploitation;
+import player.COM;
 import player.Player;
 
 public class ActionMaker {
@@ -24,7 +29,7 @@ public class ActionMaker {
     protected final Game game;
 
     public ActionMaker(Game game){
-        if(game instanceof Ares ){
+        if(game instanceof Ares || game instanceof Livrable3){
             actionMap = ActionMap.Ares.actionMap;
         }else if(game instanceof Demeter){
             actionMap = ActionMap.Demeter.actionMap;
@@ -89,10 +94,72 @@ public class ActionMaker {
                 int nbOfWarriors = PromptWarriors(player);
                 action = new AresBuildArmy(player, ti, nbOfWarriors);
                 break;
+            case "AresBuyWarriors":
+                action = new AresBuyWarriors(player);
+                break;
+            case "ActionSkip":
+                action = new ActionSkip(player);
+                break;
+            case "DemeterBuildFarm":
+                Tile tii = PromptTile(player, "Choissisez la position où construire la ferme");
+                action = new DemeterBuildFarm(player,tii);
+                break;
+            case "DemeterBuildPort":
+                Tile tiii = PromptTile(player, "Choissisez la position où construire le port");
+                action = new DemeterBuildPort(player, tiii);
+                break;
+            case "DemeterBuildExploitation":
+                replaceFarmWithExploitation(player);
+                break;
+
             default :
                 throw new RuntimeException("ActionMaker!Nom non-reconnu : "+ t.getTypeName());
         }
         return action;
+    }
+
+    public void replaceFarmWithExploitation(Player player) {
+        Farm selectedFarm = (Farm) PromptFarm(player);
+
+        if (selectedFarm == null) {
+            System.out.println("No farm selected.");
+            return;
+        }
+        Tile farmTile = selectedFarm.tile; 
+        player.RemoveBuilding(selectedFarm);
+
+        Exploitation newExploitation = new Exploitation(player, BuildingEffectType.MultiplyResourceProduction, farmTile);
+        player.AddBuilding(newExploitation);
+
+        System.out.println("Farm at (" + farmTile.position.x + ", " + farmTile.position.y + ") replaced with an Exploitation.");
+
+    }
+    public Building PromptFarm(Player player){
+        ArrayList <Building> playerBuilding= player.GetOwnedBuildings();
+        ArrayList <Farm> playerFarm=new ArrayList<>();
+        String prompt = "Choisissez une ferme à remplacer : \n";
+        int count=0;
+        for(Building b : playerBuilding){
+            if(b instanceof Farm){
+                playerFarm.add((Farm)b);
+                prompt += count + " ->  numero ile: "+ b.islandId +" position: ("+b.tile.position.x+","+b.tile.position.y+"):" + "\n";
+                count++;
+            }
+        }
+        IO.SlowType(prompt);
+        boolean done= false;
+        int answer=-1;
+        while(!done)
+        {
+            answer =IO.getInt();
+           if(answer<playerFarm.size() && answer>=0){
+                done=true;
+               
+           }
+        }
+        IO.DeleteLines(count+2);
+        return playerFarm.get(answer);
+
     }
 
     public Tile PromptTile(Player player){
@@ -193,6 +260,17 @@ public class ActionMaker {
     }
         
     public ActionRequest Prompt(Player player){
+        if(player instanceof COM){
+            String prompt = PromptBuilder(player, GetPossibleActions(player));
+            int lines = prompt.split("\\n").length;
+            IO.SlowType(prompt, 10);
+            ActionRequest res = ((COM)player).promptAction(GetPossibleActions(player), game);
+            while(!res.action.CheckInstancePossible(player, game)){
+                res = ((COM)player).promptAction(GetPossibleActions(player), game);
+            }
+            IO.DeleteLines(lines);
+            return res;
+        }
         ActionRequest res = null;
         Boolean done = false;
         HashMap<String, Class<? extends Action>> possibleActions = GetPossibleActions(player);

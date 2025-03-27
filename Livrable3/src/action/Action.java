@@ -31,6 +31,16 @@ public abstract class Action {
         return new HashMap<>();
     }
 
+    protected static boolean PlayerCanAfford(Player player, HashMap<ResourceType, Integer> cost){
+        Map<ResourceType, Integer>playerResource = player.getResources();
+        for(Map.Entry<ResourceType, Integer> entry : cost.entrySet()){
+            if(playerResource.get(entry.getKey()) < entry.getValue()){
+                return false;
+            } 
+        }
+        return true;
+    }
+
 
     /**Certaines actions sont conditionnées par des resources mais ne sont pas forcément payantes. Utiliser cette méthode génerique pour les actions payantes. */
     protected void PayCost(){

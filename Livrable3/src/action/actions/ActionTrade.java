@@ -11,11 +11,12 @@ public class ActionTrade extends Action {
 
     public final ResourceType playerResourceType;
     public final ResourceType exchangeResourceType;
-    private final boolean hasResourceAdvantage = false; 
+    private final boolean hasResourceAdvantage; 
     
     public ActionTrade(Player source, ResourceType playerResources, ResourceType exchangeResource){
         //TODO: Verifier si le Player a un avantage d'échange
         super(source, true);
+        this.hasResourceAdvantage = source.hasTradingAdvantage();
         this.exchangeResourceType = exchangeResource;
         this.playerResourceType = playerResources;
     }

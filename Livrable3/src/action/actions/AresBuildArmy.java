@@ -63,7 +63,7 @@ public class AresBuildArmy extends ActionBuild{
             source.removeResource(ResourceType.Wheat, 1);
         }
         source.removeResource(ResourceType.Warriors, nbOfWarriors);
-        tile.SetBuilding(building);
+        super.Effect();
     }
 
 

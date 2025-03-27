@@ -15,8 +15,8 @@ import player.Player;
 public class Board {
 
     private Tile[][] tiles;
-    private int size_X = 7;
-    private int size_Y = 7;
+    private int size_X = 10;
+    private int size_Y = 10;
     
     public int SizeX() {
         return size_X;
