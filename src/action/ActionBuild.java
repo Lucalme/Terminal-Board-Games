@@ -1,8 +1,10 @@
 package action;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import Game.Game;
+import board.Board;
 import board.Directions;
 import board.resource.ResourceType;
 import board.tile.Tile;
@@ -61,6 +63,10 @@ public abstract class ActionBuild extends Action {
             }
         }
         return false;
+    }
+
+    protected static boolean atLeastOneTileEmpty(Board board){
+        return board.getTiles().values().stream().filter(tile -> tile.GetBuilding() == null).collect(Collectors.toList()).size() > 0;
     }
 
     protected boolean TileIsEmpty(Tile tile){

@@ -86,8 +86,8 @@ public class ActionAttack extends Action {
     /** true si le player a au moins un camp ou une armée sur la même ile que la cible. */
     public boolean CheckInstancePossible(Player player, Game game){
         if( target.GetIslandID() != baseCamp.GetIslandID()
-        || target.GetBuilding() == null || (target.GetBuilding() instanceof Army && target.GetBuilding() instanceof Camp) || target.GetBuilding().owner == player
-        || baseCamp.GetBuilding() == null || (baseCamp.GetBuilding() instanceof Army && baseCamp.GetBuilding() instanceof Camp) || baseCamp.GetBuilding().owner != player){
+        || target.GetBuilding() == null || !(target.GetBuilding() instanceof Army || target.GetBuilding() instanceof Camp) || target.GetBuilding().owner == player
+        || baseCamp.GetBuilding() == null || !(baseCamp.GetBuilding() instanceof Army || baseCamp.GetBuilding() instanceof Camp) || baseCamp.GetBuilding().owner != player){
             return false;
         }
         targetOwner = target.GetBuilding().owner;

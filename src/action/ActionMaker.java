@@ -261,11 +261,19 @@ public class ActionMaker {
         
     public ActionRequest Prompt(Player player){
         if(player instanceof COM){
+            boolean fastmode = true;
             String prompt = PromptBuilder(player, GetPossibleActions(player));
-            int lines = prompt.split("\\n").length;
-            IO.SlowType(prompt, 10);
+            String inventory = player.ResourcesString();
+            int lines = prompt.split("\\n").length + inventory.split("\\n").length +1;
+            if(!fastmode){
+                IO.SlowType(prompt, 10);
+                IO.SlowType("Inventaire :",10);
+                IO.SlowType(inventory, 10);
+            }
             ActionRequest res = ((COM)player).promptAction(GetPossibleActions(player), game);
             while(!res.action.CheckInstancePossible(player, game)){
+                IO.SlowType("Action impossible : "+res.action.getClass());
+                IO.DeleteLines(1);
                 res = ((COM)player).promptAction(GetPossibleActions(player), game);
             }
             IO.DeleteLines(lines);

@@ -26,14 +26,7 @@ public class AresBuildHarbour extends ActionBuild {
 
     /** Vérifie que le player a les resources nécessaires pour l'action */
     public static boolean isPossible(Player player, Game game){
-        //TODO: vérifier s'il y a d'autres conditions. nécessite d'autres buildings?
-        HashMap<ResourceType, Integer> playerResources = (HashMap<ResourceType, Integer>) player.getResources();
-        for(Map.Entry<ResourceType, Integer> entry : Cost().entrySet()){
-            if(playerResources.get(entry.getKey()) < entry.getValue()){
-                return false;
-            }
-        }
-        return true;
+        return atLeastOneTileEmpty(game.board) && PlayerCanAfford(player, Cost());
     }
 
 

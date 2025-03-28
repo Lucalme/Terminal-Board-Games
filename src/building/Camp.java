@@ -20,6 +20,6 @@ public class Camp extends Army{
     }
 
     public String toString() {
-        return "🪖";
+        return "⛺";
     }
 }
