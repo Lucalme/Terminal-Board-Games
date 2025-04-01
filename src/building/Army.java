@@ -21,7 +21,7 @@ public class Army extends Building {
         this.warriors = warriors;
         if(warriors > 5)
         {
-            throw new RuntimeException("Nombre de guerriers trop élevé pour une armée");
+            throw new RuntimeException("Nombre de guerriers trop élevé pour une armée"); //TODO: modifier en camp....
         }
     }
 
