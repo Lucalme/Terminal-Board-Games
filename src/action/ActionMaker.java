@@ -108,8 +108,15 @@ public class ActionMaker {
                 Tile tiii = PromptTile(player, "Choissisez la position où construire le port");
                 action = new DemeterBuildPort(player, tiii);
                 break;
-            case "DemeterBuildExploitation":
-                replaceFarmWithExploitation(player);
+            case "DemeterReplaceFarmWithExploitation":
+                Farm selectedFarm = (Farm) PromptFarm(player);
+                if (selectedFarm == null) {
+                    System.out.println("No farm selected.");
+                    return null;
+                }
+                Tile farmTile = selectedFarm.tile; 
+                player.RemoveBuilding(selectedFarm);
+                action = new DemeterReplaceFarmWithExploitation(player, farmTile);
                 break;
 
             default :
@@ -117,23 +124,7 @@ public class ActionMaker {
         }
         return action;
     }
-
-    public void replaceFarmWithExploitation(Player player) {
-        Farm selectedFarm = (Farm) PromptFarm(player);
-
-        if (selectedFarm == null) {
-            System.out.println("No farm selected.");
-            return;
-        }
-        Tile farmTile = selectedFarm.tile; 
-        player.RemoveBuilding(selectedFarm);
-
-        Exploitation newExploitation = new Exploitation(player, BuildingEffectType.MultiplyResourceProduction, farmTile);
-        player.AddBuilding(newExploitation);
-
-        System.out.println("Farm at (" + farmTile.position.x + ", " + farmTile.position.y + ") replaced with an Exploitation.");
-
-    }
+ 
     public Building PromptFarm(Player player){
         ArrayList <Building> playerBuilding= player.GetOwnedBuildings();
         ArrayList <Farm> playerFarm=new ArrayList<>();

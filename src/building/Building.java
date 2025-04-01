@@ -46,6 +46,9 @@ public abstract class Building {
         }
     }
 
-    public abstract String toString();
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + " at position (" + tile.position.x + ", " + tile.position.y + ")";
+    }
    
 }
