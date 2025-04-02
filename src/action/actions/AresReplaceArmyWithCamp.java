@@ -8,6 +8,7 @@ import board.tile.Tile;
 import building.Army;
 import building.Building;
 import building.Camp;
+import building.Farm;
 import player.Player;
 
 public class AresReplaceArmyWithCamp extends ActionBuild {
@@ -49,7 +50,7 @@ public class AresReplaceArmyWithCamp extends ActionBuild {
     }
     
     public boolean CheckInstancePossible(Player player, Game game){
-        return ;
+        return (tile.GetBuilding() != null) && (tile.GetBuilding() instanceof Army) && !(tile.GetBuilding() instanceof Camp);
     }   
 
 
