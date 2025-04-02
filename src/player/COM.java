@@ -14,9 +14,7 @@ import action.actions.ActionTrade;
 import action.actions.AresBuildArmy;
 import action.actions.AresBuildHarbour;
 import action.actions.AresBuyWarriors;
-import action.actions.ShowInventory;
 import action.util.IO;
-import ares.Ares;
 import board.resource.ResourceType;
 import board.tile.Tile;
 import building.Army;
@@ -73,7 +71,7 @@ public class COM extends Player{
             case "AresBuildArmy":
                 Tile t = getEmptyTile(game);
                 boolean campPossible = this.getResources().get(ResourceType.Wood) >= 3 && this.getResources().get(ResourceType.Sheep) >= 1 && this.getResources().get(ResourceType.Wheat) >= 1 && this.getResources().get(ResourceType.Ore) >= 3 && this.getResources().get(ResourceType.Warriors) >= 6;
-                int n = campPossible ? r.nextInt(1, this.getResources().get(ResourceType.Warriors)) : this.getResources().get(ResourceType.Warriors) > 1 ? r.nextInt(1, Math.min(5, this.getResources().get(ResourceType.Warriors))) : 1;
+                int n = campPossible ? Math.max(1, r.nextInt( this.getResources().get(ResourceType.Warriors))) : this.getResources().get(ResourceType.Warriors) > 1 ? Math.max(1, r.nextInt( Math.min(5, this.getResources().get(ResourceType.Warriors))) ): 1;
                 AresBuildArmy buildArmy = new AresBuildArmy(this, t, n);
                 ActionRequest rese = new ActionRequest(this, buildArmy);
                 return rese;
