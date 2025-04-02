@@ -5,15 +5,14 @@ import Game.Game;
 import action.ActionBuild;
 import board.resource.ResourceType;
 import board.tile.Tile;
-import building.Building;
-import building.BuildingEffectType;
-import building.Exploitation;
-import building.Farm;
+import building.Army;
+import building.Camp;
 import player.Player;
 
-public class DemeterReplaceFarmWithExploitation extends ActionBuild {
-     public DemeterReplaceFarmWithExploitation(Player source, Tile tile){
-        super(source, new Exploitation(source,BuildingEffectType.MultiplyResourceProduction, tile), tile);
+public class AresReplaceArmyWithCamp extends ActionBuild {
+
+    public AresReplaceArmyWithCamp(Player source, Tile tile){
+        super(source, new Camp(source, nbOfWarriors(tile), tile), tile);
     }
 
     public static HashMap<ResourceType, Integer> Cost() {
@@ -24,20 +23,24 @@ public class DemeterReplaceFarmWithExploitation extends ActionBuild {
             put(ResourceType.Sheep, 1);
         }};
     }
+
+    private static int nbOfWarriors(Tile tile){
+        if(tile != null && tile.GetBuilding() != null && tile.GetBuilding() instanceof Army){
+            return ((Army)tile.GetBuilding()).getWarriors();
+        }
+        return 0; 
+    }
+
+
     public static boolean isPossible(Player player, Game game){
         //TODO: vérifier s'il y a d'autres conditions. nécessite d'autres buildings?
-        boolean atLeastOneFarm = false;
-        for (Building b: player.GetOwnedBuildings()){
-            if(b instanceof Farm){
-                atLeastOneFarm = true;
-                break;
-            }
-        }
-        return PlayerCanAfford(player, Cost()) && atLeastOneFarm; 
+        return PlayerCanAfford(player, Cost());
     }
+
     public String Description() {
-        return source.toString() + " remplacer une farme a une exploitation sur lile n°"+islandId;
+        return source.toString() + " remplace une armée par un camp sur l'île n°"+islandId;
     }
+    
     public boolean CheckInstancePossible(Player player, Game game){
         return true;
     }   

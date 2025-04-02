@@ -8,6 +8,7 @@ import action.actions.ActionTrade;
 import action.actions.AresBuildArmy;
 import action.actions.AresBuildHarbour;
 import action.actions.AresBuyWarriors;
+import action.actions.AresReplaceArmyWithCamp;
 import action.actions.ShowInventory;
 
 
@@ -17,6 +18,7 @@ public enum ActionMap {
             put("Passer votre tour", ActionSkip.class);
             put("Echanger des resources", ActionTrade.class);
             put("Construire une Armée ou un Camp", AresBuildArmy.class);
+            put("Remplacer une Armée par un Camp", AresReplaceArmyWithCamp.class);
             put("Construire un Port", AresBuildHarbour.class);
             put("Acheter 5 guerriers", AresBuyWarriors.class);
             put("Attaquer un voisin", ActionAttack.class);

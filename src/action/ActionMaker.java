@@ -17,9 +17,8 @@ import action.util.*;
 import building.Farm;
 import board.resource.ResourceType;
 import board.tile.Tile;
+import building.Army;
 import building.Building;
-import building.BuildingEffectType;
-import building.Exploitation;
 import player.COM;
 import player.Player;
 
@@ -109,14 +108,8 @@ public class ActionMaker {
                 action = new DemeterBuildPort(player, tiii);
                 break;
             case "DemeterReplaceFarmWithExploitation":
-                Farm selectedFarm = (Farm) PromptFarm(player);
-                if (selectedFarm == null) {
-                    System.out.println("No farm selected.");
-                    return null;
-                }
-                Tile farmTile = selectedFarm.tile; 
-                player.RemoveBuilding(selectedFarm);
-                action = new DemeterReplaceFarmWithExploitation(player, farmTile);
+                Farm selectedFarm = (Farm)PromptFarm(player);
+                action = new DemeterReplaceFarmWithExploitation(player, selectedFarm.tile);
                 break;
 
             default :
@@ -124,6 +117,46 @@ public class ActionMaker {
         }
         return action;
     }
+
+
+    //public Building PromptBuilding(Player player, Class<? extends Building> clazz){
+    //    ArrayList<Building> playerBuildings = player.GetOwnedBuildings();
+    //    ArrayList<Building> specificBuildings = new ArrayList<>();
+    //    int count = 0;
+    //    for(Building b : playerBuildings){
+    //        if(b.getClass() == clazz){
+    //            specificBuildings.add(b);
+    //        }
+    //    }
+    //}
+    public Building PromptArmy(Player player){
+        ArrayList <Building> playerBuilding= player.GetOwnedBuildings();
+        ArrayList <Army> playerArmy=new ArrayList<>();
+        String prompt = "Choisissez une armée à remplacer : \n";
+        int count=0;
+        for(Building b : playerBuilding){
+            if(b instanceof Army){
+                playerArmy.add((Army)b);
+                prompt += count + " ->  numero ile: "+ b.islandId +" position: ("+b.tile.position.x+","+b.tile.position.y+"):" + "\n";
+                count++;
+            }
+        }
+        IO.SlowType(prompt);
+        boolean done= false;
+        int answer=-1;
+        while(!done)
+        {
+            answer =IO.getInt();
+           if(answer<playerArmy.size() && answer>=0){
+                done=true;
+               
+           }
+        }
+        IO.DeleteLines(count+2);
+        return playerArmy.get(answer);
+
+    }
+
  
     public Building PromptFarm(Player player){
         ArrayList <Building> playerBuilding= player.GetOwnedBuildings();
