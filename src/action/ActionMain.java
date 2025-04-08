@@ -8,11 +8,11 @@ import Game.Game;
 
 public class ActionMain{
     public static void main(String[] args) {
-        Player player = new Player(-1);
+        Game game = new Ares(1);
+        Player player = new Player(-1, game);
         ArrayList<Player> players = new ArrayList<Player>(){
             {add(player);}
         };
-        Game game = new Ares(1);
         ActionMaker actionMaker = new ActionMaker(game);
         ActionRequest request = actionMaker.Prompt(player);
     }

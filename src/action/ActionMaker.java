@@ -81,8 +81,8 @@ public class ActionMaker {
                 action = new ShowInventory(player);
                 break;
             case "ActionTrade":
-                ResourceType base = PromptResource(false);
-                ResourceType exchange = PromptResource(false);
+                ResourceType base = PromptResource(player, false);
+                ResourceType exchange = PromptResource(player, false);
                 action = new ActionTrade(player, base, exchange);
                 break;
             case "AresBuildHarbour":
@@ -262,9 +262,9 @@ public class ActionMaker {
     }
 
     /** @param returnAll pour récupérer tous les types de resources, même celle non-échangeables. */
-    private ResourceType PromptResource(boolean returnAll){
+    private ResourceType PromptResource(Player player, boolean returnAll){
         int i = 1;
-        for(ResourceType res : ResourceType.values()){
+        for(ResourceType res : player.getResources().keySet()){
             if(!returnAll && !res.isTradable){continue;}
             IO.SlowType(i + " -> "+ res.toString());
             i++;
@@ -273,15 +273,15 @@ public class ActionMaker {
         int choice = -1;
         while(!done){
             choice = IO.getInt();
-            if(choice -1 < ResourceType.values().length && choice >= 1){
+            if(choice -1 < player.getResources().keySet().size() && choice >= 1){
                 done  = true;
                 break;
             }
             IO.SlowType("Choix invalide, veuillez rééssayer....");
             IO.DeleteLines(1);
         }   
-        IO.DeleteLines(ResourceType.values().length);
-        return ResourceType.values()[choice -1];
+        IO.DeleteLines(player.getResources().keySet().size());
+        return player.getResources().keySet().toArray(new ResourceType[0])[choice -1];
     }
 
     private Player PromptTarget(Player player){

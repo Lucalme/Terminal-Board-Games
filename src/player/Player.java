@@ -3,6 +3,9 @@ package player;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import Game.Game;
+import ares.Ares;
 import board.resource.ResourceType;
 import building.Army;
 import building.Building;
@@ -14,7 +17,7 @@ public class Player {
     private boolean hasTradingAdvantage;
     private ArrayList<Building> ownedBuildings = new ArrayList<>();
 
-    public Player(int numPlayer)
+    public Player(int numPlayer, Game game)
     {
         this.numPlayer=numPlayer;
         //TODO: inventaire spécifique pour chaque jeu
@@ -23,8 +26,10 @@ public class Player {
             put(ResourceType.Sheep, 10);
             put(ResourceType.Wheat, 10);
             put(ResourceType.Wood, 10);
-            put(ResourceType.Warriors, 10);
         }};
+        if(game instanceof Ares){
+            resources.put(ResourceType.Warriors, 10);
+        }
     }
 
   

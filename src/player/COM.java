@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import Game.Game;
 import action.Action;
+import action.ActionBuild;
 import action.ActionRequest;
 import action.actions.ActionAttack;
 import action.actions.ActionSkip;
@@ -14,6 +15,7 @@ import action.actions.ActionTrade;
 import action.actions.AresBuildArmy;
 import action.actions.AresBuildHarbour;
 import action.actions.AresBuyWarriors;
+import action.actions.AresReplaceArmyWithCamp;
 import action.util.IO;
 import board.resource.ResourceType;
 import board.tile.Tile;
@@ -25,8 +27,8 @@ public class COM extends Player{
     
     private static int comNb = 1;
 
-    public COM(){
-        super(comNb);
+    public COM(Game game){
+        super(comNb, game);
         comNb++;
     }
 
@@ -70,6 +72,10 @@ public class COM extends Player{
                 throw new RuntimeException("Pas de cible possible");
             case "AresBuildArmy":
                 Tile t = getEmptyTile(game);
+                while(!ActionBuild.AresBuildConditions(this, game, t.GetIslandID())){
+                    t = getEmptyTile(game);
+                }
+                t = getEmptyTile(game);
                 boolean campPossible = this.getResources().get(ResourceType.Wood) >= 3 && this.getResources().get(ResourceType.Sheep) >= 1 && this.getResources().get(ResourceType.Wheat) >= 1 && this.getResources().get(ResourceType.Ore) >= 3 && this.getResources().get(ResourceType.Warriors) >= 6;
                 int n = campPossible ? Math.max(1, r.nextInt( this.getResources().get(ResourceType.Warriors))) : this.getResources().get(ResourceType.Warriors) > 1 ? Math.max(1, r.nextInt( Math.min(5, this.getResources().get(ResourceType.Warriors))) ): 1;
                 AresBuildArmy buildArmy = new AresBuildArmy(this, t, n);
@@ -77,6 +83,9 @@ public class COM extends Player{
                 return rese;
             case "AresBuildHarbour":
                 Tile ti = getEmptyTile(game);
+                while(!ActionBuild.AresBuildConditions(this, game, ti.GetIslandID())){
+                    ti = getEmptyTile(game);
+                }
                 AresBuildHarbour buildHarbour = new AresBuildHarbour(this, ti);
                 ActionRequest reso = new ActionRequest(this, buildHarbour);
                 return reso;
@@ -90,6 +99,12 @@ public class COM extends Player{
                 AresBuyWarriors buyWarriors = new AresBuyWarriors(this);
                 ActionRequest resu = new ActionRequest(this, buyWarriors);
                 return resu;
+            case "AresReplaceArmyWithCamp":
+                ArrayList<Building> ownedBuildings = this.GetOwnedBuildings();
+                ArrayList<Building> armies = ownedBuildings.stream().filter(b -> b instanceof Army && !(b instanceof Camp)).collect(Collectors.toCollection(ArrayList::new));
+                AresReplaceArmyWithCamp replaceArmy = new AresReplaceArmyWithCamp(this, armies.get(r.nextInt(armies.size())).tile);
+                ActionRequest resy = new ActionRequest(this, replaceArmy);
+                return resy;
             default:
                 //IO.SlowType("nombre d'actions possibles : "+possibleActions.size(), 100);
                 //IO.SlowType(c.toString(), 200);
@@ -108,4 +123,5 @@ public class COM extends Player{
         }
         throw new RuntimeException("Pas de tuile vide disponible");
     }
+
 }

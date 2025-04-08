@@ -11,6 +11,7 @@ import action.util.IO;
 import board.Board;
 import board.resource.ResourceType;
 import building.Building;
+import player.COM;
 import player.Player;
 
 
@@ -37,7 +38,7 @@ public abstract class Game {
     public Game(int nbOfPlayer) {
         players = new ArrayList<Player>();
         for(int i = 1; i <= nbOfPlayer; i++ ){
-            players.add(new Player(i));
+            players.add(new Player(i, this));
         }
         board = new Board();
         history = new ArrayList<String>();
@@ -53,6 +54,18 @@ public abstract class Game {
         currentTurn = 0;
     }
 
+    public Game(boolean COMGame, int nbOfPlayer){
+        players = new ArrayList<Player>();
+        for(int i = 1; i <= nbOfPlayer; i++ ){
+            players.add(new COM(this));
+        }
+        board = new Board();
+        history = new ArrayList<String>();
+        currentTurn = 0;
+        objectives = new Objectives();
+        initializeObjectives();
+    }
+
     /**
      * Classe abstraite représentant un jeu de plateau, tour par tour.
      * @param nbOfPlayer le nombre de joueurs
@@ -62,7 +75,7 @@ public abstract class Game {
     public Game(int nbOfPlayer, int SizeX, int SizeY){
         players = new ArrayList<Player>();
         for(int i = 1; i <= nbOfPlayer; i++ ){
-            players.add(new Player(i));
+            players.add(new Player(i, this));
         }
         board = new Board(SizeX, SizeY);
         history = new ArrayList<String>();
