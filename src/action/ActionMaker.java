@@ -112,7 +112,11 @@ public class ActionMaker {
                 Farm selectedFarm = (Farm)PromptFarm(player);
                 action = new DemeterReplaceFarmWithExploitation(player, selectedFarm.tile);
                 break;
-            
+            case "DemeterBuyThief":
+                ResourceType chosenResource = chooseResource();
+                int amount = stealResourcesFromOthers(chosenResource, player); 
+                action = new DemeterBuyThief(chosenResource, amount, player);
+                break;
 
             default :
                 throw new RuntimeException("ActionMaker!Nom non-reconnu : "+ t.getTypeName());
@@ -178,12 +182,12 @@ public class ActionMaker {
         return playerArmy.get(answer);
 
     }
-    public  ResourceType chooseResource() {
+    public ResourceType chooseResource() {
         Scanner scanner = new Scanner(System.in);
         int choice = -1;
-
+    
         while (choice < 1 || choice > ResourceType.values().length) {
-            System.out.println("Choose a resource to buy:");
+            System.out.println("Choisissez une ressource à voler :");
             int index = 1;
             for (ResourceType resource : ResourceType.values()) {
                 if (resource.isTradable) {
@@ -191,15 +195,15 @@ public class ActionMaker {
                     index++;
                 }
             }
-
-            System.out.print("Enter the number corresponding to your resource choice: ");
+    
+            System.out.print("Entrez le numéro correspondant à votre choix de ressource : ");
             choice = scanner.nextInt();
-
+    
             if (choice < 1 || choice > ResourceType.values().length) {
-                System.out.println("Invalid choice. Please select a valid number.");
+                System.out.println("Choix invalide. Veuillez sélectionner un numéro valide.");
             }
         }
-
+    
         return ResourceType.values()[choice - 1];
     }
 

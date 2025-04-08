@@ -14,9 +14,12 @@ public  class DemeterBuyThief extends Action
     private static final int MAX_THIEVES = 3;
     private static int thievesBought = 0;
     private static final HashSet<Player> playersWhoBoughtThief = new HashSet<>();
-
-    public DemeterBuyThief(ResourceType resource, int amount, Player source) {
+    private final ResourceType resourceChosen;
+    private final int amount;
+    public DemeterBuyThief(ResourceType resourceChosen, int amount, Player source) {
         super(source, true); // true = finishes turn
+        this.resourceChosen = resourceChosen;
+        this.amount = amount;
     }
 
     @Override
@@ -45,11 +48,14 @@ public  class DemeterBuyThief extends Action
         playersWhoBoughtThief.add(player);
     }
 
-    public 
+    private void giveResourceAndTrackThief() {
+        source.addResource(resourceChosen, amount);
+        thievesBought++;
+        playersWhoBoughtThief.add(source);
+    }
 
     public void Effect(){
-
-
+        giveResourceAndTrackThief();
     }
 
    
