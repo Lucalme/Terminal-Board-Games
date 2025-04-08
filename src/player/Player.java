@@ -6,6 +6,7 @@ import java.util.Map;
 import board.resource.ResourceType;
 import building.Army;
 import building.Building;
+import building.BuildingEffectType;
 
 public class Player {
     public final int numPlayer;
@@ -69,7 +70,12 @@ public class Player {
     }
 
     public boolean hasTradingAdvantage(){
-        return hasTradingAdvantage;
+        for(Building building : ownedBuildings){
+            if( building.effectType == BuildingEffectType.TradingAdvantage){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void setTradingAdvantage(boolean adv){

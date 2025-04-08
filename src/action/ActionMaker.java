@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import Game.Game;
 import ares.Ares;
@@ -111,6 +112,7 @@ public class ActionMaker {
                 Farm selectedFarm = (Farm)PromptFarm(player);
                 action = new DemeterReplaceFarmWithExploitation(player, selectedFarm.tile);
                 break;
+            
 
             default :
                 throw new RuntimeException("ActionMaker!Nom non-reconnu : "+ t.getTypeName());
@@ -129,6 +131,26 @@ public class ActionMaker {
     //        }
     //    }
     //}
+
+    public int stealResourcesFromOthers(ResourceType chosenResource, Player currentPlayer) {
+        int totalStolen = 0;
+    
+        for (Player player : game.GetPlayers()) {
+            if (player != currentPlayer) {
+                int amount = player.getResources().getOrDefault(chosenResource, 0);
+                if (amount > 0) {
+                    player.removeResource(chosenResource, amount);
+                    currentPlayer.addResource(chosenResource, amount);
+                    totalStolen += amount;
+                    System.out.println(currentPlayer + " stole " + amount + " of " + chosenResource + " from " + player);
+                } else {
+                    System.out.println(player + " has 0 of " + chosenResource);
+                }
+            }
+        }
+    
+        return totalStolen;
+    }
     public Building PromptArmy(Player player){
         ArrayList <Building> playerBuilding= player.GetOwnedBuildings();
         ArrayList <Army> playerArmy=new ArrayList<>();
@@ -155,6 +177,30 @@ public class ActionMaker {
         IO.DeleteLines(count+2);
         return playerArmy.get(answer);
 
+    }
+    public  ResourceType chooseResource() {
+        Scanner scanner = new Scanner(System.in);
+        int choice = -1;
+
+        while (choice < 1 || choice > ResourceType.values().length) {
+            System.out.println("Choose a resource to buy:");
+            int index = 1;
+            for (ResourceType resource : ResourceType.values()) {
+                if (resource.isTradable) {
+                    System.out.println(index + ". " + resource.name);
+                    index++;
+                }
+            }
+
+            System.out.print("Enter the number corresponding to your resource choice: ");
+            choice = scanner.nextInt();
+
+            if (choice < 1 || choice > ResourceType.values().length) {
+                System.out.println("Invalid choice. Please select a valid number.");
+            }
+        }
+
+        return ResourceType.values()[choice - 1];
     }
 
  

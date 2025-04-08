@@ -1,0 +1,8 @@
+package demeter;
+
+public class Thief
+{
+    private final numberOfThieves = 3; 
+
+    
+}
