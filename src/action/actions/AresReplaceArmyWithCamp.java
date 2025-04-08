@@ -6,7 +6,9 @@ import action.ActionBuild;
 import board.resource.ResourceType;
 import board.tile.Tile;
 import building.Army;
+import building.Building;
 import building.Camp;
+import building.Farm;
 import player.Player;
 
 public class AresReplaceArmyWithCamp extends ActionBuild {
@@ -19,8 +21,7 @@ public class AresReplaceArmyWithCamp extends ActionBuild {
         return new HashMap<>(){{
             //TODO: Vérifier ces valeurs.
             put(ResourceType.Wood, 2);
-            put(ResourceType.Wheat, 1);
-            put(ResourceType.Sheep, 1);
+            put(ResourceType.Ore, 3);
         }};
     }
 
@@ -34,7 +35,14 @@ public class AresReplaceArmyWithCamp extends ActionBuild {
 
     public static boolean isPossible(Player player, Game game){
         //TODO: vérifier s'il y a d'autres conditions. nécessite d'autres buildings?
-        return PlayerCanAfford(player, Cost());
+        boolean atLeastOneArmy = false;
+        for(Building b : player.GetOwnedBuildings()){
+            if(b instanceof Army && !(b instanceof Camp)){
+                atLeastOneArmy = true;
+                break;
+            }
+        }
+        return PlayerCanAfford(player, Cost()) && atLeastOneArmy;
     }
 
     public String Description() {
@@ -42,7 +50,7 @@ public class AresReplaceArmyWithCamp extends ActionBuild {
     }
     
     public boolean CheckInstancePossible(Player player, Game game){
-        return true;
+        return (tile.GetBuilding() != null) && (tile.GetBuilding() instanceof Army) && !(tile.GetBuilding() instanceof Camp);
     }   
 
 
