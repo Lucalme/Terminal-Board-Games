@@ -42,7 +42,11 @@ public class AresBuildArmy extends ActionBuild{
 
     @Override
     public boolean CheckInstancePossible(Player player, Game game) {
-        return TileIsEmpty(tile) && nbOfWarriors > 0 && player.getResources().get(ResourceType.Warriors) >= nbOfWarriors && PlayerCanAfford(player, (building instanceof Camp ? CampCost  :ArmyCost ));
+        return TileIsEmpty(tile) &&
+            nbOfWarriors > 0 &&
+            player.getResources().get(ResourceType.Warriors) >= nbOfWarriors &&
+            PlayerCanAfford(player, (building instanceof Camp ? CampCost  :ArmyCost )) &&
+            AresBuildConditions(player, game, islandId) ;
     }
 
     @Override
@@ -69,7 +73,9 @@ public class AresBuildArmy extends ActionBuild{
 
 
     public static boolean isPossible(Player player, Game game){
-        return atLeastOneTileEmpty(game.board) && player.getResources().get(ResourceType.Warriors) > 0 && PlayerCanAfford(player, ArmyCost);  
+        return atLeastOneTileEmpty(game.board) &&
+        player.getResources().get(ResourceType.Warriors) > 0 && 
+        PlayerCanAfford(player, ArmyCost);  
     }
     
 }

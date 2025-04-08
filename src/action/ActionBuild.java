@@ -1,4 +1,5 @@
 package action;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -72,4 +73,32 @@ public abstract class ActionBuild extends Action {
     protected boolean TileIsEmpty(Tile tile){
         return tile.GetBuilding() == null;
     }
+
+    /** true si la tile à construire est sur une ile déjà occupée par 2 batiments du joueurs, ou que toutes les iles occupées par le joueur
+     * (à l'exception de celle désirée) ont au moins 2 batiments
+     */
+    public static boolean AresBuildConditions(Player player, Game game, int islandId){
+        if(player.GetOwnedBuildings()
+                            .stream()
+                            .filter(b -> b.islandId == islandId)
+                            .collect(Collectors.toList()).size() > 2)
+        {
+            return true;
+        }
+        boolean allIslandOccupiedHaveAtLeastBuildings = true;
+        for(Building building : player.GetOwnedBuildings()){
+            if(building.islandId != islandId){
+                ArrayList<Building> buildingsOnIsland = player.GetOwnedBuildings()
+                                                                .stream()
+                                                                .filter(b -> b.islandId == building.islandId)
+                                                                .collect(Collectors.toCollection(ArrayList::new));
+                if(buildingsOnIsland.size() < 2){
+                    allIslandOccupiedHaveAtLeastBuildings = false;
+                    break;
+                }
+            }
+        }
+        return allIslandOccupiedHaveAtLeastBuildings;
+    }
+
 }

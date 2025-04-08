@@ -35,7 +35,7 @@ public class AresBuildHarbour extends ActionBuild {
     }
 
     public boolean CheckInstancePossible(Player player, Game game){
-        return TileIsEmpty(tile) && TileHasWaterNeighbour(tile, player, game);
+        return TileIsEmpty(tile) && TileHasWaterNeighbour(tile, player, game) && AresBuildConditions(player, game, islandId);
     }
 
 }
