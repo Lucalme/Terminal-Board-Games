@@ -10,6 +10,7 @@ import board.resource.ResourceType;
 import building.Army;
 import building.Building;
 import building.BuildingEffectType;
+import demeter.Demeter;
 
 public class Player {
     public final int numPlayer;
@@ -29,6 +30,9 @@ public class Player {
         }};
         if(game instanceof Ares){
             resources.put(ResourceType.Warriors, 10);
+        }
+        if(game instanceof Demeter){
+            resources.put(ResourceType.Thief, 0);
         }
     }
 

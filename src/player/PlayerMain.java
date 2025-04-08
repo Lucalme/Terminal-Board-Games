@@ -2,6 +2,7 @@ package player;
 
 import java.util.Scanner;
 
+import ares.Ares;
 import board.Board;
 import board.Position;
 import board.resource.ResourceType;
@@ -16,7 +17,7 @@ public static void main(String[] args)
 {
     Board board = new Board();
     Tile tile = board.GetTileAtPosition(PromptPosition());
-    Player player = new Player(1);  // Make sure you create the player once
+    Player player = new Player(1, new Ares(1));  // Make sure you create the player once
     Scanner scanner = new Scanner(System.in);
 
     boolean running = true;

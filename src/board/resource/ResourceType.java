@@ -5,7 +5,8 @@ public enum ResourceType{
     Ore(true, "Minerai"),
     Sheep(true, "Mouton"), 
     Wood(true,"Bois"),
-    Warriors(false,"Guerriers");
+    Warriors(false,"Guerriers"),
+    Thief(false, "Voleur");
 
     public final boolean isTradable;
     public final String name;
