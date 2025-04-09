@@ -2,13 +2,10 @@ package action.actions;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import Game.Game;
 import action.Action;
-import action.util.IO;
-import board.Position;
 import board.resource.ResourceType;
 import board.tile.Tile;
 import building.Army;
@@ -83,7 +80,7 @@ public class ActionAttack extends Action {
         
     }
 
-    /** true si le player a au moins un camp ou une armée sur la même ile que la cible. */
+    /** true les deux batiments sont des batiments militaires et qu'ils sont sur la même ile.*/
     public boolean CheckInstancePossible(Player player, Game game){
         if( target.GetIslandID() != baseCamp.GetIslandID()
         || target.GetBuilding() == null || !(target.GetBuilding() instanceof Army || target.GetBuilding() instanceof Camp) || target.GetBuilding().owner == player

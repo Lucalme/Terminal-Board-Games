@@ -115,11 +115,17 @@ public class COM extends Player{
 
 
     public Tile getEmptyTile(Game game){
-        HashMap<int[], Tile> tiles = game.board.getTiles();
-        for(Tile tile : tiles.values()){
-            if (tile.GetBuilding() == null){
-                return tile;
-            }
+        HashMap<int[], Tile> tiles = game.board.getTiles()
+                                                .entrySet()
+                                                .stream()
+                                                .filter(e -> e.getValue().GetBuilding() == null)
+                                                .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (a, b) -> b, HashMap::new));
+
+        if(tiles.size() > 0){
+            ArrayList<Tile> emptyTiles = new ArrayList<>(tiles.values());
+            Random r = new Random();
+            int i = r.nextInt(emptyTiles.size());
+            return emptyTiles.get(i);
         }
         throw new RuntimeException("Pas de tuile vide disponible");
     }
