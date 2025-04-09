@@ -1,6 +1,5 @@
 package action.actions;
 import java.util.HashMap;
-import java.util.Map;
 import Game.Game;
 import action.ActionBuild;
 import board.resource.ResourceType;
@@ -8,7 +7,6 @@ import board.tile.Tile;
 import building.Army;
 import building.Building;
 import building.Camp;
-import building.Farm;
 import player.Player;
 
 public class AresReplaceArmyWithCamp extends ActionBuild {
@@ -53,6 +51,4 @@ public class AresReplaceArmyWithCamp extends ActionBuild {
         return (tile.GetBuilding() != null) && (tile.GetBuilding() instanceof Army) && !(tile.GetBuilding() instanceof Camp);
     }   
 
-
-    
 }

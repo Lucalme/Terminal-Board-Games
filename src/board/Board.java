@@ -90,6 +90,7 @@ public class Board {
         Populate();
         Filter();
         Group();
+        Expand();
     }
 
     private void Populate(){
@@ -133,6 +134,47 @@ public class Board {
                 id++;
             }
         }
+    }
+
+    private void Expand(){
+        int maxOtherTiles = (size_X * size_Y) - (int) (.66 * size_X * size_Y);
+        if(tiles.length >= maxOtherTiles -2){
+            return;
+        }
+        HashMap<Integer, Integer> islandSizes = new HashMap<>();
+        for(Map.Entry<int[], Tile> kv : getTiles().entrySet()){
+            int id = kv.getValue().GetIslandID();
+            if(islandSizes.containsKey(id)){
+                islandSizes.put(id, islandSizes.get(id) + 1);
+            }else{
+                islandSizes.put(id, 1);
+            }
+        }
+        int minIslandSize = islandSizes.values().stream().min(Integer::compareTo).orElse(2);
+
+        for(Tile t : getTiles().values()){
+            if(islandSizes.get(t.GetIslandID()) <= minIslandSize + 2){
+                for(Directions dir : Directions.values()){
+                    int x = t.position.x + dir.X;
+                    int y = t.position.y + dir.Y;
+                    if(x < 0 || x >= size_X || y < 0 || y >= size_Y){continue;}
+                    if(GetTilesNeighborhood(x,y).length == 1){
+                        Tile newTile = new Tile(new Position(x, y));
+                        tiles[x][y] = newTile;
+                        int id = t.GetIslandID();
+                        newTile.SetIslandID(id);
+                        islandSizes.put(id, islandSizes.get(id) + 1);
+                    }
+                    if(islandSizes.get(t.GetIslandID()) >= maxOtherTiles -1){
+                        break;
+                    }
+                }
+            }
+            if(islandSizes.get(t.GetIslandID()) >= maxOtherTiles -1){
+                break;
+            }
+        }
+
     }
 
     private void RecursiveAddIslandId(int x, int y, int id){
