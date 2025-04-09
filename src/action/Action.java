@@ -40,6 +40,7 @@ public abstract class Action {
         }
         return true;
     }
+    
 
 
     /**Certaines actions sont conditionnées par des resources mais ne sont pas forcément payantes. Utiliser cette méthode génerique pour les actions payantes. */

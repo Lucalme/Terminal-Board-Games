@@ -113,9 +113,15 @@ public class ActionMaker {
                 action = new DemeterReplaceFarmWithExploitation(player, selectedFarm.tile);
                 break;
             case "DemeterBuyThief":
+                /*ResourceType chosenResource = chooseResource();
+                int amount = stealResourcesFromOthers(chosenResource, player);*/ 
+                action = new DemeterBuyThief(player);
+                break;
+            case "DemeterUseThief":
                 ResourceType chosenResource = chooseResource();
                 int amount = stealResourcesFromOthers(chosenResource, player); 
-                action = new DemeterBuyThief(chosenResource, amount, player);
+                action = new DemeterUseThief(player, chosenResource, amount);
+                HashMap<String, Class<? extends Action>> refreshedActions = GetPossibleActions(player);
                 break;
 
             default :
@@ -144,15 +150,12 @@ public class ActionMaker {
                 int amount = player.getResources().getOrDefault(chosenResource, 0);
                 if (amount > 0) {
                     player.removeResource(chosenResource, amount);
-                    currentPlayer.addResource(chosenResource, amount);
                     totalStolen += amount;
-                    System.out.println(currentPlayer + " stole " + amount + " of " + chosenResource + " from " + player);
                 } else {
                     System.out.println(player + " has 0 of " + chosenResource);
                 }
             }
         }
-    
         return totalStolen;
     }
     public Building PromptArmy(Player player){

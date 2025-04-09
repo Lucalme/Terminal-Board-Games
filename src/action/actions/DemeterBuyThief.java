@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import Game.Game;
 import action.Action;
+
 import board.resource.ResourceType;
 import player.Player;
 
@@ -14,17 +15,20 @@ public  class DemeterBuyThief extends Action
     private static final int MAX_THIEVES = 3;
     private static int thievesBought = 0;
     private static final HashSet<Player> playersWhoBoughtThief = new HashSet<>();
-    private final ResourceType resourceChosen;
-    private final int amount;
-    public DemeterBuyThief(ResourceType resourceChosen, int amount, Player source) {
+
+    
+   /*  public DemeterBuyThief(ResourceType resourceChosen, int amount, Player source) {
         super(source, true); // true = finishes turn
         this.resourceChosen = resourceChosen;
         this.amount = amount;
+    }*/
+    public DemeterBuyThief(Player source) {
+        super(source, true); // true = finishes turn
     }
 
     @Override
     public String Description() {
-        return source.toString() + " bought a thief!";
+        return source.toString() + " bought a thief!" ;
     }
     private static final HashMap<ResourceType, Integer> COST = new HashMap<>() {{
         put(ResourceType.Ore, 1);
@@ -34,32 +38,28 @@ public  class DemeterBuyThief extends Action
 
     public static boolean isPossible(Player player, Game game) 
     {
-        return thievesBought < MAX_THIEVES &&
-               !playersWhoBoughtThief.contains(player) &&
-               PlayerCanAfford(player,Cost());
+        return thievesBought < MAX_THIEVES && !playersWhoBoughtThief.contains(player) && PlayerCanAfford(player,Cost());
     }
-    @Override
-    public boolean CheckInstancePossible(Player player, Game game) {
-        return true;
-    }
-    public static void giveResourceAndTrackThief(ResourceType resource, int amount, Player player) {
-        player.addResource(resource, amount);
-        thievesBought++;
-        playersWhoBoughtThief.add(player);
+   @Override
+    public boolean CheckInstancePossible(Player player, Game game) 
+    {
+       return isPossible(player, game);
     }
 
-    private void giveResourceAndTrackThief() {
+   /*  private void giveResourceAndTrackThief() {
         source.addResource(resourceChosen, amount);
         thievesBought++;
         playersWhoBoughtThief.add(source);
-    }
+    }*/
 
     public void Effect(){
-        giveResourceAndTrackThief();
+        source.addResource(ResourceType.Thief, 1);
+        for (HashMap.Entry<ResourceType, Integer> entry : COST.entrySet()) {
+            source.removeResource(entry.getKey(), entry.getValue());
+        }
+        playersWhoBoughtThief.add(source);
+        thievesBought++;
     }
-
-   
-
 }
 
    
