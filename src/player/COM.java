@@ -75,7 +75,6 @@ public class COM extends Player{
                 while(!ActionBuild.AresBuildConditions(this, game, t.GetIslandID())){
                     t = getEmptyTile(game);
                 }
-                t = getEmptyTile(game);
                 boolean campPossible = this.getResources().get(ResourceType.Wood) >= 3 && this.getResources().get(ResourceType.Sheep) >= 1 && this.getResources().get(ResourceType.Wheat) >= 1 && this.getResources().get(ResourceType.Ore) >= 3 && this.getResources().get(ResourceType.Warriors) >= 6;
                 int n = campPossible ? Math.max(1, r.nextInt( this.getResources().get(ResourceType.Warriors))) : this.getResources().get(ResourceType.Warriors) > 1 ? Math.max(1, r.nextInt( Math.min(5, this.getResources().get(ResourceType.Warriors))) ): 1;
                 AresBuildArmy buildArmy = new AresBuildArmy(this, t, n);
