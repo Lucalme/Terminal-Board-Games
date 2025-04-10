@@ -97,6 +97,15 @@ public class ActionMaker {
             case "AresBuyWarriors":
                 action = new AresBuyWarriors(player);
                 break;
+            case "AresReplaceArmyWithCamp":
+                Tile tile = PromptTile(player, "Choissisez la position de l'armée à remplacer");
+                action = new AresReplaceArmyWithCamp(player, tile);
+                break;
+            case "AresAddWarriorToBuilding":
+                Tile tile2 = PromptTile(player, "Choissisez la position de l'armée ou du camp");
+                int amnt = PromptWarriors(player);
+                action = new AresAddWarriorToBuilding(player, amnt, tile2);
+                break;
             case "ActionSkip":
                 action = new ActionSkip(player);
                 break;
@@ -338,7 +347,7 @@ public class ActionMaker {
         
     public ActionRequest Prompt(Player player){
         if(player instanceof COM){
-            boolean fastmode = true;
+            boolean fastmode = false;
             String prompt = PromptBuilder(player, GetPossibleActions(player));
             String inventory = player.ResourcesString();
             int lines = prompt.split("\\n").length + inventory.split("\\n").length +1;

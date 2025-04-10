@@ -12,6 +12,7 @@ import action.ActionRequest;
 import action.actions.ActionAttack;
 import action.actions.ActionSkip;
 import action.actions.ActionTrade;
+import action.actions.AresAddWarriorToBuilding;
 import action.actions.AresBuildArmy;
 import action.actions.AresBuildHarbour;
 import action.actions.AresBuyWarriors;
@@ -49,14 +50,25 @@ public class COM extends Player{
             a = r.nextInt(possibleActions.entrySet().size());
             count("Choix aléatoire d'action");
         }
+        //possibleActions.entrySet().stream().map((e) -> {System.out.println(e.getValue().toString()); return 0;}).collect(Collectors.toList());
+        //if(true){throw new RuntimeException("Stop");}
         @SuppressWarnings("unchecked")
         Class<? extends Action> c = (Class<? extends Action>)possibleActions.values().toArray()[a];
         String[] array = c.getTypeName().split("\\.");
         String name = array[array.length-1];
         switch(name){
             case "ActionTrade":
-                ArrayList<ResourceType> availableResources = (ArrayList<ResourceType>)this.getResources().entrySet().stream().filter((entry) -> entry.getValue() >= 3).map(e -> e.getKey()).collect(Collectors.toList());
-                ActionTrade trade = new ActionTrade(this, availableResources.get(r.nextInt(availableResources.size())), ResourceType.values()[r.nextInt(ResourceType.values().length)]);
+                ArrayList<ResourceType> availableResources =
+                 (ArrayList<ResourceType>)this.getResources()
+                                                .entrySet()
+                                                .stream()
+                                                .filter((entry) -> (entry.getValue() >= (hasTradingAdvantage() ? 2 : 3) && entry.getKey().isTradable))
+                                                .map(e -> e.getKey())
+                                                .collect(Collectors.toList());
+                ResourceType baseResource = availableResources.get(r.nextInt(availableResources.size()));
+                availableResources.remove(baseResource);
+                ResourceType targetResource = availableResources.get(r.nextInt(availableResources.size()));
+                ActionTrade trade = new ActionTrade(this, baseResource, targetResource);
                 ActionRequest res = new ActionRequest(this, trade);
                 return res;
             case"ActionAttack":
@@ -106,6 +118,16 @@ public class COM extends Player{
                 ActionSkip skip = new ActionSkip(this);
                 ActionRequest rest = new ActionRequest(this, skip);
                 return rest;
+            case "AresAddWarriorToBuilding":
+                ArrayList<Building> militaryBuildings = this.GetOwnedBuildings()
+                                                                        .stream()
+                                                                        .filter(b -> b instanceof Army || b instanceof Camp)
+                                                                        .collect(Collectors.toCollection(ArrayList::new));
+                Building selected = militaryBuildings.get(r.nextInt(militaryBuildings.size()));
+                int warriorsToAdd = Math.max(1, r.nextInt(this.getResources().get(ResourceType.Warriors)));
+                AresAddWarriorToBuilding addWarrior = new AresAddWarriorToBuilding(this, warriorsToAdd, selected.tile);
+                ActionRequest resq = new ActionRequest(this, addWarrior);
+                return resq;
             case "ShowInventory":
                 return promptAction(possibleActions, game);
             case "AresBuyWarriors":
@@ -119,8 +141,6 @@ public class COM extends Player{
                 ActionRequest resy = new ActionRequest(this, replaceArmy);
                 return resy;
             default:
-                //IO.SlowType("nombre d'actions possibles : "+possibleActions.size(), 100);
-                //IO.SlowType(c.toString(), 200);
                 IO.SlowType("Action non reconnue : "+c.getName(), 100);
                 throw new RuntimeException("Action non reconnue");
         }
