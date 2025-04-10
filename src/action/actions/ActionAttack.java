@@ -45,7 +45,8 @@ public class ActionAttack extends Action {
         looser = attackerScore < defenderScore ? attacker.owner : defender.owner;
         int looserwarriors = looserArmy.getWarriors();
         if(looserwarriors == 1){
-            target.SetBuilding(null);
+            (winner == attacker.owner ? target : baseCamp).SetBuilding(null);
+            looserArmy.owner.RemoveBuilding(looserArmy); // TODO: remplacer la listes des ownedBuildings par une methode d'accès au board (dans Player)
             destroyedBuilding = true;
         }else{
             looserArmy.setWarriors(looserwarriors - 1);

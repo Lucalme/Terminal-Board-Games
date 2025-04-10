@@ -19,10 +19,6 @@ public class Army extends Building {
 
     public void setWarriors(int warriors){
         this.warriors = warriors;
-        if(warriors > 5)
-        {
-            throw new RuntimeException("Nombre de guerriers trop élevé pour une armée"); //TODO: modifier en camp....
-        }
     }
 
     public String toString(){

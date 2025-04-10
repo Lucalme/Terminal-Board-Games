@@ -32,12 +32,22 @@ public class COM extends Player{
         comNb++;
     }
 
+    private int counter = 0;   
+    private void count(String ActionName){
+        counter++;
+        if(counter > 1000){
+            throw new RuntimeException("Trop de tentatives pour trouver une action : "+ActionName);
+        }
+    }
+
 
     public ActionRequest promptAction(HashMap<String, Class<? extends Action>> possibleActions, Game game){
         Random r = new Random();
         int a = r.nextInt(possibleActions.entrySet().size());
+        counter = 0;
         while(possibleActions.values().toArray()[a].getClass().getName().equals("action.actions.ShowInventory")){
             a = r.nextInt(possibleActions.entrySet().size());
+            count("Choix aléatoire d'action");
         }
         @SuppressWarnings("unchecked")
         Class<? extends Action> c = (Class<? extends Action>)possibleActions.values().toArray()[a];
@@ -72,8 +82,10 @@ public class COM extends Player{
                 throw new RuntimeException("Pas de cible possible");
             case "AresBuildArmy":
                 Tile t = getEmptyTile(game);
+                counter = 0;
                 while(!ActionBuild.AresBuildConditions(this, game, t.GetIslandID())){
                     t = getEmptyTile(game);
+                    count("AresBuildArmy");
                 }
                 boolean campPossible = this.getResources().get(ResourceType.Wood) >= 3 && this.getResources().get(ResourceType.Sheep) >= 1 && this.getResources().get(ResourceType.Wheat) >= 1 && this.getResources().get(ResourceType.Ore) >= 3 && this.getResources().get(ResourceType.Warriors) >= 6;
                 int n = campPossible ? Math.max(1, r.nextInt( this.getResources().get(ResourceType.Warriors))) : this.getResources().get(ResourceType.Warriors) > 1 ? Math.max(1, r.nextInt( Math.min(5, this.getResources().get(ResourceType.Warriors))) ): 1;
@@ -82,8 +94,10 @@ public class COM extends Player{
                 return rese;
             case "AresBuildHarbour":
                 Tile ti = getEmptyTile(game);
+                counter = 0;
                 while(!ActionBuild.AresBuildConditions(this, game, ti.GetIslandID())){
                     ti = getEmptyTile(game);
+                    count("AresBuildHarbour");
                 }
                 AresBuildHarbour buildHarbour = new AresBuildHarbour(this, ti);
                 ActionRequest reso = new ActionRequest(this, buildHarbour);
@@ -100,7 +114,7 @@ public class COM extends Player{
                 return resu;
             case "AresReplaceArmyWithCamp":
                 ArrayList<Building> ownedBuildings = this.GetOwnedBuildings();
-                ArrayList<Building> armies = ownedBuildings.stream().filter(b -> b instanceof Army && !(b instanceof Camp)).collect(Collectors.toCollection(ArrayList::new));
+                ArrayList<Building> armies = ownedBuildings.stream().filter((b) -> {return (b instanceof Army && !(b instanceof Camp));}).collect(Collectors.toCollection(ArrayList::new)); 
                 AresReplaceArmyWithCamp replaceArmy = new AresReplaceArmyWithCamp(this, armies.get(r.nextInt(armies.size())).tile);
                 ActionRequest resy = new ActionRequest(this, replaceArmy);
                 return resy;

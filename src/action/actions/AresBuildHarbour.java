@@ -26,7 +26,7 @@ public class AresBuildHarbour extends ActionBuild {
 
     /** Vérifie que le player a les resources nécessaires pour l'action */
     public static boolean isPossible(Player player, Game game){
-        return atLeastOneTileEmpty(game.board) && PlayerCanAfford(player, Cost());
+        return atLeastOneTileEmpty(game.board) && PlayerCanAfford(player, Cost()) && AresAtLeastOneTileSatisfies(game, player);
     }
 
 

@@ -32,10 +32,6 @@ public abstract class ActionBuild extends Action {
         PayCost();
         tile.SetBuilding(building);
         source.AddBuilding(building);
-        if(building.effectType == BuildingEffectType.TradingAdvantage){
-            source.setTradingAdvantage(true); //TODO: ecrire plutot une méthode/predicat hasTradingAdvantage dans player
-        }
-        //TODO: Ajouter le bâtiment à la Tile (ou au board? player? )
     }
 
     public static HashMap<ResourceType, Integer> Cost(){
@@ -103,6 +99,16 @@ public abstract class ActionBuild extends Action {
             }
         }
         return allIslandOccupiedHaveAtLeast2Buildings && allIslandsOccupiedHaveAtLeastOneHarbour;
+    }
+
+    public static boolean AresAtLeastOneTileSatisfies(Game game, Player player){
+        Board board = game.board;
+        for(Tile tile : board.getTiles().values()){
+            if(tile.GetBuilding() == null && AresBuildConditions(player, game, tile.GetIslandID())){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

@@ -338,7 +338,7 @@ public class ActionMaker {
         
     public ActionRequest Prompt(Player player){
         if(player instanceof COM){
-            boolean fastmode = false;
+            boolean fastmode = true;
             String prompt = PromptBuilder(player, GetPossibleActions(player));
             String inventory = player.ResourcesString();
             int lines = prompt.split("\\n").length + inventory.split("\\n").length +1;

@@ -75,7 +75,8 @@ public class AresBuildArmy extends ActionBuild{
     public static boolean isPossible(Player player, Game game){
         return atLeastOneTileEmpty(game.board) &&
         player.getResources().get(ResourceType.Warriors) > 0 && 
-        PlayerCanAfford(player, ArmyCost);  
+        PlayerCanAfford(player, ArmyCost) &&
+        AresAtLeastOneTileSatisfies(game, player);  
     }
     
 }
