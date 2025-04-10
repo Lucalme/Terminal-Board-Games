@@ -15,6 +15,7 @@ import action.actions.ActionTrade;
 import action.actions.AresAddWarriorToBuilding;
 import action.actions.AresBuildArmy;
 import action.actions.AresBuildHarbour;
+import action.actions.AresBuySecretWeapon;
 import action.actions.AresBuyWarriors;
 import action.actions.AresReplaceArmyWithCamp;
 import action.util.IO;
@@ -40,7 +41,6 @@ public class COM extends Player{
             throw new RuntimeException("Trop de tentatives pour trouver une action : "+ActionName);
         }
     }
-
 
     public ActionRequest promptAction(HashMap<String, Class<? extends Action>> possibleActions, Game game){
         Random r = new Random();
@@ -83,8 +83,9 @@ public class COM extends Player{
                                                                     e.getValue().numPlayer != this.numPlayer &&
                                                                     (e.getKey() instanceof Army || e.getKey() instanceof Camp) 
                                                             ).map(e -> e.getKey()).collect(Collectors.toCollection(ArrayList::new));
+                    boolean secretWeapon = this.getResources().get(ResourceType.SecretWeapon) > 0;
                     if(possibleTargets.size() > 0){
-                        ActionAttack attack = new ActionAttack(this, b.tile, possibleTargets.get(r.nextInt(possibleTargets.size())).tile);
+                        ActionAttack attack = new ActionAttack(this, b.tile, possibleTargets.get(r.nextInt(possibleTargets.size())).tile, secretWeapon);
                         ActionRequest resz = new ActionRequest(this, attack);
                         return resz;
                     }
@@ -140,6 +141,10 @@ public class COM extends Player{
                 AresReplaceArmyWithCamp replaceArmy = new AresReplaceArmyWithCamp(this, armies.get(r.nextInt(armies.size())).tile);
                 ActionRequest resy = new ActionRequest(this, replaceArmy);
                 return resy;
+            case "AresBuySecretWeapon":
+                AresBuySecretWeapon buySecretWeapon = new AresBuySecretWeapon(this);
+                ActionRequest resx = new ActionRequest(this, buySecretWeapon);
+                return resx;
             default:
                 IO.SlowType("Action non reconnue : "+c.getName(), 100);
                 throw new RuntimeException("Action non reconnue");

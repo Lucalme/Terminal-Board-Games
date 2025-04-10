@@ -29,6 +29,7 @@ public class Player {
         }};
         if(game instanceof Ares){
             resources.put(ResourceType.Warriors, 10);
+            resources.put(ResourceType.SecretWeapon, 0);
         }
         if(game instanceof Demeter){
             resources.put(ResourceType.Thief, 0);

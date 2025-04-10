@@ -8,6 +8,7 @@ import action.actions.ActionTrade;
 import action.actions.AresAddWarriorToBuilding;
 import action.actions.AresBuildArmy;
 import action.actions.AresBuildHarbour;
+import action.actions.AresBuySecretWeapon;
 import action.actions.AresBuyWarriors;
 import action.actions.AresReplaceArmyWithCamp;
 import action.actions.ShowInventory;
@@ -24,6 +25,7 @@ public enum ActionMap {
             put("Acheter 5 guerriers", AresBuyWarriors.class);
             put("Attaquer un voisin", ActionAttack.class);
             put("Ajouter des guerriers à un bâtiment", AresAddWarriorToBuilding.class);
+            put("Acheter une arme secrète", AresBuySecretWeapon.class);
         }}),
     Demeter(
         new HashMap<String, Class<? extends Action>>() {{

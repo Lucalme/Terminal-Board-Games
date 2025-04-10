@@ -17,20 +17,26 @@ public class ActionAttack extends Action {
     
     public final Tile target;
     public final Tile baseCamp;
+    public final boolean useSecretWeapon;
     private boolean destroyedBuilding = false;
     private Player winner, looser;
     private Player targetOwner;
 
-    public ActionAttack(Player player, Tile baseCamp, Tile target){
+    public ActionAttack(Player player, Tile baseCamp, Tile target, boolean useSecretWeapon) {
         super(player, true);
         this.target = target;
         this.baseCamp = baseCamp;
+        this.useSecretWeapon = useSecretWeapon;
     }
 
     public void Effect() {
         Army attacker = (Army) baseCamp.GetBuilding();
         Army defender = (Army) target.GetBuilding();
         int attackerDices = attacker.getWarriors() < 4 ? 1 : attacker.getWarriors() < 7 ? 2 : 3;
+        if(useSecretWeapon){
+            attackerDices++;
+            source.removeResource(ResourceType.SecretWeapon, 1);
+        }
         int defenderDices = defender.getWarriors() < 4 ? 1 : defender.getWarriors() < 7 ? 2 : 3;
         int attackerScore = 0;
         int defenderScore = 0;
@@ -84,8 +90,14 @@ public class ActionAttack extends Action {
     /** true les deux batiments sont des batiments militaires et qu'ils sont sur la même ile.*/
     public boolean CheckInstancePossible(Player player, Game game){
         if( target.GetIslandID() != baseCamp.GetIslandID()
-        || target.GetBuilding() == null || !(target.GetBuilding() instanceof Army || target.GetBuilding() instanceof Camp) || target.GetBuilding().owner == player
-        || baseCamp.GetBuilding() == null || !(baseCamp.GetBuilding() instanceof Army || baseCamp.GetBuilding() instanceof Camp) || baseCamp.GetBuilding().owner != player){
+        || target.GetBuilding() == null 
+        || !(target.GetBuilding() instanceof Army || target.GetBuilding() instanceof Camp) 
+        || target.GetBuilding().owner == player
+        || baseCamp.GetBuilding() == null 
+        || !(baseCamp.GetBuilding() instanceof Army || baseCamp.GetBuilding() instanceof Camp) 
+        || baseCamp.GetBuilding().owner != player
+        || (useSecretWeapon && source.getResources().get(ResourceType.SecretWeapon) <= 0)
+        ){
             return false;
         }
         targetOwner = target.GetBuilding().owner;
@@ -94,6 +106,8 @@ public class ActionAttack extends Action {
 
     public String Description(){
         return source.toString() + " attaque " + targetOwner.toString() + "! "
-        + (winner.toString() + " a gagné la bataille! " + (destroyedBuilding ? "Le batiment a été détruit!" : looser.toString() + " a perdu un guerrier!"));
+            + (useSecretWeapon ? "Il utilise une arme secrète! " : "")
+            + (winner.toString() + " a gagné la bataille! " 
+            + (destroyedBuilding ? "Le batiment a été détruit!" : looser.toString() + " a perdu un guerrier!"));
     }
 }

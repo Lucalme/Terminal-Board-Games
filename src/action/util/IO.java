@@ -28,6 +28,23 @@ public class IO {
         }
     }
 
+    public static boolean getBool(){
+        Scanner scanner = new Scanner(System.in);
+        while (true) {  // Keep prompting until valid input is received
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("O")) {
+                DeleteLines(1);
+                return true;
+            } else if (input.equalsIgnoreCase("N")) {
+                DeleteLines(1);
+                return false;
+            } else {
+                SlowType("Veuillez entrer O ou N...");
+                DeleteLines(2);
+            }
+        }
+    }
+
     public static void Next(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Appuyez sur Entrée pour continuer");

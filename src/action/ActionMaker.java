@@ -75,7 +75,8 @@ public class ActionMaker {
             case "ActionAttack":
                 Tile baseCamp = PromptTile(player, "Choissisez votre camp de départ");
                 Tile target = PromptTile(player, "Choississez le batiment à attaquer");
-                action = new ActionAttack(player, baseCamp, target);
+                boolean useSecretWeapon = PromptSecretWeapon(player);
+                action = new ActionAttack(player, baseCamp, target, useSecretWeapon);
                 break;
             case "ShowInventory":
                 action = new ShowInventory(player);
@@ -105,6 +106,9 @@ public class ActionMaker {
                 Tile tile2 = PromptTile(player, "Choissisez la position de l'armée ou du camp");
                 int amnt = PromptWarriors(player);
                 action = new AresAddWarriorToBuilding(player, amnt, tile2);
+                break;
+            case "AresBuySecretWeapon":
+                action = new AresBuySecretWeapon(player);
                 break;
             case "ActionSkip":
                 action = new ActionSkip(player);
@@ -139,6 +143,17 @@ public class ActionMaker {
         return action;
     }
 
+
+    private boolean PromptSecretWeapon(Player player){
+        boolean possible = (player.getResources().get(ResourceType.SecretWeapon) > 0);
+        if(!possible){
+            return false;
+        }
+        IO.SlowType("Voulez-vous utiliser votre arme secrète ? (O/N)");
+        boolean res = IO.getBool();
+        IO.DeleteLines(1);
+        return res;
+    }
 
     //public Building PromptBuilding(Player player, Class<? extends Building> clazz){
     //    ArrayList<Building> playerBuildings = player.GetOwnedBuildings();
