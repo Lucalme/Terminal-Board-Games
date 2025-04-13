@@ -37,12 +37,14 @@ public class Ares extends Game{
         IO.SlowType("Vous devez construire des armées, Choissisez tour à tour une tuile : ");
         for(Player player : players ){
             BuildNewFreeArmy(player, 1);
+            IO.PrintReset();
         }
         System.out.print("\033\143");
         IO.SlowType("Vous avez tous droit à une armée supplémentaire, choissisez une tuile sur la même ile : ");
         for(int i = players.size() -1; i >=0 ; i--){
             Player player = players.get(i);
             BuildNewFreeArmy(player, 2);
+            IO.PrintReset();
         }
         super.StartGame();  
     }
@@ -82,6 +84,7 @@ public class Ares extends Game{
                 player.AddBuilding(tile.GetBuilding());
                 done = true;
             }
+            System.out.println(board);
         }
     }
 

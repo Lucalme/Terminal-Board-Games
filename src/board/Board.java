@@ -17,6 +17,7 @@ public class Board {
     private Tile[][] tiles;
     private int size_X = 10;
     private int size_Y = 10;
+    private int nbOfIslands;
     
     public int SizeX() {
         return size_X;
@@ -134,6 +135,7 @@ public class Board {
                 id++;
             }
         }
+        nbOfIslands = id;
     }
 
     private void Expand(){
@@ -253,6 +255,10 @@ public class Board {
         return space;
     }
 
+    public int GetIslandCount(){
+        return nbOfIslands;
+    }
+
     /**
      * Updates all tiles on the board.
      */
@@ -265,6 +271,50 @@ public class Board {
             }
         }
     }
+
+    public ArrayList<Tile> PrintIsland(int id){
+        ArrayList<Tile> island = new ArrayList<>();
+        for(int i = 0 ; i < size_X ; i++){
+            for(int j = 0 ; j < size_Y ; j++){
+                if(tiles[i][j] != null && tiles[i][j].GetIslandID() == id){
+                    island.add(tiles[i][j]);
+                }
+            }
+        }
+        int minx = island.stream().mapToInt(a -> a.position.x).min().orElse(0);
+        int miny = island.stream().mapToInt(a -> a.position.y).min().orElse(0);
+        int maxx = island.stream().mapToInt(a -> a.position.x).max().orElse(size_X);
+        int maxy = island.stream().mapToInt(a -> a.position.y).max().orElse(size_Y);
+        int sizeY = maxy - miny + 1;
+
+        int printSize = 2;
+        String reset = "\u001B[0m";
+        String[] lines = new String[sizeY * printSize]; 
+        for (int f = 0; f < sizeY * printSize; f++) {
+            lines[f] = "";
+        }
+
+        for(int i = minx ; i <= maxx ; i++){
+            for(int j = miny ; j <= maxy ; j++){
+                Tile currentTile = tiles[i][j];
+                for(int k = 0; k < printSize; k++){
+                    String str = "";
+                    for(int l = 0; l < printSize; l++){
+                        if(currentTile != null && currentTile.GetIslandID() == id){
+                            str += currentTile.ToBackground() + TileSpace(currentTile, (k == printSize - 1 && l == printSize - 1), (k == 0 && l == printSize - 1)) + reset;
+                        }else{
+                            str += "\u001B[44m  \u001B[0m";
+                        }   
+                    }
+                    lines[(j-miny) * printSize + k] += str;
+                }
+            }
+        }
+        System.out.println(String.join("\n", lines));
+
+        return island;
+    }
+
 
 }
 
