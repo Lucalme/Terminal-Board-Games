@@ -114,7 +114,7 @@ public abstract class Game {
                 ActionRequest req = pendingActions.get(i);
                 if(req.ready){
                     req.action.Effect();
-                    IO.SlowType(req.action.Description());
+                    IO.SlowType(req.action.Description(), 40);
                     count++;
                 }else{
                     updated.add(req);
@@ -146,6 +146,8 @@ public abstract class Game {
      */
     protected void nextTurn() {
         for(Player p : players){
+            IO.PrintReset();
+            System.out.println(board);
             IO.SlowType("C'est au tour de "+ p.toString());
             ActionRequest r = ActionMaker.Prompt(p);
             pendingActions.add(r);

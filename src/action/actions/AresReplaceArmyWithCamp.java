@@ -1,14 +1,13 @@
 package action.actions;
 import java.util.HashMap;
-import java.util.Map;
 import Game.Game;
 import action.ActionBuild;
+import action.util.IO;
 import board.resource.ResourceType;
 import board.tile.Tile;
 import building.Army;
 import building.Building;
 import building.Camp;
-import building.Farm;
 import player.Player;
 
 public class AresReplaceArmyWithCamp extends ActionBuild {
@@ -32,6 +31,11 @@ public class AresReplaceArmyWithCamp extends ActionBuild {
         return 0; 
     }
 
+    public void Effect() {
+        source.RemoveBuilding(tile.GetBuilding());
+        super.Effect();
+    }
+
 
     public static boolean isPossible(Player player, Game game){
         //TODO: vérifier s'il y a d'autres conditions. nécessite d'autres buildings?
@@ -50,9 +54,7 @@ public class AresReplaceArmyWithCamp extends ActionBuild {
     }
     
     public boolean CheckInstancePossible(Player player, Game game){
-        return (tile.GetBuilding() != null) && (tile.GetBuilding() instanceof Army) && !(tile.GetBuilding() instanceof Camp);
+        return (tile.GetBuilding() != null) && (tile.GetBuilding().owner == player) && (tile.GetBuilding() instanceof Army) && !(tile.GetBuilding() instanceof Camp);
     }   
 
-
-    
 }

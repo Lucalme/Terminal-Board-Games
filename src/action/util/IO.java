@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class IO {
     
-    public static int writeDelay = 40;
+    public static int writeDelay = 10;
 
     public static void DeleteLines(int lines){
         for(int i = 0; i < lines; i++){
@@ -28,27 +28,28 @@ public class IO {
         }
     }
 
+    public static boolean getBool(){
+        Scanner scanner = new Scanner(System.in);
+        while (true) {  // Keep prompting until valid input is received
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("O")) {
+                DeleteLines(1);
+                return true;
+            } else if (input.equalsIgnoreCase("N")) {
+                DeleteLines(1);
+                return false;
+            } else {
+                SlowType("Veuillez entrer O ou N...");
+                DeleteLines(2);
+            }
+        }
+    }
+
     public static void Next(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Appuyez sur Entrée pour continuer");
         scanner.nextLine();
         DeleteLines(2);
-    }
-
-
-    public static void FunType(){
-        String s = "😅🥳😍😂😁😘😍😚🙂🤗🤩😎😶🤨🫡😲🤑😟😢😬🤯🥵😠😠🥴🤮🥺🥳🤮🤠🥹😇🙂‍↕️🫨🧐😈😈🤖😽";
-        int index = 0;
-        int max =  s.length();
-        while(true){
-            System.out.print(s.charAt(index));
-            index = (index + 1) % max;
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public static void SlowType(String s){
@@ -66,4 +67,11 @@ public class IO {
         }
         System.out.print("\n");
     }
+    
+    public static void PrintReset(){
+        System.out.print("\033\143");
+        System.out.println("\u001B[0m");
+    }
+
+    
 }

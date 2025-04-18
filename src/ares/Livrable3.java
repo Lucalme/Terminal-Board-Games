@@ -4,7 +4,7 @@ package ares;
 public class Livrable3 extends Ares{
 
     public Livrable3(){
-        super(true, 2);
+        super(true, 4);
     }
 
     public static void main(String[] args){

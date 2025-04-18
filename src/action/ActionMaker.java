@@ -75,7 +75,8 @@ public class ActionMaker {
             case "ActionAttack":
                 Tile baseCamp = PromptTile(player, "Choissisez votre camp de départ");
                 Tile target = PromptTile(player, "Choississez le batiment à attaquer");
-                action = new ActionAttack(player, baseCamp, target);
+                boolean useSecretWeapon = PromptSecretWeapon(player);
+                action = new ActionAttack(player, baseCamp, target, useSecretWeapon);
                 break;
             case "ShowInventory":
                 action = new ShowInventory(player);
@@ -96,6 +97,18 @@ public class ActionMaker {
                 break;
             case "AresBuyWarriors":
                 action = new AresBuyWarriors(player);
+                break;
+            case "AresReplaceArmyWithCamp":
+                Tile tile = PromptTile(player, "Choissisez la position de l'armée à remplacer");
+                action = new AresReplaceArmyWithCamp(player, tile);
+                break;
+            case "AresAddWarriorToBuilding":
+                Tile tile2 = PromptTile(player, "Choissisez la position de l'armée ou du camp");
+                int amnt = PromptWarriors(player);
+                action = new AresAddWarriorToBuilding(player, amnt, tile2);
+                break;
+            case "AresBuySecretWeapon":
+                action = new AresBuySecretWeapon(player);
                 break;
             case "ActionSkip":
                 action = new ActionSkip(player);
@@ -121,7 +134,6 @@ public class ActionMaker {
                 ResourceType chosenResource = chooseResource();
                 int amount = stealResourcesFromOthers(chosenResource, player); 
                 action = new DemeterUseThief(player, chosenResource, amount);
-                HashMap<String, Class<? extends Action>> refreshedActions = GetPossibleActions(player);
                 break;
 
             default :
@@ -130,6 +142,17 @@ public class ActionMaker {
         return action;
     }
 
+
+    private boolean PromptSecretWeapon(Player player){
+        boolean possible = (player.getResources().get(ResourceType.SecretWeapon) > 0);
+        if(!possible){
+            return false;
+        }
+        IO.SlowType("Voulez-vous utiliser votre arme secrète ? (O/N)");
+        boolean res = IO.getBool();
+        IO.DeleteLines(1);
+        return res;
+    }
 
     //public Building PromptBuilding(Player player, Class<? extends Building> clazz){
     //    ArrayList<Building> playerBuildings = player.GetOwnedBuildings();
@@ -239,22 +262,54 @@ public class ActionMaker {
 
     }
 
+    //public Tile PromptTile(Player player){
+    //    Tile tile =null;
+    //    while (tile == null) {
+    //        IO.SlowType("Choissisez la Position");
+    //        IO.SlowType("X:");
+    //        int X = IO.getInt();
+    //        IO.SlowType("Y:");
+    //        int Y = IO.getInt();
+    //        tile = game.board.GetTileAtPosition(X, Y);
+    //        if(tile == null){
+    //            IO.SlowType("Impossible de faire ça ici...");
+    //            IO.DeleteLines(1);
+    //        }
+    //        IO.DeleteLines(3);
+    //    }
+    //    return tile;
+    //}
+
+
     public Tile PromptTile(Player player){
-        Tile tile =null;
-        while (tile == null) {
-            IO.SlowType("Choissisez la Position");
-            IO.SlowType("X:");
-            int X = IO.getInt();
-            IO.SlowType("Y:");
-            int Y = IO.getInt();
-            tile = game.board.GetTileAtPosition(X, Y);
-            if(tile == null){
-                IO.SlowType("Impossible de faire ça ici...");
-                IO.DeleteLines(1);
-            }
-            IO.DeleteLines(3);
+        int nbOfIslands = game.board.GetIslandCount();
+        IO.SlowType("Choississez le numéro de l'île: ");
+        int id = -1;
+        while(id < 0 || id >= nbOfIslands){
+            id = IO.getInt();
         }
-        return tile;
+        IO.DeleteLines(1);
+        IO.PrintReset();
+        IO.SlowType("Choissisez la position de la tuile : ");
+        ArrayList<Tile> islandTiles = game.board.PrintIsland(id);
+        String str = "";
+        for(int i = 0; i < islandTiles.size(); i++){
+            Tile cTile = islandTiles.get(i);
+            str += i + " -> " +
+            cTile.GetTileType().name +
+            " à la position ("+ cTile.position.x+","+cTile.position.y + ")" +
+            (cTile.GetBuilding() != null ? " : "+ cTile.GetBuilding().toString() + "("+ islandTiles.get(i).GetBuilding().owner+ ")" : "")+ 
+            ")\n";
+        }
+        IO.SlowType(str, IO.writeDelay /2);
+        IO.DeleteLines(1);
+        int choice = -1;
+        while(choice < 0 || choice >= islandTiles.size()){
+            choice = IO.getInt();
+        }
+        IO.DeleteLines(islandTiles.size() *3 + 2);
+        return islandTiles.get(choice);
+
     }
 
     public Tile PromptTile(Player player, String prompt){
@@ -338,30 +393,17 @@ public class ActionMaker {
         
     public ActionRequest Prompt(Player player){
         if(player instanceof COM){
-            boolean fastmode = false;
-            String prompt = PromptBuilder(player, GetPossibleActions(player));
-            String inventory = player.ResourcesString();
-            int lines = prompt.split("\\n").length + inventory.split("\\n").length +1;
-            if(!fastmode){
-                IO.SlowType(prompt, 10);
-                IO.SlowType("Inventaire :",10);
-                IO.SlowType(inventory, 10);
-            }
-            ActionRequest res = ((COM)player).promptAction(GetPossibleActions(player), game);
-            while(!res.action.CheckInstancePossible(player, game)){
-                IO.SlowType("Action impossible : "+res.action.getClass());
-                IO.DeleteLines(1);
-                res = ((COM)player).promptAction(GetPossibleActions(player), game);
-            }
-            IO.DeleteLines(lines);
-            return res;
+            return HandleCOMPrompt(player);
         }
         ActionRequest res = null;
         Boolean done = false;
         HashMap<String, Class<? extends Action>> possibleActions = GetPossibleActions(player);
         String prompt = PromptBuilder(player, possibleActions);
-        IO.SlowType(prompt);
         while(!done){
+            IO.PrintReset();
+            System.out.print(game.board +"\n");
+            IO.SlowType("C'est au tour de "+ player.toString());
+            IO.SlowType(prompt);
             int i = IO.getInt();
             if (i >= 1 && i <= possibleActions.size()){
                 Action a = ActionFromIndex(i-1, player, possibleActions);
@@ -381,8 +423,29 @@ public class ActionMaker {
                 IO.SlowType("Choix invalide, veuillez réessayer....");
                 IO.DeleteLines(1);
             }
+            IO.PrintReset();
         }
         return res;
     }
     
+
+    private ActionRequest HandleCOMPrompt(Player player){
+        boolean fastmode = false;
+        String prompt = PromptBuilder(player, GetPossibleActions(player));
+        String inventory = player.ResourcesString();
+        int lines = prompt.split("\\n").length + inventory.split("\\n").length +1;
+        if(!fastmode){
+            IO.SlowType(prompt, 10);
+            IO.SlowType("Inventaire :",10);
+            IO.SlowType(inventory, 10);
+        }
+        ActionRequest res = ((COM)player).promptAction(GetPossibleActions(player), game);
+        while(!res.action.CheckInstancePossible(player, game)){
+            IO.SlowType("Action impossible : "+res.action.getClass());
+            IO.DeleteLines(1);
+            res = ((COM)player).promptAction(GetPossibleActions(player), game);
+        }
+        IO.DeleteLines(lines);
+        return res;
+    }
 }

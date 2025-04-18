@@ -9,6 +9,7 @@ import building.Army;
 import building.Building;
 import building.BuildingEffectType;
 import building.Farm;
+import player.COM;
 import player.Player;
 import board.tile.Tile;
 
@@ -20,6 +21,11 @@ public class Demeter extends Game {
 
     public Demeter(int nbOfPlayer, int SizeX, int SizeY){
         super(nbOfPlayer, SizeX, SizeY);
+        this.ActionMaker = new ActionMaker(this);
+    }
+
+    public Demeter(boolean COMGame, int nbOfPlayer){
+        super(COMGame, nbOfPlayer);
         this.ActionMaker = new ActionMaker(this);
     }
 
@@ -39,6 +45,13 @@ public class Demeter extends Game {
         super.StartGame();  
     }
     private void BuildNewFreeFarm(Player player){
+        if(player instanceof COM){
+            Tile tile = ((COM)player).getEmptyTile(this); 
+            Farm newFarm = new Farm(player, BuildingEffectType.None, tile); 
+            tile.SetBuilding(newFarm); 
+            player.AddBuilding(newFarm);
+            return;
+        }
         String str = board.toString();
         System.out.println(str);
         boolean done = false;

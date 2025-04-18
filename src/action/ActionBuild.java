@@ -9,6 +9,7 @@ import board.Board;
 import board.Directions;
 import board.resource.ResourceType;
 import board.tile.Tile;
+import building.AresHarbour;
 import building.Building;
 import building.BuildingEffectType;
 import player.Player;
@@ -31,10 +32,6 @@ public abstract class ActionBuild extends Action {
         PayCost();
         tile.SetBuilding(building);
         source.AddBuilding(building);
-        if(building.effectType == BuildingEffectType.TradingAdvantage){
-            source.setTradingAdvantage(true); //TODO: ecrire plutot une méthode/predicat hasTradingAdvantage dans player
-        }
-        //TODO: Ajouter le bâtiment à la Tile (ou au board? player? )
     }
 
     public static HashMap<ResourceType, Integer> Cost(){
@@ -75,17 +72,16 @@ public abstract class ActionBuild extends Action {
     }
 
     /** true si la tile à construire est sur une ile déjà occupée par 2 batiments du joueurs, ou que toutes les iles occupées par le joueur
-     * (à l'exception de celle désirée) ont au moins 2 batiments
+     * (à l'exception de celle désirée) ont au moins 2 batiments dont au moins un port
      */
     public static boolean AresBuildConditions(Player player, Game game, int islandId){
-        if(player.GetOwnedBuildings()
-                            .stream()
-                            .filter(b -> b.islandId == islandId)
-                            .collect(Collectors.toList()).size() > 2)
+        ArrayList<Building> playerBuildings = player.GetOwnedBuildings();
+        if(playerBuildings.stream().filter(b -> b.islandId == islandId).collect(Collectors.toList()).size() > 2)
         {
             return true;
         }
-        boolean allIslandOccupiedHaveAtLeastBuildings = true;
+        boolean allIslandOccupiedHaveAtLeast2Buildings = true;
+        boolean allIslandsOccupiedHaveAtLeastOneHarbour = true;
         for(Building building : player.GetOwnedBuildings()){
             if(building.islandId != islandId){
                 ArrayList<Building> buildingsOnIsland = player.GetOwnedBuildings()
@@ -93,12 +89,26 @@ public abstract class ActionBuild extends Action {
                                                                 .filter(b -> b.islandId == building.islandId)
                                                                 .collect(Collectors.toCollection(ArrayList::new));
                 if(buildingsOnIsland.size() < 2){
-                    allIslandOccupiedHaveAtLeastBuildings = false;
+                    allIslandOccupiedHaveAtLeast2Buildings = false;
+                    break;
+                }
+                if(buildingsOnIsland.stream().filter(b -> b instanceof AresHarbour).collect(Collectors.toList()).size() == 0){
+                    allIslandsOccupiedHaveAtLeastOneHarbour = false;
                     break;
                 }
             }
         }
-        return allIslandOccupiedHaveAtLeastBuildings;
+        return allIslandOccupiedHaveAtLeast2Buildings && allIslandsOccupiedHaveAtLeastOneHarbour;
+    }
+
+    public static boolean AresAtLeastOneTileSatisfies(Game game, Player player){
+        Board board = game.board;
+        for(Tile tile : board.getTiles().values()){
+            if(tile.GetBuilding() == null && AresBuildConditions(player, game, tile.GetIslandID())){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

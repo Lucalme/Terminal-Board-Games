@@ -15,7 +15,6 @@ import demeter.Demeter;
 public class Player {
     public final int numPlayer;
     protected Map<ResourceType, Integer> resources;
-    private boolean hasTradingAdvantage;
     private ArrayList<Building> ownedBuildings = new ArrayList<>();
     
 
@@ -31,6 +30,7 @@ public class Player {
         }};
         if(game instanceof Ares){
             resources.put(ResourceType.Warriors, 10);
+            resources.put(ResourceType.SecretWeapon, 0);
         }
         if(game instanceof Demeter){
             resources.put(ResourceType.Thief, 0);
@@ -88,9 +88,6 @@ public class Player {
         return false;
     }
 
-    public void setTradingAdvantage(boolean adv){
-        hasTradingAdvantage = adv;
-    }
 
     public void AddBuilding(Building building){
         ownedBuildings.add(building);
