@@ -17,6 +17,7 @@ public class Player {
     protected Map<ResourceType, Integer> resources;
     private boolean hasTradingAdvantage;
     private ArrayList<Building> ownedBuildings = new ArrayList<>();
+    
 
     public Player(int numPlayer, Game game)
     {

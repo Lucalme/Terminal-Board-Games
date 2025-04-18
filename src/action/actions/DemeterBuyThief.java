@@ -38,7 +38,7 @@ public  class DemeterBuyThief extends Action
 
     public static boolean isPossible(Player player, Game game) 
     {
-        return thievesBought < MAX_THIEVES && !playersWhoBoughtThief.contains(player) && PlayerCanAfford(player,Cost());
+        return thievesBought < MAX_THIEVES && !playersWhoBoughtThief.contains(player) && PlayerCanAfford(player,COST);
     }
    @Override
     public boolean CheckInstancePossible(Player player, Game game) 
