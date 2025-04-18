@@ -1,6 +1,8 @@
 package demeter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import Game.Game;
 import action.ActionMaker;
@@ -8,9 +10,11 @@ import action.util.IO;
 import building.Army;
 import building.Building;
 import building.BuildingEffectType;
+import building.Exploitation;
 import building.Farm;
 import player.COM;
 import player.Player;
+import board.resource.ResourceType;
 import board.tile.Tile;
 
 public class Demeter extends Game {
@@ -64,6 +68,7 @@ public class Demeter extends Game {
                 Farm newFarm = new Farm(player, BuildingEffectType.None, tile); // Create the new farm
                 tile.SetBuilding(newFarm); // Set the farm on the tile
                 player.AddBuilding(newFarm);
+
                 done = true;
             }
         }
@@ -82,25 +87,45 @@ public class Demeter extends Game {
 
     private int calculatePoints(Player player) {
         int points = 0;
+
         List<Building> buildings = player.GetOwnedBuildings();
-        //Calcul du nombre de fermes
+        Set<Integer> islandSet = new HashSet<>();
+    
         for (Building building : buildings) {
+            islandSet.add(building.islandId);
+    
             if (building instanceof Farm) {
-                points++;
+                points += 1;
+            } else if (building instanceof Exploitation) {
+                points += 2;
+                
             }
-            //else if(building instanceof Exploitation){
-            //    points += 2;
-            //} 
-            //TODO: implementer les expoitations
         }
-        //if(islands >= 2){
-        //    points+=1;
-        //}
-        //if (islands > 2) {
-        //    points += 2;
-        //}
+
+    
+        if (islandSet.size() == 2) {
+            points += 1;
+        }
+        if (islandSet.size() > 2) {
+            points += 2;
+        }
+    
+        player.setResource(ResourceType.VictoryPoints, points);
+    
         return points;
     }
+    @Override
+    protected void gameLoop() {
+        super.gameLoop(); // Run the main loop
+
+        // 🎉 Announce winner(s)
+        for (Player player : players) {
+            int points = calculatePoints(player);
+            if (points >= 12) {
+                IO.SlowType("🎉 Le joueur " + player.toString() + " a gagné avec " + points + " points !", 40);
+            }
+        }
+}
 
     
 }

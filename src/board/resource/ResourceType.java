@@ -7,7 +7,9 @@ public enum ResourceType{
     Wood(true,"Bois"),
     Warriors(false,"Guerriers"),
     Thief(false, "Voleur"),
-    SecretWeapon(false, "Arme secrète");
+    SecretWeapon(false, "Arme secrète"),
+    VictoryPoints(false, "Points de victoire");
+    
 
     public final boolean isTradable;
     public final String name;

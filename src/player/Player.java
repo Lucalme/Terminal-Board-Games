@@ -16,6 +16,7 @@ public class Player {
     public final int numPlayer;
     protected Map<ResourceType, Integer> resources;
     private ArrayList<Building> ownedBuildings = new ArrayList<>();
+    private  int victoryPoints;
     
 
     public Player(int numPlayer, Game game)
@@ -34,12 +35,17 @@ public class Player {
         }
         if(game instanceof Demeter){
             resources.put(ResourceType.Thief, 0);
+            resources.put(ResourceType.VictoryPoints, 0);
+            this.victoryPoints = 0;
         }
     }
 
   
     public void addResource(ResourceType type, int amount) {
         resources.put(type, resources.getOrDefault(type, 0) + amount);
+    }
+       public void setResource(ResourceType type, int value) {
+        resources.put(type, value);
     }
     
     
@@ -99,6 +105,16 @@ public class Player {
 
     public ArrayList<Building> GetOwnedBuildings(){
         return ownedBuildings;
+    }       
+
+    public int getVictoryPoints() {
+        return victoryPoints;
+    }
+    public void setVictoryPoints(int victoryPoints) {
+        this.victoryPoints = victoryPoints;
+    }
+    public void addVictoryPoints(int points) {
+        this.victoryPoints += points;
     }
 
     public int getTotalWarriors() {

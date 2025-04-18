@@ -11,8 +11,10 @@ import action.util.IO;
 import board.Board;
 import board.resource.ResourceType;
 import building.Building;
+import building.Farm;
 import player.COM;
 import player.Player;
+import demeter.Demeter;
 
 
 /**
@@ -134,11 +136,13 @@ public abstract class Game {
             String str = board.toString();
             System.out.println(str);
             linesToErase = str.split("\\n").length +1;
+            
             nextTurn();
         }
+       
         //afficher les gagnants
-        Player winner = objectives.determineWinner();
-        System.out.println("The player " + winner + " has won the game!");
+        /*Player winner = objectives.determineWinner();
+        System.out.println("The player " + winner + " has won the game!");*/
     }
 
     /**
@@ -155,6 +159,7 @@ public abstract class Game {
         }
         currentTurn++;
     }
+
 
     /**
      * verifie si un joueur a atteint son objectif

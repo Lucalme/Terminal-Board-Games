@@ -354,7 +354,9 @@ public class ActionMaker {
             int index = IO.getInt() -1;
             if(index >= 0 && index < others.size()){
                 target = others.get(index);
-                done = true;
+                done = 
+                
+                true;
             }else{
                 IO.SlowType("Choix Invalide, veuillez rééssayer...");
                 IO.DeleteLines(1);
