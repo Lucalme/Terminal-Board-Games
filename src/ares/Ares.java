@@ -1,5 +1,6 @@
 package ares;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -14,6 +15,9 @@ import player.COM;
 import player.Player;
 
 public class Ares extends Game{
+
+    private HashMap<Player, Integer> PlayerIslands = new HashMap<Player, Integer>();
+
     public Ares(int nbOfPlayer){
         super(nbOfPlayer, 10, 10);
         this.ActionMaker = new ActionMaker(this);
@@ -45,6 +49,9 @@ public class Ares extends Game{
             Player player = players.get(i);
             BuildNewFreeArmy(player, 2);
             IO.PrintReset();
+        }
+        for(Player player : players){
+            PlayerIslands.put(player, player.GetOwnedBuildings().get(0).tile.GetIslandID());
         }
         super.StartGame();  
     }
@@ -124,7 +131,17 @@ public class Ares extends Game{
                     }
                     break;
                 case INVADE_ISLAND :
-                    return false; //TODO: logique d'envahissement d'île
+                    for (int id : PlayerIslands.values()){
+                        if(PlayerIslands.get(player) == id){
+                            continue;
+                        }
+                        if(board.getTiles().values().stream()
+                                .filter((t) -> (t.GetIslandID() == id && t.GetBuilding() != null && t.GetBuilding().owner != player))
+                                .count() == 0){
+                                    return true;
+                                }
+                    }
+                    break;
                 case REACH_WARRIORS :
                     if (player.getTotalWarriors() >= 50) {
                         return true;
