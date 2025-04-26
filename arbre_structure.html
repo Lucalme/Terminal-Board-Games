@@ -1,663 +1,722 @@
-<html><head><meta charset='utf-8'><link rel='stylesheet' href='style-uml.css' > </head><body>
+<html><head><meta charset='utf-8'><link rel='stylesheet' href='style-uml.css'/> </head><body>
 <h1>Structure du Projet Java</h1>
-<div class='package'>Package: action
-<div class='clazz'><strong>Classe: Action</strong>
+<div class='package'><h1>Package: action</h1>
+<div class='clazz'><strong>Classe: <i class='clazzname'>Action</i></strong>
 <ul>
-<li>Propriétés publiques:<ul>
-<li>source : Player</li>
-<li>finishesTurn : boolean</li>
-</ul></li>
-<li>Méthodes publiques:<ul>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-<li>void Effect()</li>
-<li>String Description()</li>
-<li>HashMap Cost()</li>
+<hr>
+<li>+ source : <span class='type'> Player </span></li>
+<li>+ finishesTurn : <span class='type'> boolean </span></li>
+</ul>
+<hr>
+<ul>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>void</span> Effect()</li>
+<li>+ <span class='type'>String</span> Description()</li>
+<li>+ <span class='type'>HashMap</span> Cost()</li>
+<li># <span class='type'>boolean</span> PlayerCanAfford(<span class='argument'>Player</span>, <span class='argument'>HashMap</span>)</li>
+<li># <span class='type'>void</span> PayCost()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: ActionBuild</strong>
- (hérite de <em>Action</em>)
+<div class='clazz'><strong>Classe: <i class='clazzname'>ActionBuild</i></strong>
+ <i>(hérite de <em>Action</em></i>)
 <ul>
-<li>Propriétés publiques:<ul>
-<li>building : Building</li>
-<li>tile : Tile</li>
-<li>islandId : int</li>
-</ul></li>
-<li>Méthodes publiques:<ul>
-<li>void Effect()</li>
-<li>HashMap Cost()</li>
-<li>boolean AresBuildConditions(Player player, Game game, int islandId)</li>
-<li>boolean AresAtLeastOneTileSatisfies(Game game, Player player)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: ActionMain</strong>
+<hr>
+<li>+ building : <span class='type'> Building </span></li>
+<li>+ tile : <span class='type'> Tile </span></li>
+<li>+ islandId : <span class='type'> int </span></li>
+</ul>
+<hr>
 <ul>
-<li>Méthodes publiques:<ul>
-<li>void main(String args)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: ActionMaker</strong>
-<ul>
-<li>Méthodes publiques:<ul>
-<li>int stealResourcesFromOthers(ResourceType chosenResource, Player currentPlayer)</li>
-<li>Building PromptArmy(Player player)</li>
-<li>ResourceType chooseResource()</li>
-<li>Building PromptFarm(Player player)</li>
-<li>Tile PromptTile(Player player)</li>
-<li>Tile PromptTile(Player player, String prompt)</li>
-<li>ActionRequest Prompt(Player player)</li>
+<li>+ <span class='type'>void</span> Effect()</li>
+<li>+ <span class='type'>HashMap</span> Cost()</li>
+<li># <span class='type'>boolean</span> PlayerCanAfford(<span class='argument'>Player</span>, <span class='argument'>HashMap</span>)</li>
+<li># <span class='type'>boolean</span> TileHasWaterNeighbour(<span class='argument'>Tile</span>, <span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li># <span class='type'>boolean</span> atLeastOneTileEmpty(<span class='argument'>Board</span>)</li>
+<li># <span class='type'>boolean</span> TileIsEmpty(<span class='argument'>Tile</span>)</li>
+<li>+ <span class='type'>boolean</span> AresBuildConditions(<span class='argument'>Player</span>, <span class='argument'>Game</span>, <span class='argument'>int</span>)</li>
+<li>+ <span class='type'>boolean</span> AresAtLeastOneTileSatisfies(<span class='argument'>Game</span>, <span class='argument'>Player</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: ActionRequest</strong>
+<div class='clazz'><strong>Classe: <i class='clazzname'>ActionMain</i></strong>
 <ul>
-<li>Propriétés publiques:<ul>
-<li>action : Action</li>
-<li>ready : boolean</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> main(<span class='argument'>String</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>ActionMaker</i></strong>
+<ul>
+<hr>
+<hr>
+<ul>
+<li># <span class='type'>HashMap</span> GetPossibleActions(<span class='argument'>Player</span>)</li>
+<li>+ <span class='type'>int</span> stealResourcesFromOthers(<span class='argument'>ResourceType</span>, <span class='argument'>Player</span>)</li>
+<li>+ <span class='type'>Building</span> PromptArmy(<span class='argument'>Player</span>)</li>
+<li>+ <span class='type'>ResourceType</span> chooseResource()</li>
+<li>+ <span class='type'>Building</span> PromptFarm(<span class='argument'>Player</span>)</li>
+<li>+ <span class='type'>Tile</span> PromptTile(<span class='argument'>Player</span>)</li>
+<li>+ <span class='type'>Tile</span> PromptTile(<span class='argument'>Player</span>, <span class='argument'>String</span>)</li>
+<li># <span class='type'>List</span> Targetables(<span class='argument'>Player</span>)</li>
+<li>+ <span class='type'>ActionRequest</span> Prompt(<span class='argument'>Player</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>ActionRequest</i></strong>
+<ul>
+<hr>
+<li>+ action : <span class='type'> Action </span></li>
+<li>+ ready : <span class='type'> boolean </span></li>
+</ul>
+<hr>
+</ul></div>
+</div>
+<div class='package'><h1>Package: action.actions</h1>
+<div class='clazz'><strong>Classe: <i class='clazzname'>ActionAttack</i></strong>
+ <i>(hérite de <em>Action</em></i>)
+<ul>
+<hr>
+<li>+ target : <span class='type'> Tile </span></li>
+<li>+ baseCamp : <span class='type'> Tile </span></li>
+<li>+ useSecretWeapon : <span class='type'> boolean </span></li>
+</ul>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> Effect()</li>
+<li>+ <span class='type'>HashMap</span> Cost()</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>String</span> Description()</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>ActionSkip</i></strong>
+ <i>(hérite de <em>Action</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> Effect()</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>String</span> Description()</li>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>ActionTrade</i></strong>
+ <i>(hérite de <em>Action</em></i>)
+<ul>
+<hr>
+<li>+ playerResourceType : <span class='type'> ResourceType </span></li>
+<li>+ exchangeResourceType : <span class='type'> ResourceType </span></li>
+</ul>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> Effect()</li>
+<li>+ <span class='type'>String</span> Description()</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>AresAddWarriorToBuilding</i></strong>
+ <i>(hérite de <em>Action</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>void</span> Effect()</li>
+<li>+ <span class='type'>String</span> Description()</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>AresBuildArmy</i></strong>
+ <i>(hérite de <em>ActionBuild</em></i>)
+<ul>
+<hr>
+<li>+ nbOfWarriors : <span class='type'> int </span></li>
+</ul>
+<hr>
+<ul>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>String</span> Description()</li>
+<li>+ <span class='type'>void</span> Effect()</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>AresBuildHarbour</i></strong>
+ <i>(hérite de <em>ActionBuild</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>HashMap</span> Cost()</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>String</span> Description()</li>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>AresBuySecretWeapon</i></strong>
+ <i>(hérite de <em>Action</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>HashMap</span> Cost()</li>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>void</span> Effect()</li>
+<li>+ <span class='type'>String</span> Description()</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>AresBuyWarriors</i></strong>
+ <i>(hérite de <em>Action</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>HashMap</span> Cost()</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>void</span> Effect()</li>
+<li>+ <span class='type'>String</span> Description()</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>AresReplaceArmyWithCamp</i></strong>
+ <i>(hérite de <em>ActionBuild</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>HashMap</span> Cost()</li>
+<li>+ <span class='type'>void</span> Effect()</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>String</span> Description()</li>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>DemeterBuildFarm</i></strong>
+ <i>(hérite de <em>ActionBuild</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>HashMap</span> Cost()</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>String</span> Description()</li>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>DemeterBuildPort</i></strong>
+ <i>(hérite de <em>ActionBuild</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>HashMap</span> Cost()</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>String</span> Description()</li>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>DemeterBuyThief</i></strong>
+ <i>(hérite de <em>Action</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>String</span> Description()</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>void</span> Effect()</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>DemeterReplaceFarmWithExploitation</i></strong>
+ <i>(hérite de <em>ActionBuild</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>HashMap</span> Cost()</li>
+<li>+ <span class='type'>void</span> Effect()</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>String</span> Description()</li>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>DemeterUseThief</i></strong>
+ <i>(hérite de <em>DemeterBuyThief</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>String</span> Description()</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>void</span> Effect()</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>ShowInventory</i></strong>
+ <i>(hérite de <em>Action</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> Effect()</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>String</span> Description()</li>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
 </ul></li>
 </ul></div>
 </div>
-<div class='package'>Package: action.actions
-<div class='clazz'><strong>Classe: ActionAttack</strong>
- (hérite de <em>Action</em>)
+<div class='package'><h1>Package: action.util</h1>
+<div class='clazz'><strong>Classe: <i class='clazzname'>IO</i></strong>
 <ul>
-<li>Propriétés publiques:<ul>
-<li>target : Tile</li>
-<li>baseCamp : Tile</li>
-<li>useSecretWeapon : boolean</li>
-</ul></li>
-<li>Méthodes publiques:<ul>
-<li>void Effect()</li>
-<li>HashMap Cost()</li>
-<li>boolean isPossible(Player player, Game game)</li>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-<li>String Description()</li>
+<hr>
+<li>+ writeDelay : <span class='type'> int </span></li>
+</ul>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> DeleteLines(<span class='argument'>int</span>)</li>
+<li>+ <span class='type'>int</span> getInt()</li>
+<li>+ <span class='type'>boolean</span> getBool()</li>
+<li>+ <span class='type'>void</span> Next()</li>
+<li>+ <span class='type'>void</span> SlowType(<span class='argument'>String</span>)</li>
+<li>+ <span class='type'>void</span> SlowType(<span class='argument'>String</span>, <span class='argument'>int</span>)</li>
+<li>+ <span class='type'>void</span> PrintReset()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: ActionSkip</strong>
- (hérite de <em>Action</em>)
+<div class='clazz'><strong>Classe: <i class='clazzname'>Polymorphism</i></strong>
 <ul>
-<li>Méthodes publiques:<ul>
-<li>void Effect()</li>
-<li>boolean isPossible(Player player, Game game)</li>
-<li>String Description()</li>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: ActionTrade</strong>
- (hérite de <em>Action</em>)
+<hr>
+<hr>
 <ul>
-<li>Propriétés publiques:<ul>
-<li>playerResourceType : ResourceType</li>
-<li>exchangeResourceType : ResourceType</li>
-</ul></li>
-<li>Méthodes publiques:<ul>
-<li>void Effect()</li>
-<li>String Description()</li>
-<li>boolean isPossible(Player player, Game game)</li>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: AresAddWarriorToBuilding</strong>
- (hérite de <em>Action</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-<li>boolean isPossible(Player player, Game game)</li>
-<li>void Effect()</li>
-<li>String Description()</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: AresBuildArmy</strong>
- (hérite de <em>ActionBuild</em>)
-<ul>
-<li>Propriétés publiques:<ul>
-<li>nbOfWarriors : int</li>
-</ul></li>
-<li>Méthodes publiques:<ul>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-<li>String Description()</li>
-<li>void Effect()</li>
-<li>boolean isPossible(Player player, Game game)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: AresBuildHarbour</strong>
- (hérite de <em>ActionBuild</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>HashMap Cost()</li>
-<li>boolean isPossible(Player player, Game game)</li>
-<li>String Description()</li>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: AresBuySecretWeapon</strong>
- (hérite de <em>Action</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>HashMap Cost()</li>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-<li>boolean isPossible(Player player, Game game)</li>
-<li>void Effect()</li>
-<li>String Description()</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: AresBuyWarriors</strong>
- (hérite de <em>Action</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>HashMap Cost()</li>
-<li>boolean isPossible(Player player, Game game)</li>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-<li>void Effect()</li>
-<li>String Description()</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: AresReplaceArmyWithCamp</strong>
- (hérite de <em>ActionBuild</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>HashMap Cost()</li>
-<li>void Effect()</li>
-<li>boolean isPossible(Player player, Game game)</li>
-<li>String Description()</li>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: DemeterBuildFarm</strong>
- (hérite de <em>ActionBuild</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>HashMap Cost()</li>
-<li>boolean isPossible(Player player, Game game)</li>
-<li>String Description()</li>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: DemeterBuildPort</strong>
- (hérite de <em>ActionBuild</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>HashMap Cost()</li>
-<li>boolean isPossible(Player player, Game game)</li>
-<li>String Description()</li>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: DemeterBuyThief</strong>
- (hérite de <em>Action</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>String Description()</li>
-<li>boolean isPossible(Player player, Game game)</li>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-<li>void Effect()</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: DemeterReplaceFarmWithExploitation</strong>
- (hérite de <em>ActionBuild</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>HashMap Cost()</li>
-<li>void Effect()</li>
-<li>boolean isPossible(Player player, Game game)</li>
-<li>String Description()</li>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: DemeterUseThief</strong>
- (hérite de <em>DemeterBuyThief</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>String Description()</li>
-<li>boolean isPossible(Player player, Game game)</li>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-<li>void Effect()</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: ShowInventory</strong>
- (hérite de <em>Action</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>void Effect()</li>
-<li>boolean isPossible(Player player, Game game)</li>
-<li>String Description()</li>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
+<li>+ <span class='type'>boolean</span> hasConstructor(<span class='argument'>Class</span>, <span class='argument'>Class</span>)</li>
+<li>+ <span class='type'>Class</span> getParameterTypes(<span class='argument'>Class</span>)</li>
+<li>+ <span class='type'>PreliminaryAction</span> getPreliminaryActionInstance(<span class='argument'>Class</span>, <span class='argument'>Player</span>, <span class='argument'>GUI</span>)</li>
+<li>+ <span class='type'>Action</span> tryGetActionInstance(<span class='argument'>Class</span>, <span class='argument'>GUI</span>, <span class='argument'>Object</span>)</li>
+<li>+ <span class='type'>boolean</span> hasMultipleParamsOfType(<span class='argument'>Class</span>, <span class='argument'>Class</span>)</li>
+<li>+ <span class='type'>boolean</span> hasMultipleParamsOfType(<span class='argument'>Class</span>, <span class='argument'>Class</span>, <span class='argument'>int</span>)</li>
+<li>+ <span class='type'>String</span> getParamsNames(<span class='argument'>Class</span>)</li>
+<li>+ <span class='type'>boolean</span> hasParameterOfType(<span class='argument'>Class</span>, <span class='argument'>Class</span>)</li>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Class</span>, <span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
 </ul></li>
 </ul></div>
 </div>
-<div class='package'>Package: action.util
-<div class='clazz'><strong>Classe: IO</strong>
+<div class='package'><h1>Package: ares</h1>
+<div class='clazz'><strong>Classe: <i class='clazzname'>Ares</i></strong>
+ <i>(hérite de <em>Game</em></i>)
 <ul>
-<li>Propriétés publiques:<ul>
-<li>writeDelay : int</li>
-</ul></li>
-<li>Méthodes publiques:<ul>
-<li>void DeleteLines(int lines)</li>
-<li>int getInt()</li>
-<li>boolean getBool()</li>
-<li>void Next()</li>
-<li>void SlowType(String s)</li>
-<li>void SlowType(String s, int delay)</li>
-<li>void PrintReset()</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> StartGame()</li>
+<li># <span class='type'>void</span> initializeObjectives()</li>
+<li># <span class='type'>boolean</span> CheckWinCondition()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: Polymorphism</strong>
+<div class='clazz'><strong>Classe: <i class='clazzname'>AresMain</i></strong>
 <ul>
-<li>Méthodes publiques:<ul>
-<li>boolean hasConstructor(Class clazz, Class parameterTypes)</li>
-<li>Class getParameterTypes(Class clazz)</li>
-<li>PreliminaryAction getPreliminaryActionInstance(Class clazz, Player player, GUI gui)</li>
-<li>Action tryGetActionInstance(Class clazz, GUI gui, Object args)</li>
-<li>boolean hasMultipleParamsOfType(Class clazz, Class type)</li>
-<li>boolean hasMultipleParamsOfType(Class clazz, Class type, int multiple)</li>
-<li>String getParamsNames(Class c)</li>
-<li>boolean hasParameterOfType(Class clazz, Class type)</li>
-<li>boolean isPossible(Class t, Player player, Game game)</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> main(<span class='argument'>String</span>)</li>
 </ul></li>
 </ul></div>
-</div>
-<div class='package'>Package: ares
-<div class='clazz'><strong>Classe: Ares</strong>
- (hérite de <em>Game</em>)
+<div class='clazz'><strong>Classe: <i class='clazzname'>GUIAres</i></strong>
+ <i>(hérite de <em>GUIGame</em></i>)
 <ul>
-<li>Méthodes publiques:<ul>
-<li>void StartGame()</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> main(<span class='argument'>String</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: AresMain</strong>
+<div class='clazz'><strong>Classe: <i class='clazzname'>Livrable3</i></strong>
+ <i>(hérite de <em>Ares</em></i>)
 <ul>
-<li>Méthodes publiques:<ul>
-<li>void main(String args)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: GUIAres</strong>
- (hérite de <em>GUIGame</em>)
+<hr>
+<hr>
 <ul>
-<li>Méthodes publiques:<ul>
-<li>void main(String args)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: Livrable3</strong>
- (hérite de <em>Ares</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>void main(String args)</li>
-<li>boolean CheckWinCondition()</li>
+<li>+ <span class='type'>void</span> main(<span class='argument'>String</span>)</li>
+<li>+ <span class='type'>boolean</span> CheckWinCondition()</li>
 </ul></li>
 </ul></div>
 </div>
-<div class='package'>Package: board
-<div class='clazz'><strong>Classe: Board</strong>
+<div class='package'><h1>Package: board</h1>
+<div class='clazz'><strong>Classe: <i class='clazzname'>Board</i></strong>
 <ul>
-<li>Méthodes publiques:<ul>
-<li>int SizeX()</li>
-<li>int SizeY()</li>
-<li>Tile GetTileAtPosition(int x, int y)</li>
-<li>Tile GetTileAtPosition(Position pos)</li>
-<li>HashMap getTiles()</li>
-<li>HashMap getBuildings()</li>
-<li>Tile GetTilesNeighborhood(int x, int y)</li>
-<li>String toString()</li>
-<li>int GetIslandCount()</li>
-<li>void UpdateAllTiles()</li>
-<li>ArrayList PrintIsland(int id)</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>int</span> SizeX()</li>
+<li>+ <span class='type'>int</span> SizeY()</li>
+<li>+ <span class='type'>Tile</span> GetTileAtPosition(<span class='argument'>int</span>, <span class='argument'>int</span>)</li>
+<li>+ <span class='type'>Tile</span> GetTileAtPosition(<span class='argument'>Position</span>)</li>
+<li>+ <span class='type'>HashMap</span> getTiles()</li>
+<li>+ <span class='type'>HashMap</span> getBuildings()</li>
+<li>+ <span class='type'>Tile</span> GetTilesNeighborhood(<span class='argument'>int</span>, <span class='argument'>int</span>)</li>
+<li>+ <span class='type'>String</span> toString()</li>
+<li>+ <span class='type'>int</span> GetIslandCount()</li>
+<li>+ <span class='type'>void</span> UpdateAllTiles()</li>
+<li>+ <span class='type'>ArrayList</span> PrintIsland(<span class='argument'>int</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: BoardMain</strong>
+<div class='clazz'><strong>Classe: <i class='clazzname'>BoardMain</i></strong>
 <ul>
-<li>Méthodes publiques:<ul>
-<li>void main(String args)</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> main(<span class='argument'>String</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: Position</strong>
+<div class='clazz'><strong>Classe: <i class='clazzname'>Position</i></strong>
 <ul>
-<li>Propriétés publiques:<ul>
-<li>x : int</li>
-<li>y : int</li>
-</ul></li>
-<li>Méthodes publiques:<ul>
-<li>boolean equals(Position position)</li>
+<hr>
+<li>+ x : <span class='type'> int </span></li>
+<li>+ y : <span class='type'> int </span></li>
+</ul>
+<hr>
+<ul>
+<li>+ <span class='type'>boolean</span> equals(<span class='argument'>Position</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: TileCollection</strong>
- (hérite de <em>HashMap</em>)
+<div class='clazz'><strong>Classe: <i class='clazzname'>TileCollection</i></strong>
+ <i>(hérite de <em>HashMap</em></i>)
 <ul>
-<li>Méthodes publiques:<ul>
-<li>Position Positions()</li>
-</ul></li>
-</ul></div>
-</div>
-<div class='package'>Package: board.tile
-<div class='clazz'><strong>Classe: Tile</strong>
+<hr>
+<hr>
 <ul>
-<li>Propriétés publiques:<ul>
-<li>position : Position</li>
-</ul></li>
-<li>Méthodes publiques:<ul>
-<li>void UpdateTile()</li>
-<li>int GetResourcesPresent()</li>
-<li>ResourceType GetResourceType()</li>
-<li>TileType GetTileType()</li>
-<li>void ClearResources()</li>
-<li>String toString()</li>
-<li>String ToConsoleMode()</li>
-<li>String ToBackground()</li>
-<li>int GetIslandID()</li>
-<li>void SetIslandID(int id)</li>
-<li>Building GetBuilding()</li>
-<li>void SetBuilding(Building building)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: TileMain</strong>
-<ul>
-<li>Méthodes publiques:<ul>
-<li>void main(String args)</li>
+<li>+ <span class='type'>Position</span> Positions()</li>
 </ul></li>
 </ul></div>
 </div>
-<div class='package'>Package: building
-<div class='clazz'><strong>Classe: AresHarbour</strong>
- (hérite de <em>Building</em>)
+<div class='package'><h1>Package: board.tile</h1>
+<div class='clazz'><strong>Classe: <i class='clazzname'>Tile</i></strong>
 <ul>
-<li>Méthodes publiques:<ul>
-<li>String toString()</li>
+<hr>
+<li>+ position : <span class='type'> Position </span></li>
+</ul>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> UpdateTile()</li>
+<li>+ <span class='type'>int</span> GetResourcesPresent()</li>
+<li>+ <span class='type'>ResourceType</span> GetResourceType()</li>
+<li>+ <span class='type'>TileType</span> GetTileType()</li>
+<li>+ <span class='type'>void</span> ClearResources()</li>
+<li>+ <span class='type'>String</span> toString()</li>
+<li>+ <span class='type'>String</span> ToConsoleMode()</li>
+<li>+ <span class='type'>String</span> ToBackground()</li>
+<li>+ <span class='type'>int</span> GetIslandID()</li>
+<li>+ <span class='type'>void</span> SetIslandID(<span class='argument'>int</span>)</li>
+<li>+ <span class='type'>Building</span> GetBuilding()</li>
+<li>+ <span class='type'>void</span> SetBuilding(<span class='argument'>Building</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: Army</strong>
- (hérite de <em>Building</em>)
+<div class='clazz'><strong>Classe: <i class='clazzname'>TileMain</i></strong>
 <ul>
-<li>Méthodes publiques:<ul>
-<li>int getWarriors()</li>
-<li>void setWarriors(int warriors)</li>
-<li>String toString()</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: Building</strong>
+<hr>
+<hr>
 <ul>
-<li>Propriétés publiques:<ul>
-<li>effectType : BuildingEffectType</li>
-<li>owner : Player</li>
-<li>islandId : int</li>
-<li>tile : Tile</li>
-</ul></li>
-<li>Méthodes publiques:<ul>
-<li>int getSize()</li>
-<li>HashMap ResourceEffect(HashMap resources)</li>
-<li>String toString()</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: Camp</strong>
- (hérite de <em>Army</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>String toString()</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: Exploitation</strong>
- (hérite de <em>Building</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>String toString()</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: Farm</strong>
- (hérite de <em>Building</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>String Description()</li>
-<li>String toString()</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: Port</strong>
- (hérite de <em>Building</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>String Description()</li>
-<li>String toString()</li>
+<li>+ <span class='type'>void</span> main(<span class='argument'>String</span>)</li>
 </ul></li>
 </ul></div>
 </div>
-<div class='package'>Package: demeter
-<div class='clazz'><strong>Classe: Demeter</strong>
- (hérite de <em>Game</em>)
+<div class='package'><h1>Package: building</h1>
+<div class='clazz'><strong>Classe: <i class='clazzname'>AresHarbour</i></strong>
+ <i>(hérite de <em>Building</em></i>)
 <ul>
-<li>Méthodes publiques:<ul>
-<li>void StartGame()</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>String</span> toString()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: DemeterBotGame</strong>
- (hérite de <em>Demeter</em>)
+<div class='clazz'><strong>Classe: <i class='clazzname'>Army</i></strong>
+ <i>(hérite de <em>Building</em></i>)
 <ul>
-<li>Méthodes publiques:<ul>
-<li>void main(String args)</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>int</span> getWarriors()</li>
+<li>+ <span class='type'>void</span> setWarriors(<span class='argument'>int</span>)</li>
+<li>+ <span class='type'>String</span> toString()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: DemeterMain</strong>
+<div class='clazz'><strong>Classe: <i class='clazzname'>Building</i></strong>
 <ul>
-<li>Méthodes publiques:<ul>
-<li>void main(String args)</li>
+<hr>
+<li>+ effectType : <span class='type'> BuildingEffectType </span></li>
+<li>+ owner : <span class='type'> Player </span></li>
+<li>+ islandId : <span class='type'> int </span></li>
+<li>+ tile : <span class='type'> Tile </span></li>
+</ul>
+<hr>
+<ul>
+<li>+ <span class='type'>int</span> getSize()</li>
+<li>+ <span class='type'>HashMap</span> ResourceEffect(<span class='argument'>HashMap</span>)</li>
+<li>+ <span class='type'>String</span> toString()</li>
 </ul></li>
 </ul></div>
-</div>
-<div class='package'>Package: default
-<div class='clazz'><strong>Classe: Player</strong>
+<div class='clazz'><strong>Classe: <i class='clazzname'>Camp</i></strong>
+ <i>(hérite de <em>Army</em></i>)
 <ul>
-<li>Méthodes publiques:<ul>
-<li>void displayResources()</li>
-<li>boolean hasResources(Map cost)</li>
-<li>void deductResources(Map cost)</li>
-<li>void addBuilding(Building building, Tile tile)</li>
-<li>void displayBuildings()</li>
-<li>void displayTiles()</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>String</span> toString()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: Building</strong>
+<div class='clazz'><strong>Classe: <i class='clazzname'>Exploitation</i></strong>
+ <i>(hérite de <em>Building</em></i>)
 <ul>
-<li>Méthodes publiques:<ul>
-<li>String toString()</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>String</span> toString()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: Farm</strong>
- (hérite de <em>Building</em>)
+<div class='clazz'><strong>Classe: <i class='clazzname'>Farm</i></strong>
+ <i>(hérite de <em>Building</em></i>)
 <ul>
-</ul></div>
-<div class='clazz'><strong>Classe: BigFarm</strong>
- (hérite de <em>Building</em>)
+<hr>
+<hr>
 <ul>
-</ul></div>
-<div class='clazz'><strong>Classe: Port</strong>
- (hérite de <em>Building</em>)
-<ul>
-</ul></div>
-<div class='clazz'><strong>Classe: Thief</strong>
- (hérite de <em>Building</em>)
-<ul>
-</ul></div>
-<div class='clazz'><strong>Classe: Tile</strong>
-<ul>
-<li>Méthodes publiques:<ul>
-<li>String toString()</li>
+<li>+ <span class='type'>String</span> Description()</li>
+<li>+ <span class='type'>String</span> toString()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: DemeterGame</strong>
+<div class='clazz'><strong>Classe: <i class='clazzname'>Port</i></strong>
+ <i>(hérite de <em>Building</em></i>)
 <ul>
-<li>Méthodes publiques:<ul>
-<li>void main(String args)</li>
-<li>void executeLivrable3Demeter(Player player)</li>
-<li>void buildFarm(Player player, Tile tile)</li>
-<li>void upgradeFarm(Player player)</li>
-<li>void buildPort(Player player, Tile tile)</li>
-<li>void exchangeResources(Player player, int amount, String from, String to)</li>
-<li>void exchangeResourcesWithPort(Player player, int amount, String from, String to)</li>
-<li>void buyThief(Player player)</li>
-</ul></li>
-</ul></div>
-</div>
-<div class='package'>Package: Game
-<div class='clazz'><strong>Classe: Game</strong>
+<hr>
+<hr>
 <ul>
-<li>Propriétés publiques:<ul>
-<li>players : List</li>
-<li>board : Board</li>
-</ul></li>
-<li>Méthodes publiques:<ul>
-<li>void StartGame()</li>
-<li>List GetPlayers()</li>
+<li>+ <span class='type'>String</span> Description()</li>
+<li>+ <span class='type'>String</span> toString()</li>
 </ul></li>
 </ul></div>
 </div>
-<div class='package'>Package: GUI
-<div class='clazz'><strong>Classe: GUI</strong>
- (hérite de <em>JFrame</em>)
+<div class='package'><h1>Package: demeter</h1>
+<div class='clazz'><strong>Classe: <i class='clazzname'>Demeter</i></strong>
+ <i>(hérite de <em>Game</em></i>)
 <ul>
-<li>Propriétés publiques:<ul>
-<li>Body : JPanel</li>
-<li>GameView : JPanel</li>
-<li>SidePanel : JPanel</li>
-<li>Console : GUIConsole</li>
-<li>TilePicker : TilePicker</li>
-<li>playerPanel : PlayerPanel</li>
-<li>WindowSize : int</li>
-<li>transparent : Color</li>
-</ul></li>
-<li>Méthodes publiques:<ul>
-<li>void clearSelection()</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> StartGame()</li>
+<li># <span class='type'>boolean</span> CheckWinCondition()</li>
+<li># <span class='type'>void</span> gameLoop()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: PlayerPanel</strong>
- (hérite de <em>JPanel</em>)
+<div class='clazz'><strong>Classe: <i class='clazzname'>DemeterBotGame</i></strong>
+ <i>(hérite de <em>Demeter</em></i>)
 <ul>
-<li>Méthodes publiques:<ul>
-<li>void Update(Player player)</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> main(<span class='argument'>String</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: TilePicker</strong>
- (hérite de <em>JPanel</em>)
+<div class='clazz'><strong>Classe: <i class='clazzname'>DemeterMain</i></strong>
 <ul>
-<li>Méthodes publiques:<ul>
-<li>Tile getSelectedTile()</li>
-<li>boolean hasSelection()</li>
-<li>void clearSelection()</li>
-<li>void setTileInfo(Tile tile)</li>
-<li>void setSelection(Tile tile, JPanel fTile)</li>
-<li>void setTileColor(JPanel fTile, Tile tile, boolean hovered)</li>
-<li>void setTileColor(JPanel fTile, Tile tile)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: GUIActionMaker</strong>
- (hérite de <em>ActionMaker</em>)
+<hr>
+<hr>
 <ul>
-<li>Méthodes publiques:<ul>
-<li>JPanel ShowPossibleActions(Player player)</li>
-<li>Action getAction(Class actionClass, Player player, Object args)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: GUIGame</strong>
- (hérite de <em>Game</em>)
-<ul>
-<li>Propriétés publiques:<ul>
-<li>gui : GUI</li>
-</ul></li>
-<li>Méthodes publiques:<ul>
-<li>void StartGame()</li>
-<li>void ShowPossibleActions(Player player)</li>
-<li>void HandleAction(Class actionClass, Player player, Object args)</li>
+<li>+ <span class='type'>void</span> main(<span class='argument'>String</span>)</li>
 </ul></li>
 </ul></div>
 </div>
-<div class='package'>Package: GUI.GUIActions
-<div class='clazz'><strong>Classe: PreliminaryAction</strong>
- (hérite de <em>Action</em>)
+<div class='package'><h1>Package: Game</h1>
+<div class='clazz'><strong>Classe: <i class='clazzname'>Game</i></strong>
 <ul>
-<li>Propriétés publiques:<ul>
-<li>actionToPerform : Class</li>
-<li>gui : GUI</li>
-</ul></li>
-<li>Méthodes publiques:<ul>
-<li>void Effect()</li>
-<li>boolean CheckInstancePossible(Player player, Game game)</li>
-<li>String Description()</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: PrepareBuildArmy</strong>
- (hérite de <em>PreliminaryAction</em>)
+<hr>
+<li>+ players : <span class='type'> List </span></li>
+<li>+ board : <span class='type'> Board </span></li>
+</ul>
+<hr>
 <ul>
-<li>Méthodes publiques:<ul>
-<li>boolean isPossible(Player player, Game game)</li>
-</ul></li>
-</ul></div>
-<div class='clazz'><strong>Classe: PrepareTrade</strong>
- (hérite de <em>PreliminaryAction</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>boolean isPossible(Player player, Game game)</li>
+<li>+ <span class='type'>void</span> StartGame()</li>
+<li># <span class='type'>void</span> gameLoop()</li>
+<li># <span class='type'>void</span> nextTurn()</li>
+<li># <span class='type'>boolean</span> CheckWinCondition()</li>
+<li>+ <span class='type'>List</span> GetPlayers()</li>
 </ul></li>
 </ul></div>
 </div>
-<div class='package'>Package: GUI.GUIUtils
-<div class='clazz'><strong>Classe: GUIConsole</strong>
- (hérite de <em>JPanel</em>)
+<div class='package'><h1>Package: GUI</h1>
+<div class='clazz'><strong>Classe: <i class='clazzname'>GUI</i></strong>
+ <i>(hérite de <em>JFrame</em></i>)
 <ul>
-<li>Méthodes publiques:<ul>
-<li>boolean hasIntPrompt()</li>
-<li>void addPrompt(Class action, Player player)</li>
-<li>JComboBox addResourcePrompt(boolean onlyTradables, Consumer fieldReference)</li>
-<li>void Print(String s)</li>
-<li>void printWarning(String s)</li>
-<li>void PrintNow(String s)</li>
-<li>void ShowOptions(JPanel options)</li>
-<li>void ClearOptions()</li>
+<hr>
+<li>+ Body : <span class='type'> JPanel </span></li>
+<li>+ GameView : <span class='type'> JPanel </span></li>
+<li>+ SidePanel : <span class='type'> JPanel </span></li>
+<li>+ Console : <span class='type'> GUIConsole </span></li>
+<li>+ TilePicker : <span class='type'> TilePicker </span></li>
+<li>+ playerPanel : <span class='type'> PlayerPanel </span></li>
+<li>+ WindowSize : <span class='type'> int </span></li>
+<li>+ transparent : <span class='type'> Color </span></li>
+</ul>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> clearSelection()</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>PlayerPanel</i></strong>
+ <i>(hérite de <em>JPanel</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> Update(<span class='argument'>Player</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>TilePicker</i></strong>
+ <i>(hérite de <em>JPanel</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>Tile</span> getSelectedTile()</li>
+<li>+ <span class='type'>boolean</span> hasSelection()</li>
+<li>+ <span class='type'>void</span> clearSelection()</li>
+<li>+ <span class='type'>void</span> setTileInfo(<span class='argument'>Tile</span>)</li>
+<li>+ <span class='type'>void</span> setSelection(<span class='argument'>Tile</span>, <span class='argument'>JPanel</span>)</li>
+<li>+ <span class='type'>void</span> setTileColor(<span class='argument'>JPanel</span>, <span class='argument'>Tile</span>, <span class='argument'>boolean</span>)</li>
+<li>+ <span class='type'>void</span> setTileColor(<span class='argument'>JPanel</span>, <span class='argument'>Tile</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>GUIActionMaker</i></strong>
+ <i>(hérite de <em>ActionMaker</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>JPanel</span> ShowPossibleActions(<span class='argument'>Player</span>)</li>
+<li>+ <span class='type'>Action</span> getAction(<span class='argument'>Class</span>, <span class='argument'>Player</span>, <span class='argument'>Object</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>GUIGame</i></strong>
+ <i>(hérite de <em>Game</em></i>)
+<ul>
+<hr>
+<li>+ gui : <span class='type'> GUI </span></li>
+</ul>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> StartGame()</li>
+<li>+ <span class='type'>void</span> ShowPossibleActions(<span class='argument'>Player</span>)</li>
+<li>+ <span class='type'>void</span> HandleAction(<span class='argument'>Class</span>, <span class='argument'>Player</span>, <span class='argument'>Object</span>)</li>
+<li># <span class='type'>void</span> DrawBoard()</li>
 </ul></li>
 </ul></div>
 </div>
-<div class='package'>Package: Objectives
-<div class='clazz'><strong>Classe: Objectives</strong>
+<div class='package'><h1>Package: GUI.GUIActions</h1>
+<div class='clazz'><strong>Classe: <i class='clazzname'>PreliminaryAction</i></strong>
+ <i>(hérite de <em>Action</em></i>)
 <ul>
-<li>Méthodes publiques:<ul>
-<li>void setObjective(Player player, ObjectiveType objective)</li>
-<li>void achieveObjective(Player player)</li>
-<li>boolean isObjectiveAchieved(Player player)</li>
-<li>Player determineWinner()</li>
-<li>ObjectiveType getObjective(Player player)</li>
+<hr>
+<li>+ actionToPerform : <span class='type'> Class </span></li>
+<li>+ gui : <span class='type'> GUI </span></li>
+</ul>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> Effect()</li>
+<li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>String</span> Description()</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>PrepareBuildArmy</i></strong>
+ <i>(hérite de <em>PreliminaryAction</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>PrepareTrade</i></strong>
+ <i>(hérite de <em>PreliminaryAction</em></i>)
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
 </ul></li>
 </ul></div>
 </div>
-<div class='package'>Package: player
-<div class='clazz'><strong>Classe: COM</strong>
- (hérite de <em>Player</em>)
+<div class='package'><h1>Package: GUI.GUIUtils</h1>
+<div class='clazz'><strong>Classe: <i class='clazzname'>GUIConsole</i></strong>
+ <i>(hérite de <em>JPanel</em></i>)
 <ul>
-<li>Méthodes publiques:<ul>
-<li>ActionRequest promptAction(HashMap possibleActions, Game game)</li>
-<li>Tile getEmptyTile(Game game)</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>boolean</span> hasIntPrompt()</li>
+<li>+ <span class='type'>void</span> addPrompt(<span class='argument'>Class</span>, <span class='argument'>Player</span>)</li>
+<li>+ <span class='type'>JComboBox</span> addResourcePrompt(<span class='argument'>boolean</span>, <span class='argument'>Consumer</span>)</li>
+<li>+ <span class='type'>void</span> Print(<span class='argument'>String</span>)</li>
+<li>+ <span class='type'>void</span> printWarning(<span class='argument'>String</span>)</li>
+<li>+ <span class='type'>void</span> PrintNow(<span class='argument'>String</span>)</li>
+<li>+ <span class='type'>void</span> ShowOptions(<span class='argument'>JPanel</span>)</li>
+<li>+ <span class='type'>void</span> ClearOptions()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: Player</strong>
+</div>
+<div class='package'><h1>Package: Objectives</h1>
+<div class='clazz'><strong>Classe: <i class='clazzname'>Objectives</i></strong>
 <ul>
-<li>Propriétés publiques:<ul>
-<li>numPlayer : int</li>
-</ul></li>
-<li>Méthodes publiques:<ul>
-<li>void addResource(ResourceType type, int amount)</li>
-<li>void setResource(ResourceType type, int value)</li>
-<li>void showResources()</li>
-<li>String ResourcesString()</li>
-<li>Map getResources()</li>
-<li>void removeResource(ResourceType type, int amount)</li>
-<li>String toString()</li>
-<li>boolean hasTradingAdvantage()</li>
-<li>void AddBuilding(Building building)</li>
-<li>void RemoveBuilding(Building building)</li>
-<li>ArrayList GetOwnedBuildings()</li>
-<li>int getVictoryPoints()</li>
-<li>void setVictoryPoints(int victoryPoints)</li>
-<li>void addVictoryPoints(int points)</li>
-<li>int getTotalWarriors()</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> setObjective(<span class='argument'>Player</span>, <span class='argument'>ObjectiveType</span>)</li>
+<li>+ <span class='type'>void</span> achieveObjective(<span class='argument'>Player</span>)</li>
+<li>+ <span class='type'>boolean</span> isObjectiveAchieved(<span class='argument'>Player</span>)</li>
+<li>+ <span class='type'>Player</span> determineWinner()</li>
+<li>+ <span class='type'>ObjectiveType</span> getObjective(<span class='argument'>Player</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: PlayerMain</strong>
+</div>
+<div class='package'><h1>Package: player</h1>
+<div class='clazz'><strong>Classe: <i class='clazzname'>COM</i></strong>
+ <i>(hérite de <em>Player</em></i>)
 <ul>
-<li>Méthodes publiques:<ul>
-<li>void main(String args)</li>
-<li>String capitalizeFirstLetter(String str)</li>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>ActionRequest</span> promptAction(<span class='argument'>HashMap</span>, <span class='argument'>Game</span>)</li>
+<li>+ <span class='type'>Tile</span> getEmptyTile(<span class='argument'>Game</span>)</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>Player</i></strong>
+<ul>
+<hr>
+<li>+ numPlayer : <span class='type'> int </span></li>
+</ul>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> addResource(<span class='argument'>ResourceType</span>, <span class='argument'>int</span>)</li>
+<li>+ <span class='type'>void</span> setResource(<span class='argument'>ResourceType</span>, <span class='argument'>int</span>)</li>
+<li>+ <span class='type'>void</span> showResources()</li>
+<li>+ <span class='type'>String</span> ResourcesString()</li>
+<li>+ <span class='type'>Map</span> getResources()</li>
+<li>+ <span class='type'>void</span> removeResource(<span class='argument'>ResourceType</span>, <span class='argument'>int</span>)</li>
+<li>+ <span class='type'>String</span> toString()</li>
+<li>+ <span class='type'>boolean</span> hasTradingAdvantage()</li>
+<li>+ <span class='type'>void</span> AddBuilding(<span class='argument'>Building</span>)</li>
+<li>+ <span class='type'>void</span> RemoveBuilding(<span class='argument'>Building</span>)</li>
+<li>+ <span class='type'>ArrayList</span> GetOwnedBuildings()</li>
+<li>+ <span class='type'>int</span> getVictoryPoints()</li>
+<li>+ <span class='type'>void</span> setVictoryPoints(<span class='argument'>int</span>)</li>
+<li>+ <span class='type'>void</span> addVictoryPoints(<span class='argument'>int</span>)</li>
+<li>+ <span class='type'>int</span> getTotalWarriors()</li>
+</ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: <i class='clazzname'>PlayerMain</i></strong>
+<ul>
+<hr>
+<hr>
+<ul>
+<li>+ <span class='type'>void</span> main(<span class='argument'>String</span>)</li>
+<li>+ <span class='type'>String</span> capitalizeFirstLetter(<span class='argument'>String</span>)</li>
 </ul></li>
 </ul></div>
 </div>

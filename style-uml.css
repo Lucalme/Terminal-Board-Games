@@ -1,19 +1,50 @@
 body{
     font-family:Arial;
-    font-size: 6px;
+    font-size: 16;
+    font-weight: bold;
+    font-family:Verdana, Geneva, Tahoma, sans-serif
 } 
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+div {
+    display: inline-block;
+    vertical-align: top;
+}
 
 .package{
-    border: 1px solid black;
+    border: 3px solid black;
     padding: 5px;
     margin: 5px;
     overflow: none;
-    min-width: fit-content;
+    max-width: fit-content;
 }
 .clazz{
-    display: inline-block;
-    border: 1px solid black;
+    border: 2px solid black;
     margin: 5px;
     padding: 5px;
     max-width: fit-content
+}
+.clazzname{
+    font-weight: bold;
+    text-align: center;
+    background-color: #4b3838;
+    color: white;
+    padding: 5px;
+}
+
+.type{
+    font-weight: bold;
+    text-align: center;
+    color: #169d1f;
+    padding: 5px;
+}
+
+.argument{
+    font-weight: bold;
+    text-align: center;
+    color: #4c33d8;
+    padding: 5px;
 }

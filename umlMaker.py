@@ -51,14 +51,17 @@ def extract_class_info(class_decl):
                 if 'public' in member.modifiers:
                     class_info['fields'].append({
                         'name': decl.name,
-                        'type': member.type.name if hasattr(member.type, 'name') else str(member.type)
+                        'type': member.type.name if hasattr(member.type, 'name') else str(member.type),
+                        'access': '+' if 'public' in member.modifiers else '#' if 'protected' in member.modifiers else '-'
+                    
                     })
         elif isinstance(member, javalang.tree.MethodDeclaration):
-            if 'public' in member.modifiers:
+            if 'public' in member.modifiers or 'protected' in member.modifiers:
                 class_info['methods'].append({
                     'name': member.name,
                     'return_type': member.return_type.name if member.return_type else 'void',
-                    'parameters': [(p.name, p.type.name) for p in member.parameters]
+                    'parameters': [(p.name, p.type.name) for p in member.parameters],
+                    'access': '+' if 'public' in member.modifiers else '#' if 'protected' in member.modifiers else '-'
                 })
     return class_info
 
@@ -67,26 +70,29 @@ def generate_html():
     html = ["<html><head><meta charset='utf-8'><link rel='stylesheet' href='style-uml.css'/> </head><body>"]
     html.append("<h1>Structure du Projet Java</h1>")
     for package, classes in project_structure.items():
-        html.append(f"<div class='package'>Package: {package}")
+        if package == "default":
+            continue
+        html.append(f"<div class='package'><h1>Package: {package}</h1>")
         for class_name, class_info in classes.items():
-            html.append(f"<div class='clazz'><strong>Classe: {class_name}</strong>")
+            html.append(f"<div class='clazz'><strong>Classe: <i class='clazzname'>{class_name}</i></strong>")
             if class_info['extends']:
-                html.append(f" (hérite de <em>{class_info['extends']}</em>)")
+                html.append(f" <i>(hérite de <em>{class_info['extends']}</em></i>)")
             if class_info['implements']:
-                html.append(f" (implémente <em>{', '.join(class_info['implements'])}</em>)")
+                html.append(f" <i>(implémente <em>{', '.join(class_info['implements'])}</em></i>)")
             html.append("<ul>")
 
+            html.append("<hr>")
             if class_info['fields']:
-                html.append("<li>Propriétés publiques:<ul>")
                 for field in class_info['fields']:
-                    html.append(f"<li>{field['name']} : {field['type']}</li>")
-                html.append("</ul></li>")
+                    html.append(f"<li>{field['access']} {field['name']} : <span class='type'> {field['type']} </span></li>")
+                html.append("</ul>")
 
+            html.append("<hr>")
             if class_info['methods']:
-                html.append("<li>Méthodes publiques:<ul>")
+                html.append("<ul>")
                 for method in class_info['methods']:
-                    params = ", ".join(f"{ptype} {pname}" for pname, ptype in method['parameters'])
-                    html.append(f"<li>{method['return_type']} {method['name']}({params})</li>")
+                    params = ", ".join(f"<span class='argument'>{ptype}</span>" for pname, ptype in method['parameters'])
+                    html.append(f"<li>{method['access']} <span class='type'>{method['return_type']}</span> {method['name']}({params})</li>")
                 html.append("</ul></li>")
 
             html.append("</ul></div>")
