@@ -1,7 +1,7 @@
 <html><head><meta charset='utf-8'><link rel='stylesheet' href='style-uml.css'/> </head><body>
 <h1>Structure du Projet Java</h1>
 <div class='package'><h1>Package: action</h1>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Action</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Action</i></strong>
 <ul>
 <hr>
 <li>+ source : <span class='type'> Player </span></li>
@@ -17,7 +17,7 @@
 <li># <span class='type'>void</span> PayCost()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>ActionBuild</i></strong>
+<div class='clazz'><strong><i class='clazzname'>ActionBuild</i></strong>
  <i>(hérite de <em>Action</em></i>)
 <ul>
 <hr>
@@ -37,7 +37,7 @@
 <li>+ <span class='type'>boolean</span> AresAtLeastOneTileSatisfies(<span class='argument'>Game</span>, <span class='argument'>Player</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>ActionMain</i></strong>
+<div class='clazz'><strong><i class='clazzname'>ActionMain</i></strong>
 <ul>
 <hr>
 <hr>
@@ -45,7 +45,7 @@
 <li>+ <span class='type'>void</span> main(<span class='argument'>String</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>ActionMaker</i></strong>
+<div class='clazz'><strong><i class='clazzname'>ActionMaker</i></strong>
 <ul>
 <hr>
 <hr>
@@ -61,7 +61,7 @@
 <li>+ <span class='type'>ActionRequest</span> Prompt(<span class='argument'>Player</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>ActionRequest</i></strong>
+<div class='clazz'><strong><i class='clazzname'>ActionRequest</i></strong>
 <ul>
 <hr>
 <li>+ action : <span class='type'> Action </span></li>
@@ -71,7 +71,7 @@
 </ul></div>
 </div>
 <div class='package'><h1>Package: action.actions</h1>
-<div class='clazz'><strong>Classe: <i class='clazzname'>ActionAttack</i></strong>
+<div class='clazz'><strong><i class='clazzname'>ActionAttack</i></strong>
  <i>(hérite de <em>Action</em></i>)
 <ul>
 <hr>
@@ -88,7 +88,7 @@
 <li>+ <span class='type'>String</span> Description()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>ActionSkip</i></strong>
+<div class='clazz'><strong><i class='clazzname'>ActionSkip</i></strong>
  <i>(hérite de <em>Action</em></i>)
 <ul>
 <hr>
@@ -100,7 +100,7 @@
 <li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>ActionTrade</i></strong>
+<div class='clazz'><strong><i class='clazzname'>ActionTrade</i></strong>
  <i>(hérite de <em>Action</em></i>)
 <ul>
 <hr>
@@ -115,7 +115,7 @@
 <li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>AresAddWarriorToBuilding</i></strong>
+<div class='clazz'><strong><i class='clazzname'>AresAddWarriorToBuilding</i></strong>
  <i>(hérite de <em>Action</em></i>)
 <ul>
 <hr>
@@ -127,7 +127,7 @@
 <li>+ <span class='type'>String</span> Description()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>AresBuildArmy</i></strong>
+<div class='clazz'><strong><i class='clazzname'>AresBuildArmy</i></strong>
  <i>(hérite de <em>ActionBuild</em></i>)
 <ul>
 <hr>
@@ -141,7 +141,7 @@
 <li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>AresBuildHarbour</i></strong>
+<div class='clazz'><strong><i class='clazzname'>AresBuildHarbour</i></strong>
  <i>(hérite de <em>ActionBuild</em></i>)
 <ul>
 <hr>
@@ -153,7 +153,7 @@
 <li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>AresBuySecretWeapon</i></strong>
+<div class='clazz'><strong><i class='clazzname'>AresBuySecretWeapon</i></strong>
  <i>(hérite de <em>Action</em></i>)
 <ul>
 <hr>
@@ -166,7 +166,7 @@
 <li>+ <span class='type'>String</span> Description()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>AresBuyWarriors</i></strong>
+<div class='clazz'><strong><i class='clazzname'>AresBuyWarriors</i></strong>
  <i>(hérite de <em>Action</em></i>)
 <ul>
 <hr>
@@ -179,7 +179,7 @@
 <li>+ <span class='type'>String</span> Description()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>AresReplaceArmyWithCamp</i></strong>
+<div class='clazz'><strong><i class='clazzname'>AresReplaceArmyWithCamp</i></strong>
  <i>(hérite de <em>ActionBuild</em></i>)
 <ul>
 <hr>
@@ -192,7 +192,7 @@
 <li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>DemeterBuildFarm</i></strong>
+<div class='clazz'><strong><i class='clazzname'>DemeterBuildFarm</i></strong>
  <i>(hérite de <em>ActionBuild</em></i>)
 <ul>
 <hr>
@@ -204,7 +204,7 @@
 <li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>DemeterBuildPort</i></strong>
+<div class='clazz'><strong><i class='clazzname'>DemeterBuildPort</i></strong>
  <i>(hérite de <em>ActionBuild</em></i>)
 <ul>
 <hr>
@@ -216,7 +216,7 @@
 <li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>DemeterBuyThief</i></strong>
+<div class='clazz'><strong><i class='clazzname'>DemeterBuyThief</i></strong>
  <i>(hérite de <em>Action</em></i>)
 <ul>
 <hr>
@@ -228,7 +228,7 @@
 <li>+ <span class='type'>void</span> Effect()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>DemeterReplaceFarmWithExploitation</i></strong>
+<div class='clazz'><strong><i class='clazzname'>DemeterReplaceFarmWithExploitation</i></strong>
  <i>(hérite de <em>ActionBuild</em></i>)
 <ul>
 <hr>
@@ -241,7 +241,7 @@
 <li>+ <span class='type'>boolean</span> CheckInstancePossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>DemeterUseThief</i></strong>
+<div class='clazz'><strong><i class='clazzname'>DemeterUseThief</i></strong>
  <i>(hérite de <em>DemeterBuyThief</em></i>)
 <ul>
 <hr>
@@ -253,7 +253,7 @@
 <li>+ <span class='type'>void</span> Effect()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>ShowInventory</i></strong>
+<div class='clazz'><strong><i class='clazzname'>ShowInventory</i></strong>
  <i>(hérite de <em>Action</em></i>)
 <ul>
 <hr>
@@ -267,7 +267,7 @@
 </ul></div>
 </div>
 <div class='package'><h1>Package: action.util</h1>
-<div class='clazz'><strong>Classe: <i class='clazzname'>IO</i></strong>
+<div class='clazz'><strong><i class='clazzname'>IO</i></strong>
 <ul>
 <hr>
 <li>+ writeDelay : <span class='type'> int </span></li>
@@ -283,7 +283,7 @@
 <li>+ <span class='type'>void</span> PrintReset()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Polymorphism</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Polymorphism</i></strong>
 <ul>
 <hr>
 <hr>
@@ -301,7 +301,7 @@
 </ul></div>
 </div>
 <div class='package'><h1>Package: ares</h1>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Ares</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Ares</i></strong>
  <i>(hérite de <em>Game</em></i>)
 <ul>
 <hr>
@@ -312,7 +312,7 @@
 <li># <span class='type'>boolean</span> CheckWinCondition()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>AresMain</i></strong>
+<div class='clazz'><strong><i class='clazzname'>AresMain</i></strong>
 <ul>
 <hr>
 <hr>
@@ -320,7 +320,7 @@
 <li>+ <span class='type'>void</span> main(<span class='argument'>String</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>GUIAres</i></strong>
+<div class='clazz'><strong><i class='clazzname'>GUIAres</i></strong>
  <i>(hérite de <em>GUIGame</em></i>)
 <ul>
 <hr>
@@ -329,7 +329,7 @@
 <li>+ <span class='type'>void</span> main(<span class='argument'>String</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Livrable3</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Livrable3</i></strong>
  <i>(hérite de <em>Ares</em></i>)
 <ul>
 <hr>
@@ -341,7 +341,7 @@
 </ul></div>
 </div>
 <div class='package'><h1>Package: board</h1>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Board</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Board</i></strong>
 <ul>
 <hr>
 <hr>
@@ -359,7 +359,7 @@
 <li>+ <span class='type'>ArrayList</span> PrintIsland(<span class='argument'>int</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>BoardMain</i></strong>
+<div class='clazz'><strong><i class='clazzname'>BoardMain</i></strong>
 <ul>
 <hr>
 <hr>
@@ -367,7 +367,7 @@
 <li>+ <span class='type'>void</span> main(<span class='argument'>String</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Position</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Position</i></strong>
 <ul>
 <hr>
 <li>+ x : <span class='type'> int </span></li>
@@ -378,7 +378,7 @@
 <li>+ <span class='type'>boolean</span> equals(<span class='argument'>Position</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>TileCollection</i></strong>
+<div class='clazz'><strong><i class='clazzname'>TileCollection</i></strong>
  <i>(hérite de <em>HashMap</em></i>)
 <ul>
 <hr>
@@ -389,7 +389,7 @@
 </ul></div>
 </div>
 <div class='package'><h1>Package: board.tile</h1>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Tile</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Tile</i></strong>
 <ul>
 <hr>
 <li>+ position : <span class='type'> Position </span></li>
@@ -410,7 +410,7 @@
 <li>+ <span class='type'>void</span> SetBuilding(<span class='argument'>Building</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>TileMain</i></strong>
+<div class='clazz'><strong><i class='clazzname'>TileMain</i></strong>
 <ul>
 <hr>
 <hr>
@@ -420,7 +420,7 @@
 </ul></div>
 </div>
 <div class='package'><h1>Package: building</h1>
-<div class='clazz'><strong>Classe: <i class='clazzname'>AresHarbour</i></strong>
+<div class='clazz'><strong><i class='clazzname'>AresHarbour</i></strong>
  <i>(hérite de <em>Building</em></i>)
 <ul>
 <hr>
@@ -429,7 +429,7 @@
 <li>+ <span class='type'>String</span> toString()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Army</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Army</i></strong>
  <i>(hérite de <em>Building</em></i>)
 <ul>
 <hr>
@@ -440,7 +440,7 @@
 <li>+ <span class='type'>String</span> toString()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Building</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Building</i></strong>
 <ul>
 <hr>
 <li>+ effectType : <span class='type'> BuildingEffectType </span></li>
@@ -455,7 +455,7 @@
 <li>+ <span class='type'>String</span> toString()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Camp</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Camp</i></strong>
  <i>(hérite de <em>Army</em></i>)
 <ul>
 <hr>
@@ -464,7 +464,7 @@
 <li>+ <span class='type'>String</span> toString()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Exploitation</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Exploitation</i></strong>
  <i>(hérite de <em>Building</em></i>)
 <ul>
 <hr>
@@ -473,7 +473,7 @@
 <li>+ <span class='type'>String</span> toString()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Farm</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Farm</i></strong>
  <i>(hérite de <em>Building</em></i>)
 <ul>
 <hr>
@@ -483,7 +483,7 @@
 <li>+ <span class='type'>String</span> toString()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Port</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Port</i></strong>
  <i>(hérite de <em>Building</em></i>)
 <ul>
 <hr>
@@ -495,7 +495,7 @@
 </ul></div>
 </div>
 <div class='package'><h1>Package: demeter</h1>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Demeter</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Demeter</i></strong>
  <i>(hérite de <em>Game</em></i>)
 <ul>
 <hr>
@@ -506,7 +506,7 @@
 <li># <span class='type'>void</span> gameLoop()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>DemeterBotGame</i></strong>
+<div class='clazz'><strong><i class='clazzname'>DemeterBotGame</i></strong>
  <i>(hérite de <em>Demeter</em></i>)
 <ul>
 <hr>
@@ -515,7 +515,7 @@
 <li>+ <span class='type'>void</span> main(<span class='argument'>String</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>DemeterMain</i></strong>
+<div class='clazz'><strong><i class='clazzname'>DemeterMain</i></strong>
 <ul>
 <hr>
 <hr>
@@ -525,7 +525,7 @@
 </ul></div>
 </div>
 <div class='package'><h1>Package: Game</h1>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Game</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Game</i></strong>
 <ul>
 <hr>
 <li>+ players : <span class='type'> List </span></li>
@@ -542,7 +542,7 @@
 </ul></div>
 </div>
 <div class='package'><h1>Package: GUI</h1>
-<div class='clazz'><strong>Classe: <i class='clazzname'>GUI</i></strong>
+<div class='clazz'><strong><i class='clazzname'>GUI</i></strong>
  <i>(hérite de <em>JFrame</em></i>)
 <ul>
 <hr>
@@ -560,7 +560,7 @@
 <li>+ <span class='type'>void</span> clearSelection()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>PlayerPanel</i></strong>
+<div class='clazz'><strong><i class='clazzname'>PlayerPanel</i></strong>
  <i>(hérite de <em>JPanel</em></i>)
 <ul>
 <hr>
@@ -569,7 +569,7 @@
 <li>+ <span class='type'>void</span> Update(<span class='argument'>Player</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>TilePicker</i></strong>
+<div class='clazz'><strong><i class='clazzname'>TilePicker</i></strong>
  <i>(hérite de <em>JPanel</em></i>)
 <ul>
 <hr>
@@ -584,7 +584,7 @@
 <li>+ <span class='type'>void</span> setTileColor(<span class='argument'>JPanel</span>, <span class='argument'>Tile</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>GUIActionMaker</i></strong>
+<div class='clazz'><strong><i class='clazzname'>GUIActionMaker</i></strong>
  <i>(hérite de <em>ActionMaker</em></i>)
 <ul>
 <hr>
@@ -594,7 +594,7 @@
 <li>+ <span class='type'>Action</span> getAction(<span class='argument'>Class</span>, <span class='argument'>Player</span>, <span class='argument'>Object</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>GUIGame</i></strong>
+<div class='clazz'><strong><i class='clazzname'>GUIGame</i></strong>
  <i>(hérite de <em>Game</em></i>)
 <ul>
 <hr>
@@ -610,7 +610,7 @@
 </ul></div>
 </div>
 <div class='package'><h1>Package: GUI.GUIActions</h1>
-<div class='clazz'><strong>Classe: <i class='clazzname'>PreliminaryAction</i></strong>
+<div class='clazz'><strong><i class='clazzname'>PreliminaryAction</i></strong>
  <i>(hérite de <em>Action</em></i>)
 <ul>
 <hr>
@@ -624,7 +624,7 @@
 <li>+ <span class='type'>String</span> Description()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>PrepareBuildArmy</i></strong>
+<div class='clazz'><strong><i class='clazzname'>PrepareBuildArmy</i></strong>
  <i>(hérite de <em>PreliminaryAction</em></i>)
 <ul>
 <hr>
@@ -633,7 +633,7 @@
 <li>+ <span class='type'>boolean</span> isPossible(<span class='argument'>Player</span>, <span class='argument'>Game</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>PrepareTrade</i></strong>
+<div class='clazz'><strong><i class='clazzname'>PrepareTrade</i></strong>
  <i>(hérite de <em>PreliminaryAction</em></i>)
 <ul>
 <hr>
@@ -644,7 +644,7 @@
 </ul></div>
 </div>
 <div class='package'><h1>Package: GUI.GUIUtils</h1>
-<div class='clazz'><strong>Classe: <i class='clazzname'>GUIConsole</i></strong>
+<div class='clazz'><strong><i class='clazzname'>GUIConsole</i></strong>
  <i>(hérite de <em>JPanel</em></i>)
 <ul>
 <hr>
@@ -662,7 +662,7 @@
 </ul></div>
 </div>
 <div class='package'><h1>Package: Objectives</h1>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Objectives</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Objectives</i></strong>
 <ul>
 <hr>
 <hr>
@@ -676,7 +676,7 @@
 </ul></div>
 </div>
 <div class='package'><h1>Package: player</h1>
-<div class='clazz'><strong>Classe: <i class='clazzname'>COM</i></strong>
+<div class='clazz'><strong><i class='clazzname'>COM</i></strong>
  <i>(hérite de <em>Player</em></i>)
 <ul>
 <hr>
@@ -686,7 +686,7 @@
 <li>+ <span class='type'>Tile</span> getEmptyTile(<span class='argument'>Game</span>)</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>Player</i></strong>
+<div class='clazz'><strong><i class='clazzname'>Player</i></strong>
 <ul>
 <hr>
 <li>+ numPlayer : <span class='type'> int </span></li>
@@ -710,7 +710,7 @@
 <li>+ <span class='type'>int</span> getTotalWarriors()</li>
 </ul></li>
 </ul></div>
-<div class='clazz'><strong>Classe: <i class='clazzname'>PlayerMain</i></strong>
+<div class='clazz'><strong><i class='clazzname'>PlayerMain</i></strong>
 <ul>
 <hr>
 <hr>

@@ -74,7 +74,7 @@ def generate_html():
             continue
         html.append(f"<div class='package'><h1>Package: {package}</h1>")
         for class_name, class_info in classes.items():
-            html.append(f"<div class='clazz'><strong>Classe: <i class='clazzname'>{class_name}</i></strong>")
+            html.append(f"<div class='clazz'><strong><i class='clazzname'>{class_name}</i></strong>")
             if class_info['extends']:
                 html.append(f" <i>(hérite de <em>{class_info['extends']}</em></i>)")
             if class_info['implements']:
