@@ -1,0 +1,19 @@
+body{
+    font-family:Arial;
+    font-size: 6px;
+} 
+
+.package{
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px;
+    overflow: none;
+    min-width: fit-content;
+}
+.clazz{
+    display: inline-block;
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+    max-width: fit-content
+}

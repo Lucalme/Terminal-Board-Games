@@ -1,7 +1,7 @@
-<html><head><meta charset='utf-8'><style>body{font-family:Arial;} ul{margin-left:20px;}</style></head><body>
+<html><head><meta charset='utf-8'><link rel='stylesheet' href='style-uml.css' > </head><body>
 <h1>Structure du Projet Java</h1>
-<h2>Package: action</h2><ul>
-<li><strong>Classe: Action</strong>
+<div class='package'>Package: action
+<div class='clazz'><strong>Classe: Action</strong>
 <ul>
 <li>Propriétés publiques:<ul>
 <li>source : Player</li>
@@ -13,8 +13,8 @@
 <li>String Description()</li>
 <li>HashMap Cost()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: ActionBuild</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: ActionBuild</strong>
  (hérite de <em>Action</em>)
 <ul>
 <li>Propriétés publiques:<ul>
@@ -28,14 +28,14 @@
 <li>boolean AresBuildConditions(Player player, Game game, int islandId)</li>
 <li>boolean AresAtLeastOneTileSatisfies(Game game, Player player)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: ActionMain</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: ActionMain</strong>
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void main(String args)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: ActionMaker</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: ActionMaker</strong>
 <ul>
 <li>Méthodes publiques:<ul>
 <li>int stealResourcesFromOthers(ResourceType chosenResource, Player currentPlayer)</li>
@@ -46,17 +46,17 @@
 <li>Tile PromptTile(Player player, String prompt)</li>
 <li>ActionRequest Prompt(Player player)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: ActionRequest</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: ActionRequest</strong>
 <ul>
 <li>Propriétés publiques:<ul>
 <li>action : Action</li>
 <li>ready : boolean</li>
 </ul></li>
-</ul></li>
-</ul>
-<h2>Package: action.actions</h2><ul>
-<li><strong>Classe: ActionAttack</strong>
+</ul></div>
+</div>
+<div class='package'>Package: action.actions
+<div class='clazz'><strong>Classe: ActionAttack</strong>
  (hérite de <em>Action</em>)
 <ul>
 <li>Propriétés publiques:<ul>
@@ -71,8 +71,8 @@
 <li>boolean CheckInstancePossible(Player player, Game game)</li>
 <li>String Description()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: ActionSkip</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: ActionSkip</strong>
  (hérite de <em>Action</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -81,8 +81,8 @@
 <li>String Description()</li>
 <li>boolean CheckInstancePossible(Player player, Game game)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: ActionTrade</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: ActionTrade</strong>
  (hérite de <em>Action</em>)
 <ul>
 <li>Propriétés publiques:<ul>
@@ -95,8 +95,8 @@
 <li>boolean isPossible(Player player, Game game)</li>
 <li>boolean CheckInstancePossible(Player player, Game game)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: AresAddWarriorToBuilding</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: AresAddWarriorToBuilding</strong>
  (hérite de <em>Action</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -105,8 +105,8 @@
 <li>void Effect()</li>
 <li>String Description()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: AresBuildArmy</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: AresBuildArmy</strong>
  (hérite de <em>ActionBuild</em>)
 <ul>
 <li>Propriétés publiques:<ul>
@@ -118,8 +118,8 @@
 <li>void Effect()</li>
 <li>boolean isPossible(Player player, Game game)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: AresBuildHarbour</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: AresBuildHarbour</strong>
  (hérite de <em>ActionBuild</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -128,8 +128,8 @@
 <li>String Description()</li>
 <li>boolean CheckInstancePossible(Player player, Game game)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: AresBuySecretWeapon</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: AresBuySecretWeapon</strong>
  (hérite de <em>Action</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -139,8 +139,8 @@
 <li>void Effect()</li>
 <li>String Description()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: AresBuyWarriors</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: AresBuyWarriors</strong>
  (hérite de <em>Action</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -150,8 +150,8 @@
 <li>void Effect()</li>
 <li>String Description()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: AresReplaceArmyWithCamp</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: AresReplaceArmyWithCamp</strong>
  (hérite de <em>ActionBuild</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -161,8 +161,8 @@
 <li>String Description()</li>
 <li>boolean CheckInstancePossible(Player player, Game game)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: DemeterBuildFarm</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: DemeterBuildFarm</strong>
  (hérite de <em>ActionBuild</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -171,8 +171,8 @@
 <li>String Description()</li>
 <li>boolean CheckInstancePossible(Player player, Game game)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: DemeterBuildPort</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: DemeterBuildPort</strong>
  (hérite de <em>ActionBuild</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -181,8 +181,8 @@
 <li>String Description()</li>
 <li>boolean CheckInstancePossible(Player player, Game game)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: DemeterBuyThief</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: DemeterBuyThief</strong>
  (hérite de <em>Action</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -191,8 +191,8 @@
 <li>boolean CheckInstancePossible(Player player, Game game)</li>
 <li>void Effect()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: DemeterReplaceFarmWithExploitation</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: DemeterReplaceFarmWithExploitation</strong>
  (hérite de <em>ActionBuild</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -202,8 +202,8 @@
 <li>String Description()</li>
 <li>boolean CheckInstancePossible(Player player, Game game)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: DemeterUseThief</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: DemeterUseThief</strong>
  (hérite de <em>DemeterBuyThief</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -212,8 +212,8 @@
 <li>boolean CheckInstancePossible(Player player, Game game)</li>
 <li>void Effect()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: ShowInventory</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: ShowInventory</strong>
  (hérite de <em>Action</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -222,10 +222,10 @@
 <li>String Description()</li>
 <li>boolean CheckInstancePossible(Player player, Game game)</li>
 </ul></li>
-</ul></li>
-</ul>
-<h2>Package: action.util</h2><ul>
-<li><strong>Classe: IO</strong>
+</ul></div>
+</div>
+<div class='package'>Package: action.util
+<div class='clazz'><strong>Classe: IO</strong>
 <ul>
 <li>Propriétés publiques:<ul>
 <li>writeDelay : int</li>
@@ -239,8 +239,8 @@
 <li>void SlowType(String s, int delay)</li>
 <li>void PrintReset()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: Polymorphism</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: Polymorphism</strong>
 <ul>
 <li>Méthodes publiques:<ul>
 <li>boolean hasConstructor(Class clazz, Class parameterTypes)</li>
@@ -253,40 +253,40 @@
 <li>boolean hasParameterOfType(Class clazz, Class type)</li>
 <li>boolean isPossible(Class t, Player player, Game game)</li>
 </ul></li>
-</ul></li>
-</ul>
-<h2>Package: ares</h2><ul>
-<li><strong>Classe: Ares</strong>
+</ul></div>
+</div>
+<div class='package'>Package: ares
+<div class='clazz'><strong>Classe: Ares</strong>
  (hérite de <em>Game</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void StartGame()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: AresMain</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: AresMain</strong>
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void main(String args)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: GUIAres</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: GUIAres</strong>
  (hérite de <em>GUIGame</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void main(String args)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: Livrable3</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: Livrable3</strong>
  (hérite de <em>Ares</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void main(String args)</li>
 <li>boolean CheckWinCondition()</li>
 </ul></li>
-</ul></li>
-</ul>
-<h2>Package: board</h2><ul>
-<li><strong>Classe: Board</strong>
+</ul></div>
+</div>
+<div class='package'>Package: board
+<div class='clazz'><strong>Classe: Board</strong>
 <ul>
 <li>Méthodes publiques:<ul>
 <li>int SizeX()</li>
@@ -301,14 +301,14 @@
 <li>void UpdateAllTiles()</li>
 <li>ArrayList PrintIsland(int id)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: BoardMain</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: BoardMain</strong>
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void main(String args)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: Position</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: Position</strong>
 <ul>
 <li>Propriétés publiques:<ul>
 <li>x : int</li>
@@ -317,17 +317,17 @@
 <li>Méthodes publiques:<ul>
 <li>boolean equals(Position position)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: TileCollection</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: TileCollection</strong>
  (hérite de <em>HashMap</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>Position Positions()</li>
 </ul></li>
-</ul></li>
-</ul>
-<h2>Package: board.tile</h2><ul>
-<li><strong>Classe: Tile</strong>
+</ul></div>
+</div>
+<div class='package'>Package: board.tile
+<div class='clazz'><strong>Classe: Tile</strong>
 <ul>
 <li>Propriétés publiques:<ul>
 <li>position : Position</li>
@@ -346,23 +346,23 @@
 <li>Building GetBuilding()</li>
 <li>void SetBuilding(Building building)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: TileMain</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: TileMain</strong>
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void main(String args)</li>
 </ul></li>
-</ul></li>
-</ul>
-<h2>Package: building</h2><ul>
-<li><strong>Classe: AresHarbour</strong>
+</ul></div>
+</div>
+<div class='package'>Package: building
+<div class='clazz'><strong>Classe: AresHarbour</strong>
  (hérite de <em>Building</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>String toString()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: Army</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: Army</strong>
  (hérite de <em>Building</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -370,8 +370,8 @@
 <li>void setWarriors(int warriors)</li>
 <li>String toString()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: Building</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: Building</strong>
 <ul>
 <li>Propriétés publiques:<ul>
 <li>effectType : BuildingEffectType</li>
@@ -384,62 +384,62 @@
 <li>HashMap ResourceEffect(HashMap resources)</li>
 <li>String toString()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: Camp</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: Camp</strong>
  (hérite de <em>Army</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>String toString()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: Exploitation</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: Exploitation</strong>
  (hérite de <em>Building</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>String toString()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: Farm</strong>
- (hérite de <em>Building</em>)
-<ul>
-<li>Méthodes publiques:<ul>
-<li>String Description()</li>
-<li>String toString()</li>
-</ul></li>
-</ul></li>
-<li><strong>Classe: Port</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: Farm</strong>
  (hérite de <em>Building</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>String Description()</li>
 <li>String toString()</li>
 </ul></li>
+</ul></div>
+<div class='clazz'><strong>Classe: Port</strong>
+ (hérite de <em>Building</em>)
+<ul>
+<li>Méthodes publiques:<ul>
+<li>String Description()</li>
+<li>String toString()</li>
 </ul></li>
-</ul>
-<h2>Package: demeter</h2><ul>
-<li><strong>Classe: Demeter</strong>
+</ul></div>
+</div>
+<div class='package'>Package: demeter
+<div class='clazz'><strong>Classe: Demeter</strong>
  (hérite de <em>Game</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void StartGame()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: DemeterBotGame</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: DemeterBotGame</strong>
  (hérite de <em>Demeter</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void main(String args)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: DemeterMain</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: DemeterMain</strong>
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void main(String args)</li>
 </ul></li>
-</ul></li>
-</ul>
-<h2>Package: default</h2><ul>
-<li><strong>Classe: Player</strong>
+</ul></div>
+</div>
+<div class='package'>Package: default
+<div class='clazz'><strong>Classe: Player</strong>
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void displayResources()</li>
@@ -449,36 +449,36 @@
 <li>void displayBuildings()</li>
 <li>void displayTiles()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: Building</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: Building</strong>
 <ul>
 <li>Méthodes publiques:<ul>
 <li>String toString()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: Farm</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: Farm</strong>
  (hérite de <em>Building</em>)
 <ul>
-</ul></li>
-<li><strong>Classe: BigFarm</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: BigFarm</strong>
  (hérite de <em>Building</em>)
 <ul>
-</ul></li>
-<li><strong>Classe: Port</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: Port</strong>
  (hérite de <em>Building</em>)
 <ul>
-</ul></li>
-<li><strong>Classe: Thief</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: Thief</strong>
  (hérite de <em>Building</em>)
 <ul>
-</ul></li>
-<li><strong>Classe: Tile</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: Tile</strong>
 <ul>
 <li>Méthodes publiques:<ul>
 <li>String toString()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: DemeterGame</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: DemeterGame</strong>
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void main(String args)</li>
@@ -490,10 +490,10 @@
 <li>void exchangeResourcesWithPort(Player player, int amount, String from, String to)</li>
 <li>void buyThief(Player player)</li>
 </ul></li>
-</ul></li>
-</ul>
-<h2>Package: Game</h2><ul>
-<li><strong>Classe: Game</strong>
+</ul></div>
+</div>
+<div class='package'>Package: Game
+<div class='clazz'><strong>Classe: Game</strong>
 <ul>
 <li>Propriétés publiques:<ul>
 <li>players : List</li>
@@ -503,10 +503,10 @@
 <li>void StartGame()</li>
 <li>List GetPlayers()</li>
 </ul></li>
-</ul></li>
-</ul>
-<h2>Package: GUI</h2><ul>
-<li><strong>Classe: GUI</strong>
+</ul></div>
+</div>
+<div class='package'>Package: GUI
+<div class='clazz'><strong>Classe: GUI</strong>
  (hérite de <em>JFrame</em>)
 <ul>
 <li>Propriétés publiques:<ul>
@@ -522,15 +522,15 @@
 <li>Méthodes publiques:<ul>
 <li>void clearSelection()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: PlayerPanel</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: PlayerPanel</strong>
  (hérite de <em>JPanel</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void Update(Player player)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: TilePicker</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: TilePicker</strong>
  (hérite de <em>JPanel</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -542,16 +542,16 @@
 <li>void setTileColor(JPanel fTile, Tile tile, boolean hovered)</li>
 <li>void setTileColor(JPanel fTile, Tile tile)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: GUIActionMaker</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: GUIActionMaker</strong>
  (hérite de <em>ActionMaker</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>JPanel ShowPossibleActions(Player player)</li>
 <li>Action getAction(Class actionClass, Player player, Object args)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: GUIGame</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: GUIGame</strong>
  (hérite de <em>Game</em>)
 <ul>
 <li>Propriétés publiques:<ul>
@@ -562,10 +562,10 @@
 <li>void ShowPossibleActions(Player player)</li>
 <li>void HandleAction(Class actionClass, Player player, Object args)</li>
 </ul></li>
-</ul></li>
-</ul>
-<h2>Package: GUI.GUIActions</h2><ul>
-<li><strong>Classe: PreliminaryAction</strong>
+</ul></div>
+</div>
+<div class='package'>Package: GUI.GUIActions
+<div class='clazz'><strong>Classe: PreliminaryAction</strong>
  (hérite de <em>Action</em>)
 <ul>
 <li>Propriétés publiques:<ul>
@@ -577,24 +577,24 @@
 <li>boolean CheckInstancePossible(Player player, Game game)</li>
 <li>String Description()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: PrepareBuildArmy</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: PrepareBuildArmy</strong>
  (hérite de <em>PreliminaryAction</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>boolean isPossible(Player player, Game game)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: PrepareTrade</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: PrepareTrade</strong>
  (hérite de <em>PreliminaryAction</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>boolean isPossible(Player player, Game game)</li>
 </ul></li>
-</ul></li>
-</ul>
-<h2>Package: GUI.GUIUtils</h2><ul>
-<li><strong>Classe: GUIConsole</strong>
+</ul></div>
+</div>
+<div class='package'>Package: GUI.GUIUtils
+<div class='clazz'><strong>Classe: GUIConsole</strong>
  (hérite de <em>JPanel</em>)
 <ul>
 <li>Méthodes publiques:<ul>
@@ -607,10 +607,10 @@
 <li>void ShowOptions(JPanel options)</li>
 <li>void ClearOptions()</li>
 </ul></li>
-</ul></li>
-</ul>
-<h2>Package: Objectives</h2><ul>
-<li><strong>Classe: Objectives</strong>
+</ul></div>
+</div>
+<div class='package'>Package: Objectives
+<div class='clazz'><strong>Classe: Objectives</strong>
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void setObjective(Player player, ObjectiveType objective)</li>
@@ -619,18 +619,18 @@
 <li>Player determineWinner()</li>
 <li>ObjectiveType getObjective(Player player)</li>
 </ul></li>
-</ul></li>
-</ul>
-<h2>Package: player</h2><ul>
-<li><strong>Classe: COM</strong>
+</ul></div>
+</div>
+<div class='package'>Package: player
+<div class='clazz'><strong>Classe: COM</strong>
  (hérite de <em>Player</em>)
 <ul>
 <li>Méthodes publiques:<ul>
 <li>ActionRequest promptAction(HashMap possibleActions, Game game)</li>
 <li>Tile getEmptyTile(Game game)</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: Player</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: Player</strong>
 <ul>
 <li>Propriétés publiques:<ul>
 <li>numPlayer : int</li>
@@ -652,13 +652,13 @@
 <li>void addVictoryPoints(int points)</li>
 <li>int getTotalWarriors()</li>
 </ul></li>
-</ul></li>
-<li><strong>Classe: PlayerMain</strong>
+</ul></div>
+<div class='clazz'><strong>Classe: PlayerMain</strong>
 <ul>
 <li>Méthodes publiques:<ul>
 <li>void main(String args)</li>
 <li>String capitalizeFirstLetter(String str)</li>
 </ul></li>
-</ul></li>
-</ul>
+</ul></div>
+</div>
 </body></html>

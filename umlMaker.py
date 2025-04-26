@@ -64,12 +64,12 @@ def extract_class_info(class_decl):
 
 # Génération HTML
 def generate_html():
-    html = ["<html><head><meta charset='utf-8'><style>body{font-family:Arial;} ul{margin-left:20px;}</style></head><body>"]
+    html = ["<html><head><meta charset='utf-8'><link rel='stylesheet' href='style-uml.css'/> </head><body>"]
     html.append("<h1>Structure du Projet Java</h1>")
     for package, classes in project_structure.items():
-        html.append(f"<h2>Package: {package}</h2><ul>")
+        html.append(f"<div class='package'>Package: {package}")
         for class_name, class_info in classes.items():
-            html.append(f"<li><strong>Classe: {class_name}</strong>")
+            html.append(f"<div class='clazz'><strong>Classe: {class_name}</strong>")
             if class_info['extends']:
                 html.append(f" (hérite de <em>{class_info['extends']}</em>)")
             if class_info['implements']:
@@ -89,8 +89,8 @@ def generate_html():
                     html.append(f"<li>{method['return_type']} {method['name']}({params})</li>")
                 html.append("</ul></li>")
 
-            html.append("</ul></li>")
-        html.append("</ul>")
+            html.append("</ul></div>")
+        html.append("</div>")
     html.append("</body></html>")
     return "\n".join(html)
 
