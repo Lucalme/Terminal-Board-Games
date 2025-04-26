@@ -24,6 +24,12 @@ public class Ares extends Game{
         initializeObjectives(); 
     }
 
+    public Ares(int nbOfPlayer, int SizeX, int SizeY){
+        super(nbOfPlayer, SizeX, SizeY);
+        this.ActionMaker = new ActionMaker(this);
+        initializeObjectives();
+    }
+
     public Ares(boolean COMGame, int nbOfPlayer){
         super(COMGame, nbOfPlayer);
         this.ActionMaker = new ActionMaker(this);
