@@ -136,7 +136,7 @@ public abstract class Game {
             String str = board.toString();
             System.out.println(str);
             linesToErase = str.split("\\n").length +1;
-            
+            CheckWinCondition();
             nextTurn();
         }
        
@@ -149,6 +149,7 @@ public abstract class Game {
      * Représente un tour complet des joueurs.
      */
     protected void nextTurn() {
+       
         for(Player p : players){
             IO.PrintReset();
             System.out.println(board);
