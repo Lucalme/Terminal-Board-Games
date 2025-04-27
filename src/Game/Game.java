@@ -54,6 +54,8 @@ public abstract class Game {
         this.players = players;
         history = new ArrayList<String>();
         currentTurn = 0;
+        objectives = new Objectives();
+        initializeObjectives();
     }
 
     public Game(boolean COMGame, int nbOfPlayer){
@@ -91,7 +93,7 @@ public abstract class Game {
      */
     private void initializeObjectives(){
         for(Player player : players){
-            objectives.setObjective(player, ObjectiveType.getRandomObjective());
+            objectives.setObjective(player, ObjectiveType.getRandomObjective(this.getGameType()));
         }
     }
 
@@ -161,6 +163,11 @@ public abstract class Game {
         currentTurn++;
     }
 
+    /**
+     * Retourne le type de jeu.
+     * @return le type de jeu
+     */
+    public abstract GameType getGameType();
 
     /**
      * verifie si un joueur a atteint son objectif
