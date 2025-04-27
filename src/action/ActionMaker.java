@@ -432,14 +432,15 @@ public class ActionMaker {
     
 
     private ActionRequest HandleCOMPrompt(Player player){
+        int delay = 30;
         boolean fastmode = false;
         String prompt = PromptBuilder(player, GetPossibleActions(player));
         String inventory = player.ResourcesString();
         int lines = prompt.split("\\n").length + inventory.split("\\n").length +1;
         if(!fastmode){
-            IO.SlowType(prompt, 10);
-            IO.SlowType("Inventaire :",10);
-            IO.SlowType(inventory, 10);
+            IO.SlowType(prompt, delay);
+            IO.SlowType("Inventaire :",delay);
+            IO.SlowType(inventory, delay);
         }
         ActionRequest res = ((COM)player).promptAction(GetPossibleActions(player), game);
         while(!res.action.CheckInstancePossible(player, game)){
