@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import Game.Game;
+import Game.GameType;
 import action.ActionMaker;
 import action.util.IO;
 import building.Army;
@@ -72,6 +73,10 @@ public class Demeter extends Game {
                 done = true;
             }
         }
+    }
+
+    public GameType getGameType() {
+        return GameType.DEMETER;
     }
 
     @Override

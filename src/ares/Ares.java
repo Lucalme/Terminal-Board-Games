@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import Game.Game;
+import Game.GameType;
 import Objectives.ObjectiveType;
 import action.ActionMaker;
 import action.util.IO;
@@ -62,6 +63,9 @@ public class Ares extends Game{
         super.StartGame();  
     }
 
+    public GameType getGameType(){
+        return GameType.ARES;
+    }
 
     private void BuildNewFreeArmy(Player player, int round){
         if(player instanceof COM){
