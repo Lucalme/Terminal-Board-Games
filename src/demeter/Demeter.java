@@ -119,18 +119,17 @@ public class Demeter extends Game {
     
         return points;
     }
-    //@Override
-    //protected void gameLoop() {
-    //    super.gameLoop(); // Run the main loop
-//
-    //    // 🎉 Announce winner(s)
-    //    for (Player player : players) {
-    //        int points = calculatePoints(player);
-    //        if (points >= 12) {
-    //            IO.SlowType("🎉 Le joueur " + player.toString() + " a gagné avec " + points + " points !", 40);
-    //        }
-    //    }
-    //}
+    @Override
+    protected void gameLoop() {
+        super.gameLoop(); // Run the main loop
+        // 🎉 Announce winner(s)
+        for (Player player : players) {
+            int points = calculatePoints(player);
+            if (points >= 12) {
+                IO.SlowType("🎉 Le joueur " + player.toString() + " a gagné avec " + points + " points !", 40);
+            }
+        }
+    }
 
     
 }
