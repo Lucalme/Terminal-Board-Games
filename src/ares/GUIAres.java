@@ -2,6 +2,7 @@ package ares;
 import GUI.GUIActionMaker;
 import GUI.GUIGame;
 import Game.Game;
+import Game.GameType;
 
 public class GUIAres extends GUIGame{
 
@@ -11,6 +12,9 @@ public class GUIAres extends GUIGame{
         StartGame();
     }
 
+    public GameType getGameType(){
+        return GameType.ARES;
+    }
 
     public static void main(String[] args){
         Game game = new GUIAres(2);

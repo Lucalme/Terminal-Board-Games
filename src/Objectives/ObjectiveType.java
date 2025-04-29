@@ -17,9 +17,13 @@ public enum ObjectiveType {
 
     public static ObjectiveType getRandomObjective(GameType gameType) {
         ObjectiveType obj;
-        do {
-            obj = ObjectiveType.values()[(int) (Math.random() * ObjectiveType.values().length)];
-        } while (obj.gameType != gameType);
+        if(gameType == GameType.ARES){
+            do {
+                obj = ObjectiveType.values()[(int) (Math.random() * ObjectiveType.values().length)];
+            } while (obj.gameType != gameType);
+        }else{
+            return null; 
+        }
         return obj;
     }
 }
