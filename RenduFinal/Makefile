@@ -33,6 +33,12 @@ run-demeter: compile
 	@echo "Exécution du mode Demeter..."
 	java -classpath $(BUILD_DIR) $(MAIN_DEMETER)
 
+# Règle pour exécuter le mode Demeter avec des arguments
+# Exemple d'utilisation : ` make run-demeter-args ARGS="2 10 10" `
+run-demeter-args: compile
+	@echo "Exécution du mode Demeter avec des arguments..."
+	java -classpath $(BUILD_DIR) $(MAIN_DEMETER) $(ARGS)
+
 # Règle pour exécuter tous les modes
 run-all: run-ares run-demeter
 	@echo "Tous les modes ont été exécutés."
@@ -57,7 +63,22 @@ run-tests: compile-tests
 	@echo "Exécution des tests..."
 	java -jar $(JUNIT_JAR) -classpath $(TEST_DIR):$(BUILD_DIR) -select-class board.BoardTests
 
-# Règle pour nettoyer les fichiers compilés
+# Règle pour générer la documentation
+doc:
+	@echo "Génération de la documentation..."
+	javadoc -quiet -d docs $(SOURCES)
+
+# Règle pour nettoyer les fichiers compilés et la documentation
 clean:
-	@echo "Nettoyage des fichiers compilés..."
-	rm -rf $(BUILD_DIR) $(JAR_FILE)
+	@echo "Nettoyage des fichiers compilés et de la documentation..."
+	rm -rf $(BUILD_DIR) $(JAR_FILE) docs
+
+# Règle pour créer un fichier .jar pour Ares
+ares.jar: compile
+	@echo "Création de l'archive ares.jar..."
+	jar cfe ares.jar $(MAIN_ARES) -C $(BUILD_DIR) .
+
+# Règle pour créer un fichier .jar pour Demeter
+demeter.jar: compile
+	@echo "Création de l'archive demeter.jar..."
+	jar cfe demeter.jar $(MAIN_DEMETER) -C $(BUILD_DIR) .
